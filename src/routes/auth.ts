@@ -13,6 +13,14 @@ const isValidUser: CustomValidator = email => {
     });
   };
 
+  const isRegistered: CustomValidator = email => {
+    return User.findOne({email:email}).then(user => {
+      if (!user) {
+        return Promise.reject('User is not registered');
+      }
+    });
+  };
+
 router.post("/signup", [
     body("email")
     .isEmail()
@@ -41,6 +49,19 @@ router.post("/signup", [
 
 ], authController.signUp)
 
-router.post("/login", [], authController.login)
+router.post("/login", [
+  body("email")
+  .isEmail()
+  .withMessage("Please enter a valid email")
+  .custom(isRegistered)
+  .normalizeEmail()
+  .isEmpty(),
+  
+  body('password')
+  .trim()
+  .isLength({ min: 6 })
+  .isEmpty(),
+
+], authController.login)
 
 export default router

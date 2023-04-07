@@ -2,6 +2,7 @@ import {Request, Response, NextFunction} from "express"
 import User from "../models/user"
 import { body, validationResult } from 'express-validator';
 import bcrypt from "bcrypt"
+import jwt from "jsonwebtoken";
 
 
 //@desc Signup for customer
@@ -32,18 +33,22 @@ const signUp = async (req: Request,res: Response)=>{
 const login = async (req: Request,res: Response)=>{
 
     try {
+
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+          return res.status(400).json({ errors: errors.array() });
+        }
+  
         // Get user input
         const { email, password } = req.body;
     
-        // Validate user input
-        if (!(email && password)) {
-          return res.status(400).send("All input is required");
-        }
+
         // Validate if user exist in our database
         const user = await User.findOne({ email });
+      
     
     
-        const comp = await bcrypt.compare(password, user.password)
+        const comp = await bcrypt.compare(password, user!.password)
         const hashedpw = await bcrypt.hash(password, 10);
     
     
@@ -51,7 +56,7 @@ const login = async (req: Request,res: Response)=>{
           `
           sentPassword: ${password}
           hashedpw: ${hashedpw}
-          encryptedPassword: ${user.password}
+          encryptedPassword: ${user!.password}
           comp: ${comp}
           `
         )
@@ -60,7 +65,7 @@ const login = async (req: Request,res: Response)=>{
           // Create token
           const token = jwt.sign(
             { user_id: user._id, email },
-            process.env.TOKEN_KEY,
+              process.env.TOKEN_KEY!,
             {
               expiresIn: "2h",
             }
@@ -68,11 +73,10 @@ const login = async (req: Request,res: Response)=>{
     
           console.log(" token: " + token + "")
     
-          // save user token
-          user.token = token;
+
     
           // user
-          return res.status(200).json(user);
+          return res.status(200).json({token:token});
         }
         return res.status(400).send("Invalid Credentials");
       } catch (err) {
