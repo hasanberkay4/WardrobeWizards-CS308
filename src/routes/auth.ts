@@ -29,24 +29,20 @@ router.post("/signup", [
     .normalizeEmail(),
     
     body('password')
-    .isEmpty()
     .trim()
     .isLength({ min: 6 }),
 
     body("name")
     .trim()
-    .not()
-    .isEmpty(),
+    .not(),
 
     body("surname")
     .trim()
-    .not()
-    .isEmpty(),
+    .not(),
 
     body("adress")
     .trim()
-    .not()
-    .isEmpty(),
+    .not(),
 
 ], authController.signUp)
 
