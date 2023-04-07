@@ -1,0 +1,33 @@
+{
+  "name": "commerce-app",
+  "version": "1.0.0",
+  "description": "commerce-app",
+  "main": "api.ts",
+  "scripts": {
+    "dev": "nodemon api.ts"
+  },
+  "keywords": [],
+  "author": "wardrobe-wizards",
+  "license": "ISC",
+  "devDependencies": {
+    "@trpc/client": "^10.19.1",
+    "@trpc/server": "^10.19.1",
+    "@types/bcryptjs": "^2.4.2",
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.17",
+    "@types/express-session": "^1.17.6",
+    "@types/jsonwebtoken": "^9.0.1",
+    "@types/node": "^18.15.3",
+    "dotenv": "^16.0.3"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^7.0.3",
+    "nodemon": "^2.0.22",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.2"
+  }
+}
