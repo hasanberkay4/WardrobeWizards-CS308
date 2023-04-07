@@ -1,6 +1,6 @@
 import {Request, Response, NextFunction} from "express"
 import User from "../models/user"
-import { body, validationResult } from 'express-validator';
+import { validationResult } from 'express-validator';
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken";
 
@@ -65,10 +65,8 @@ const login = async (req: Request,res: Response)=>{
           // Create token
           const token = jwt.sign(
             { user_id: user._id, email },
-              process.env.TOKEN_KEY!,
-            {
-              expiresIn: "2h",
-            }
+            process.env.TOKEN_KEY!,
+            {expiresIn: "2h"}
           );
     
           console.log(" token: " + token + "")

@@ -29,6 +29,7 @@ router.post("/signup", [
     .normalizeEmail(),
     
     body('password')
+    .isEmpty()
     .trim()
     .isLength({ min: 6 }),
 
@@ -55,12 +56,12 @@ router.post("/login", [
   .withMessage("Please enter a valid email")
   .custom(isRegistered)
   .normalizeEmail()
-  .isEmpty(),
+  ,
   
   body('password')
   .trim()
   .isLength({ min: 6 })
-  .isEmpty(),
+  ,
 
 ], authController.login)
 

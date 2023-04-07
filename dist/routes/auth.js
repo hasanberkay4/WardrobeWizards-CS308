@@ -15,6 +15,13 @@ const isValidUser = email => {
         }
     });
 };
+const isRegistered = email => {
+    return user_1.default.findOne({ email: email }).then(user => {
+        if (!user) {
+            return Promise.reject('User is not registered');
+        }
+    });
+};
 router.post("/signup", [
     (0, express_validator_1.body)("email")
         .isEmail()
@@ -37,5 +44,16 @@ router.post("/signup", [
         .not()
         .isEmpty(),
 ], authController_1.default.signUp);
-router.post("/login", [], authController_1.default.login);
+router.post("/login", [
+    (0, express_validator_1.body)("email")
+        .isEmail()
+        .withMessage("Please enter a valid email")
+        .custom(isRegistered)
+        .normalizeEmail()
+        .isEmpty(),
+    (0, express_validator_1.body)('password')
+        .trim()
+        .isLength({ min: 6 })
+        .isEmpty(),
+], authController_1.default.login);
 exports.default = router;

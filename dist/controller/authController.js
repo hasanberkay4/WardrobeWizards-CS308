@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const user_1 = __importDefault(require("../models/user"));
 const express_validator_1 = require("express-validator");
 const bcrypt_1 = __importDefault(require("bcrypt"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 //@desc Signup for customer
 //@route POST /signup
 //@access public
@@ -36,12 +37,12 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const errors = (0, express_validator_1.validationResult)(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
         // Get user input
         const { email, password } = req.body;
-        // Validate user input
-        if (!(email && password)) {
-            return res.status(400).send("All input is required");
-        }
         // Validate if user exist in our database
         const user = yield user_1.default.findOne({ email });
         const comp = yield bcrypt_1.default.compare(password, user.password);
@@ -54,14 +55,10 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
           `);
         if (user && (yield bcrypt_1.default.compare(password, user.password))) {
             // Create token
-            const token = jwt.sign({ user_id: user._id, email }, process.env.TOKEN_KEY, {
-                expiresIn: "2h",
-            });
+            const token = jsonwebtoken_1.default.sign({ user_id: user._id, email }, process.env.TOKEN_KEY, { expiresIn: "2h" });
             console.log(" token: " + token + "");
-            // save user token
-            user.token = token;
             // user
-            return res.status(200).json(user);
+            return res.status(200).json({ token: token });
         }
         return res.status(400).send("Invalid Credentials");
     }
