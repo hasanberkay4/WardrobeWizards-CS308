@@ -7,10 +7,12 @@ const Layout = ({children})=>{
       <Head>
       <title>Wardrop Wizards</title>
     </Head>
-    <Navbar/> <div> {children} </div> </>)
+    <Navbar/> <div> {children} </div> 
+    </>)
     
 
 
 };
+
 
 export default Layout;
