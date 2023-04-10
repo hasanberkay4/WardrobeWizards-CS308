@@ -1,0 +1,10 @@
+.container {
+    padding: 0 2rem;
+    border: 1dvh;
+    border-color: green;
+  }
+  
+  .homePageTitle {
+    color: rgb(9, 94, 9);
+
+  }
