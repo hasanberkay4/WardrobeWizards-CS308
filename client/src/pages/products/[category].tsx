@@ -1,4 +1,5 @@
 import { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
 import { Product } from "../../types/products";
 import axios, { AxiosResponse } from 'axios';
 
@@ -21,12 +22,17 @@ export default function ProductsPage({ products }: Props) {
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
     const { req } = context;
+    const category = context.params?.category ?? '';
+
+    // The target API endpoint you want to proxy
+    const targetUrl = encodeURIComponent(`http://localhost:5001/products/${category}`);
 
     // Get the absolute URL for the API route
     const protocol = req.headers['x-forwarded-proto'] || 'http';
     const host = req.headers['x-forwarded-host'] || req.headers['host'];
-    const apiUrl = new URL('/api/proxy', `${protocol}://${host}`);
+    const apiUrl = new URL(`/api/proxy?targetUrl=${targetUrl}`, `${protocol}://${host}`);
 
+    // Fetch data from the custom API route
     const res: AxiosResponse = await axios.get(apiUrl.toString());
     const products = res.data;
 

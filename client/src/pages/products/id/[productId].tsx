@@ -25,7 +25,7 @@ export default function ProductPage({ product }: Props) {
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
     const productId = context.params?.productId ?? '';
-    const res = await fetch(`https://localhost:3001/products/id/${productId}`);
+    const res = await fetch(`https://localhost:5001/products/id/${productId}`);
     const product = await res.json();
     return {
         props: {
@@ -33,11 +33,3 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
         },
     };
 };
-
-export async function getStaticPaths() {
-    // Return an array of possible value for id
-    return {
-        paths: [],
-        fallback: true
-    }
-}
