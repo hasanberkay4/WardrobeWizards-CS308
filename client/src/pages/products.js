@@ -19,7 +19,7 @@ export default function Products({ products }) {
 }
 
 export async function getServerSideProps() {
-  const res = await fetch('http://localhost:5001/api/products');
+  const res = await fetch('http://localhost:5001/products');
   const data = await res.json();
 
   return {

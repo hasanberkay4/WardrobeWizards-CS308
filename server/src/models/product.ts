@@ -5,6 +5,7 @@ interface IProduct{
     description: string;
     price: number;
     image: string;
+    category: string;
 }
 
 const productSchema = new Schema<IProduct>({
@@ -12,6 +13,7 @@ const productSchema = new Schema<IProduct>({
     description: { type: String, required: true },
     price: { type: Number, required: true },
     image: { type: String, required: true },
+    category: { type: String, required: true },
 });
 
 export default model<IProduct>('Product', productSchema);
