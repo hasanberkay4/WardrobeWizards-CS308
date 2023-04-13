@@ -9,15 +9,25 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "autoprefixer": "10.4.14",
+    "@material-tailwind/react": "^1.4.2",
     "bootstrap": "^5.2.3",
     "eslint": "8.38.0",
     "eslint-config-next": "13.3.0",
     "next": "13.3.0",
-    "postcss": "8.4.21",
     "react": "18.2.0",
+<<<<<<< HEAD
     "react-bootstrap": "^2.7.3",
     "react-dom": "18.2.0",
     "tailwindcss": "3.3.1"
+=======
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "18.15.11",
+    "@types/react": "18.0.35",
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.21",
+    "tailwindcss": "^3.3.1"
+>>>>>>> 9c34f4615faaa03dad8e4a2ed89c372b7b1d6e77
   }
 }
