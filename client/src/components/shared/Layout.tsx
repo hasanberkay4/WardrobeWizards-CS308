@@ -1,4 +1,4 @@
-import NavbarAdvanced from "./Navbar";
+import NavBar from "./Navbar";
 import Footer from "./Footer";
 import Head from "next/head";
 import { ReactNode } from 'react';
@@ -13,7 +13,7 @@ const Layout = ({ children }: LayoutProps) => {
       <Head>
         <title>Wardrop Wizards</title>
       </Head>
-      <NavbarAdvanced />
+      <NavBar />
       <p>hello from layout</p>
       {children}
       <Footer />

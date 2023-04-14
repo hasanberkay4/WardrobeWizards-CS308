@@ -1,7 +1,9 @@
+import LandingView from "../components/landing/LandingView"
+
 export default function Home() {
     return (
         <div>
-            <p>hello from index</p>
+            <LandingView />
         </div>
     )
 }
