@@ -1,7 +1,8 @@
-import { Fragment, useState } from 'react'
+import { Fragment, ReactNode, useState } from 'react'
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
+import { ProductList } from '../../types/productListType'
 
 const sortOptions = [
     { name: 'Most Popular', href: '#', current: true },
@@ -59,7 +60,11 @@ function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function ProductList() {
+type ProductListProps = {
+    children: ReactNode;
+};
+
+export default function ProductListView({ children }: ProductListProps) {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
 
     return (
@@ -289,8 +294,10 @@ export default function ProductList() {
                                 ))}
                             </form>
 
-                            {/* Product grid */}
-                            <div className="lg:col-span-3">my content here</div>
+                            {/* Product grid - content here*/}
+                            <div className="lg:col-span-3">
+                                {children}
+                            </div>
                         </div>
                     </section>
                 </main>

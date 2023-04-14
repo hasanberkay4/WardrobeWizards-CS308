@@ -6,14 +6,8 @@ export type Product = {
     color: string;
     size: string;
     stock: number;
-    highlights: [string];
+    highlights: string[];
     details: string;
 };
 
-export type ProductListItem = {
-    id: number
-}
 
-export type ProductList = {
-    productList: ProductListItem[]
-}

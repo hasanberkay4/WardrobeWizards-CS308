@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import { Product } from "../../types/productTypes";
+import { Product } from "../../types/productType";
 import axios, { AxiosResponse } from 'axios';
 
 type Props = {

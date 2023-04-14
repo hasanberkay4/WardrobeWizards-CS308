@@ -1,26 +1,28 @@
 import { GetServerSideProps } from 'next';
-import { Product } from "../../types/productTypes";
 import axios, { AxiosResponse } from 'axios';
-import Filter from '../../components/productList/ProductListView';
-import ProductListView from '../../components/landing/CategoryListView';
+import ProductListView from '../../components/productList/ProductList';
+import ProductList from '../../components/productList/ProductList';
+import { ProductListItem } from '../../types/productListType';
+import ProductListItemView from '../../components/productList/ProductListItem';
+import Pagination from '../../components/productList/Pagination';
 
-type Props = {
-    products: Product[];
-};
+type ProductListProps = {
+    productList: ProductListItem[]
+}
 
-export default function ProductsPage({ products }: Props) {
-    const productUrl = "http://localhost:5001/products/id/"
-
+export default function ProductsListPage({ productList }: ProductListProps) {
     return (
         <>
-            <Filter />
-            <ProductListView />
+            <ProductListView>
+                <ProductListItemView />
+                <Pagination />
+            </ProductListView>
         </>
 
     )
 }
 
-export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
+export const getServerSideProps: GetServerSideProps<ProductListProps> = async (context) => {
     const { req } = context;
 
     // The target API endpoint you want to proxy
@@ -32,11 +34,11 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
     const apiUrl = new URL(`/api/proxy?targetUrl=${targetUrl}`, `${protocol}://${host}`);
 
     const res: AxiosResponse = await axios.get(apiUrl.toString());
-    const products = res.data;
+    const productList = res.data;
 
     return {
         props: {
-            products,
+            productList,
         },
     };
 };

@@ -1,4 +1,4 @@
-import { Product } from "../../types/productTypes";
+import { Product } from "../../types/productType";
 import { useState } from 'react'
 import { StarIcon } from '@heroicons/react/20/solid'
 import { RadioGroup } from '@headlessui/react'

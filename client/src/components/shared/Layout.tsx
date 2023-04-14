@@ -14,7 +14,6 @@ const Layout = ({ children }: LayoutProps) => {
         <title>Wardrop Wizards</title>
       </Head>
       <NavBar />
-      <p>hello from layout</p>
       {children}
       <Footer />
     </>

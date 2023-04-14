@@ -1,58 +1,40 @@
-import { Typography } from "@material-tailwind/react";
-import Image from "next/image";
+function Footer() {
+    const navigation = [
+        { name: 'About', href: '#' },
+        { name: 'Contact', href: '#' },
+        { name: 'Pricing', href: '#' },
+        { name: 'Blog', href: '#' },
+        { name: 'FAQs', href: '#' },
+    ];
 
-export default function Footer() {
     return (
-        <footer className="w-full bg-white p-8">
-            <div className="flex flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12 bg-white text-center md:justify-between">
-                <Image src="/img/logo-ct-dark.png" alt="logo-ct" className="w-10" />
-                <ul className="flex flex-wrap items-center gap-y-2 gap-x-8">
-                    <li>
-                        <Typography
-                            as="a"
-                            href="#"
-                            color="blue-gray"
-                            className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
-                        >
-                            About Us
-                        </Typography>
-                    </li>
-                    <li>
-                        <Typography
-                            as="a"
-                            href="#"
-                            color="blue-gray"
-                            className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
-                        >
-                            License
-                        </Typography>
-                    </li>
-                    <li>
-                        <Typography
-                            as="a"
-                            href="#"
-                            color="blue-gray"
-                            className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
-                        >
-                            Contribute
-                        </Typography>
-                    </li>
-                    <li>
-                        <Typography
-                            as="a"
-                            href="#"
-                            color="blue-gray"
-                            className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
-                        >
-                            Contact Us
-                        </Typography>
-                    </li>
-                </ul>
+        <footer className="bg-white">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div className="py-12 border-t border-gray-200">
+                    <div className="flex space-x-8">
+                        {navigation.map((item) => (
+                            <a key={item.name} href={item.href} className="text-base font-medium text-gray-500 hover:text-gray-900">
+                                {item.name}
+                            </a>
+                        ))}
+                    </div>
+                    <div className="mt-8 text-sm text-gray-500">
+                        <div className="flex items-center">
+                            <span className="text-gray-400 pr-2">✉️</span>
+                            <span>Email: support@example.com</span>
+                        </div>
+                        <div className="mt-4 flex items-center">
+                            <span className="text-gray-400 pr-2">📞</span>
+                            <span>Phone: +1 (555) 123-4567</span>
+                        </div>
+                    </div>
+                    <div className="mt-8 text-sm text-gray-500">
+                        &copy; {new Date().getFullYear()} Your Company. All rights reserved.
+                    </div>
+                </div>
             </div>
-            <hr className="my-8 border-blue-gray-50" />
-            <Typography color="blue-gray" className="text-center font-normal">
-                &copy; 2023 Material Tailwind
-            </Typography>
         </footer>
     );
 }
+
+export default Footer;

@@ -1,7 +1,7 @@
-import { Fragment, useState } from 'react'
+/* eslint-disable @next/next/no-img-element */
+import { Fragment, ReactNode, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import Image from 'next/image'
 
 const navigation = {
   categories: [
@@ -129,6 +129,9 @@ const navigation = {
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
+type NavbarProps = {
+  children: ReactNode;
+};
 
 export default function NavBar() {
   const [open, setOpen] = useState(false)
@@ -198,7 +201,7 @@ export default function NavBar() {
                           {category.featured.map((item) => (
                             <div key={item.name} className="group relative text-sm">
                               <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
-                                <Image src={item.imageSrc} alt={item.imageAlt} className="object-cover object-center" />
+                                <img src={item.imageSrc} alt={item.imageAlt} className="object-cover object-center" />
                               </div>
                               <a href={item.href} className="mt-6 block font-medium text-gray-900">
                                 <span className="absolute inset-0 z-10" aria-hidden="true" />
@@ -260,7 +263,7 @@ export default function NavBar() {
 
                 <div className="border-t border-gray-200 px-4 py-6">
                   <a href="#" className="-m-2 flex items-center p-2">
-                    <Image
+                    <img
                       src="https://tailwindui.com/img/flags/flag-canada.svg"
                       alt=""
                       className="block h-auto w-5 flex-shrink-0"
@@ -275,10 +278,7 @@ export default function NavBar() {
         </Dialog>
       </Transition.Root>
 
-      <header className="relative bg-white">
-        <p className="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
-          Get free delivery on orders over $100
-        </p>
+      <header className="relative z-10 bg-white">
 
         <nav aria-label="Top" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="border-b border-gray-200">
@@ -296,10 +296,10 @@ export default function NavBar() {
               <div className="ml-4 flex lg:ml-0">
                 <a href="#">
                   <span className="sr-only">Your Company</span>
-                  <Image
+                  <img
                     className="h-8 w-auto"
                     src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                    alt=""
+                    alt="logo"
                   />
                 </a>
               </div>
@@ -333,7 +333,7 @@ export default function NavBar() {
                             leaveFrom="opacity-100"
                             leaveTo="opacity-0"
                           >
-                            <Popover.Panel className="absolute inset-x-0 top-full text-sm text-gray-500">
+                            <Popover.Panel className="absolute inset-x-0 top-full text-sm text-gray-500 z-50">
                               {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
                               <div className="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true" />
 
@@ -344,7 +344,7 @@ export default function NavBar() {
                                       {category.featured.map((item) => (
                                         <div key={item.name} className="group relative text-base sm:text-sm">
                                           <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
-                                            <Image
+                                            <img
                                               src={item.imageSrc}
                                               alt={item.imageAlt}
                                               className="object-cover object-center"
@@ -417,7 +417,7 @@ export default function NavBar() {
 
                 <div className="hidden lg:ml-8 lg:flex">
                   <a href="#" className="flex items-center text-gray-700 hover:text-gray-800">
-                    <Image
+                    <img
                       src="https://tailwindui.com/img/flags/flag-canada.svg"
                       alt=""
                       className="block h-auto w-5 flex-shrink-0"
