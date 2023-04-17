@@ -18,7 +18,6 @@ export default function ProductsListPage({ productList }: ProductListProps) {
                 <Pagination />
             </ProductListView>
         </>
-
     )
 }
 
