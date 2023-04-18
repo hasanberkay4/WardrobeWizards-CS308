@@ -17,7 +17,7 @@ export default function Signin() {
                         <p className="mt-2 text-center text-sm text-gray-600">
                             Or{' '}
                             <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                                start your 14-day free trial
+                                start your 14-day free trial rdgdgrdg
                             </a>
                         </p>
                     </div>
