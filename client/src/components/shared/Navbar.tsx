@@ -1,7 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-import { Fragment, ReactNode, useState } from 'react'
+import { Fragment, ReactNode, useContext, useState, useEffect } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import {Store} from '../../context/Store'
 
 const navigation = {
   categories: [
@@ -135,6 +136,13 @@ type NavbarProps = {
 
 export default function NavBar() {
   const [open, setOpen] = useState(false)
+  const {state}  = useContext(Store);
+  const {cart} = state;
+
+  const [cartItemsCount, setCartItemsCount] = useState(0);
+  useEffect(() => {
+    setCartItemsCount(cart.cartItems.reduce((a, c) => a + c.quantity, 0));
+  }, [cart.cartItems]);
 
   return (
     <div className="bg-white">
@@ -442,7 +450,19 @@ export default function NavBar() {
                       className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                       aria-hidden="true"
                     />
-                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
+
+                   {cartItemsCount > 0 && (
+                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
+                       {cartItemsCount}
+                     </span>
+                   )}
+
+
+
+                
+
+
+
                     <span className="sr-only">items in cart, view bag</span>
                   </a>
                 </div>
