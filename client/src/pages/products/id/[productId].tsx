@@ -2,6 +2,7 @@ import { GetServerSideProps } from 'next';
 import { Product } from "../../../types/productType";
 import axios, { AxiosResponse } from 'axios';
 import ProductView from '../../../components/product/ProductView';
+import { useState, useEffect } from 'react';
 
 type ProductProps = {
     product: Product;
@@ -9,6 +10,7 @@ type ProductProps = {
 
 
 export default function ProductPage({ product }: ProductProps) {
+
     return (
         <div>
             <ProductView product={product} />
@@ -32,6 +34,10 @@ export const getServerSideProps: GetServerSideProps<ProductProps> = async (conte
     // Fetch data from the custom API route
     const res: AxiosResponse = await axios.get(apiUrl.toString());
     const product = res.data;
+
+    const imageCategory = product.category;
+    const imageName = product.image;
+    product.image = `http://localhost:5001/images/${imageCategory}/${imageName}`
 
     return {
         props: {

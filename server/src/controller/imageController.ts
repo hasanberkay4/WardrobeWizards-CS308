@@ -18,13 +18,14 @@ const getImagesRecursively = (dir: string): string[] => {
     return filePaths;
 };
 
+const imagesDirectory = 'src/images';
+
 const getImages = async (req: Request, res: Response) => {
     try {
-        const imagesDir = 'images';
-        const images = getImagesRecursively(imagesDir);
+        const images = getImagesRecursively(imagesDirectory);
 
         // Replace the local file path with the appropriate URL path
-        const imageURLs = images.map((imagePath) => imagePath.replace(imagesDir, '/images'));
+        const imageURLs = images.map((imagePath) => imagePath.replace(imagesDirectory, '/images'));
         res.json({ images: imageURLs });
 
     } catch (error) {
@@ -36,7 +37,7 @@ const getImages = async (req: Request, res: Response) => {
 // Serve all items in a specific subfolder
 const getImagesByCategory = async (req: Request, res: Response) => {
     const { category } = req.params;
-    const imagesDir = path.join('images', category);
+    const imagesDir = path.join(imagesDirectory, category);
 
     if (!fs.existsSync(imagesDir)) {
         res.status(404).json({ error: 'Subfolder not found' });
@@ -50,18 +51,17 @@ const getImagesByCategory = async (req: Request, res: Response) => {
 };
 
 // Serve a specific item within a specific subfolder
-const getImagesById = (req: Request, res: Response) => {
+const getImagesByName = (req: Request, res: Response) => {
     const { category, id } = req.params;
-    const itemPath = path.join('images', category, id);
+    const itemPath = path.resolve(path.join(imagesDirectory, category, id));
 
     if (!fs.existsSync(itemPath)) {
         res.status(404).json({ error: 'Item not found' });
         return;
     }
 
-    const imageURL = itemPath.replace('images', '/images');
-    res.json({ image: imageURL });
+    res.sendFile(itemPath);
 };
 
 
-export default { getImages, getImagesByCategory, getImagesById }
+export default { getImages, getImagesByCategory, getImagesByName }

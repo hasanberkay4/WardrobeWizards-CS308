@@ -1,34 +1,57 @@
 import { Product } from "../../types/productType";
-import { StarIcon } from '@heroicons/react/20/solid'
 import Image from "next/image";
+import { useContext } from "react";
+import { Store } from "../../context/Store";
+import { ActionKind, CartItem } from "../../types/shoppingCart";
 
 type Props = {
     product: Product;
 };
 
-function classNames(...classes: string[]) {
-    return classes.filter(Boolean).join(' ')
-}
 
 export default function ProductView({ product }: Props) {
+
+    const { state, dispatch } = useContext(Store);
+    const itemFromProduct: CartItem = {
+        name: product.name,
+        slug: product._id,
+        price: product.initial_price,
+        image: product.image,
+        countInStock: product.stock_quantity,
+        quantity: 1
+    }
+
+    const addToCartHandler = () => {
+        const existItem = state.cart.cartItems.find((x) => x.slug === product._id);
+        const quantity = existItem ? existItem.quantity + 1 : 1;
+
+        if (product.stock_quantity < quantity) {
+            alert('Sorry. Product is out of stock');
+            return;
+        }
+
+        dispatch({ type: ActionKind.CART_ADD_ITEM, payload: { ...itemFromProduct, quantity } });
+    };
+
+    const updateCartHandler = (item: CartItem, qty: string) => {
+        const quantity = Number(qty);
+        dispatch({ type: ActionKind.CART_ADD_ITEM, payload: { ...item, quantity } });
+    };
 
     return (
         <div className="bg-white">
             <div className="pt-6">
                 {/* Image gallery */}
                 <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-                    {product.imageUrls.map((imageUrl, index) => (
-                        <div
-                            key={index}
-                            className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block"
-                        >
-                            <Image
-                                src={imageUrl}
-                                alt={imageUrl}
-                                className="h-full w-full object-cover object-center"
-                            />
-                        </div>
-                    ))}
+                    <div
+                        className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block"
+                    >
+                        <img
+                            src={product.image}
+                            alt={product.image}
+                            className="h-full w-full object-cover object-center"
+                        />
+                    </div>
                 </div>
 
                 {/* Product info */}
@@ -40,12 +63,13 @@ export default function ProductView({ product }: Props) {
                     {/* Options */}
                     <div className="mt-4 lg:row-span-3 lg:mt-0">
                         <h2 className="sr-only">Product information</h2>
-                        <p className="text-3xl tracking-tight text-gray-900">{product.price}</p>
+                        <p className="text-3xl tracking-tight text-gray-900">{product.initial_price}</p>
 
                         {/* Reviews */}
                         <form className="mt-10">
 
                             <button
+                                onClick={addToCartHandler}
                                 type="submit"
                                 className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                             >
@@ -60,29 +84,7 @@ export default function ProductView({ product }: Props) {
                             <h3 className="sr-only">Description</h3>
 
                             <div className="space-y-6">
-                                <p className="text-base text-gray-900">{product.details}</p>
-                            </div>
-                        </div>
-
-                        <div className="mt-10">
-                            <h3 className="text-sm font-medium text-gray-900">Highlights</h3>
-
-                            <div className="mt-4">
-                                <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
-                                    {product.highlights.map((highlight) => (
-                                        <li key={highlight} className="text-gray-400">
-                                            <span className="text-gray-600">{highlight}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div className="mt-10">
-                            <h2 className="text-sm font-medium text-gray-900">Details</h2>
-
-                            <div className="mt-4 space-y-6">
-                                <p className="text-sm text-gray-600">{product.details}</p>
+                                <p className="text-base text-gray-900">{product.description}</p>
                             </div>
                         </div>
                     </div>

@@ -2,7 +2,9 @@
 import { Fragment, ReactNode, useContext, useState, useEffect } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import {Store} from '../../context/Store'
+import { Store } from '../../context/Store'
+import Link from 'next/link'
+import Image from 'next/image'
 
 const navigation = {
   categories: [
@@ -136,8 +138,8 @@ type NavbarProps = {
 
 export default function NavBar() {
   const [open, setOpen] = useState(false)
-  const {state}  = useContext(Store);
-  const {cart} = state;
+  const { state } = useContext(Store);
+  const { cart } = state;
 
   const [cartItemsCount, setCartItemsCount] = useState(0);
   useEffect(() => {
@@ -304,10 +306,12 @@ export default function NavBar() {
               <div className="ml-4 flex lg:ml-0">
                 <a href="/">
                   <span className="sr-only">Your Company</span>
-                  <img
-                    className="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                  <Image
+                    className="w-auto h-auto"
+                    src="/logo.jpg"
                     alt="logo"
+                    width="64"
+                    height="64"
                   />
                 </a>
               </div>
@@ -414,13 +418,13 @@ export default function NavBar() {
 
               <div className="ml-auto flex items-center">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                  <Link href="profile/login" className="text-sm font-medium text-gray-700 hover:text-gray-800">
                     Sign in
-                  </a>
+                  </Link>
                   <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                  <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                  <Link href="profile/register" className="text-sm font-medium text-gray-700 hover:text-gray-800">
                     Create account
-                  </a>
+                  </Link>
                 </div>
 
                 <div className="hidden lg:ml-8 lg:flex">
@@ -445,24 +449,17 @@ export default function NavBar() {
 
                 {/* Cart */}
                 <div className="ml-4 flow-root lg:ml-6">
-                  <a href="/shopping_cart/cart" className="group -m-2 flex items-center p-2">
+                  <a href="/shopping_cart/" className="group -m-2 flex items-center p-2">
                     <ShoppingBagIcon
                       className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                       aria-hidden="true"
                     />
 
-                   {cartItemsCount > 0 && (
-                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
-                       {cartItemsCount}
-                     </span>
-                   )}
-
-
-
-                
-
-
-
+                    {cartItemsCount > 0 && (
+                      <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
+                        {cartItemsCount}
+                      </span>
+                    )}
                     <span className="sr-only">items in cart, view bag</span>
                   </a>
                 </div>

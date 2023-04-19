@@ -8,11 +8,10 @@ import { ActionKind, Action, CartItem, Cart } from "../../types/shoppingCart"
 import dynamic from 'next/dynamic';
 
 function CartScreen() {
+
   const router = useRouter();
   const { state, dispatch } = useContext(Store);
-  const {
-    cart: { cartItems },
-  } = state;
+  const { cart: { cartItems } } = state;
 
   const removeItemHandler = (item: CartItem) => {
     dispatch({ type: ActionKind.CART_REMOVE_ITEM, payload: item });
@@ -24,6 +23,7 @@ function CartScreen() {
   };
 
   return (
+
     <>
       <h1 className="mb-4 text-xl">Shopping Cart</h1>
       {cartItems.length === 0 ? (
@@ -48,12 +48,12 @@ function CartScreen() {
                     <td>
                       <Link className="flex items-center" href={`/product/${item.slug}`}>
 
-                        <Image
+                        <img
                           src={item.image}
                           alt={item.name}
                           width={50}
                           height={50}
-                        ></Image>
+                        ></img>
                         &nbsp;
                         {item.name}
 

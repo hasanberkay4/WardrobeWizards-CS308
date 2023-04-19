@@ -12,6 +12,6 @@ router.get('/images/', imageController.getImages)
 router.get('/images/:category', imageController.getImagesByCategory)
 
 // specific images
-router.get('/images/:category/:id', imageController.getImagesById)
+router.get('/images/:category/:id', imageController.getImagesByName)
 
 export default router

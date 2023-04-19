@@ -18,7 +18,7 @@ interface State {
 const initialState = {
   cart: Cookies.get('cart')
     ? JSON.parse(Cookies.get('cart')!)
-    : { cartItems: [{ "name": "prod1", "slug": "1", "quantity": 1, "price": 20, "image": "/", "countInStock": 3 }, { "name": "prod2", "slug": "2", "quantity": 2, "price": 25, "image": "/", "countInStock": 2 }] },
+    : { cartItems: [] },
 
 
 };
