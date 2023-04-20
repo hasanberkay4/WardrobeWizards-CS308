@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express"
 import Product from "../models/product"
+import product from "../models/product";
 
 const getProducts = async (req: Request, res: Response) => {
   try {
@@ -37,4 +38,17 @@ const getProductsById = async (req: Request, res: Response) => {
   }
 };
 
-export default { getProducts, getProductsByCategory, getProductsById }
+const getCategoryNames = async (req: Request, res: Response) => {
+
+};
+
+const searchProducts = async (req: Request, res: Response) => {
+  const query = req.query.q as string;
+  if (!query) {
+    return res.status(400).json({ message: 'Missing query parameter' });
+  }
+  const searchResult = await Product.search(query);
+  res.json(searchResult);
+};
+
+export default { getProducts, getProductsByCategory, getProductsById, getCategoryNames, searchProducts}

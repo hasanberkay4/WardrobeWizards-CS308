@@ -25,11 +25,15 @@ function CartScreen() {
   return (
 
     <>
-      <h1 className="mb-4 text-xl">Shopping Cart</h1>
+      <h1 className="mb-4 text-xl text-center mt-8">Shopping Cart</h1>
       {cartItems.length === 0 ? (
-        <div>
-          Cart is empty. <Link href="/">Go shopping</Link>
-        </div>
+          <div className="flex justify-center">
+            <Link href="/">
+              <div className="max-w-2xl p-8 bg-white shadow-lg rounded-lg cursor-pointer hover:bg-gray-100 transition-colors duration-300">
+                Cart is empty. Go shopping
+              </div>
+            </Link>
+          </div>
       ) : (
         <div className="grid md:grid-cols-4 md:gap-5">
           <div className="overflow-x-auto md:col-span-3">

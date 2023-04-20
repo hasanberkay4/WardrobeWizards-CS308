@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Model } from 'mongoose';
 
 interface IProduct {
     name: string;
@@ -15,6 +15,10 @@ interface IProduct {
     // warranty_status: WarrantyStatus;
 }
 
+interface ProductModel extends Model<IProduct> {
+    search(query: string): Promise<IProduct[]>;
+}
+
 const productSchema = new Schema<IProduct>({
     name: { type: String, required: true },
     description: { type: String, required: true },
@@ -26,4 +30,19 @@ const productSchema = new Schema<IProduct>({
     image: { type: String, required: true },
 });
 
-export default model<IProduct>('Product', productSchema);
+productSchema.statics.search = async function (query: string): Promise<IProduct[]> {
+    const words = query.split(' ').map(w => `\\b${w}\\b`).join('|');
+    const regex = new RegExp(words, 'i');
+    // NOT SEPERATE WORDS const regex = new RegExp(`.*${query}.*`, 'i');
+    // COMPLEX (FOR PARTIAL AND SEPERATE WORDS) const regex = new RegExp(`(${query.split(' ').join('|')})|(${query.split(' ').map(w => `(?=.*${w})`).join('')}${query.split(' ').map(w => `\\b${w}\\b`).join('')})`, 'i');
+    return this.find({
+        $or: [
+            { name: { $regex: regex } },
+            { description: { $regex: regex } },
+        ],
+    });
+};
+
+export default model<IProduct, ProductModel>('Product', productSchema);
+
+
