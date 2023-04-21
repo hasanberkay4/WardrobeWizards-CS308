@@ -38,19 +38,6 @@ export const getStaticProps: GetStaticProps<CategoryPreviewList> = async (contex
         },
     ]
 
-    /*
-    // The target API endpoint you want to proxy
-    const targetUrl = encodeURIComponent(`http://localhost:5001/products/`);
-
-    // Get the absolute URL for the API route
-    const protocol = 'http';
-    const host = 'localhost:3000';
-    const apiUrl = new URL(`/api/proxy?targetUrl=${targetUrl}`, `${protocol}://${host}`);
-
-    const res: AxiosResponse = await axios.get(apiUrl.toString());
-    const categoryPreviewList = res.data;
-    */
-
     return {
         props: {
             categoryPreviewList,
