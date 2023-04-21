@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from "express"
 import Product from "../models/product"
-import product from "../models/product";
 
 const getProducts = async (req: Request, res: Response) => {
   try {
