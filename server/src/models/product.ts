@@ -1,34 +1,38 @@
-import { Schema, model, Model } from 'mongoose';
+import { Schema, model, Model, Types } from 'mongoose';
 
-interface IProduct {
+export interface IProduct {
     name: string;
     description: string;
     model: string;
     number: number;
     stock_quantity: number;
     initial_price: number;
-    category: string;
+    category_ids: Types.ObjectId[];
     image: string;
-    populariy: number;
-    // wishlist: 
-    // distributer_info:  
-    // warranty_status: WarrantyStatus;
+    popularity: number;
 }
+
+const productSchema = new Schema<IProduct>({
+      name: { type: String, required: true },
+      description: { type: String, required: true },
+      model: { type: String, required: true },
+      number: { type: Number, required: true },
+      stock_quantity: { type: Number, required: true },
+      initial_price: { type: Number, required: true },
+      category_ids: [
+        {
+          type: Types.ObjectId,
+          required: true,
+          ref: 'Category'
+        }
+      ],
+      image: { type: String, required: true },
+      popularity: { type: Number, required: true }
+});
 
 interface ProductModel extends Model<IProduct> {
     search(query: string): Promise<IProduct[]>;
 }
-
-const productSchema = new Schema<IProduct>({
-    name: { type: String, required: true },
-    description: { type: String, required: true },
-    model: { type: String, required: true },
-    number: { type: Number, required: true },
-    stock_quantity: { type: Number, required: true },
-    initial_price: { type: Number, required: true },
-    category: { type: String, required: true },
-    image: { type: String, required: true },
-});
 
 productSchema.statics.search = async function (query: string): Promise<IProduct[]> {
     const words = query.split(' ').map(w => `\\b${w}\\b`).join('|');

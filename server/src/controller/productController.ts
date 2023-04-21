@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express"
 import Product from "../models/product"
+import Category from '../models/category';
 
 const getProducts = async (req: Request, res: Response) => {
   try {
@@ -12,6 +13,7 @@ const getProducts = async (req: Request, res: Response) => {
   }
 };
 
+/* DEPRECATED ??????
 const getProductsByCategory = async (req: Request, res: Response) => {
   const category = req.params.category;
 
@@ -23,6 +25,7 @@ const getProductsByCategory = async (req: Request, res: Response) => {
     res.status(500).json({ status: 'Server error' });
   }
 };
+*/
 
 const getProductsById = async (req: Request, res: Response) => {
   const productid = req.params.productid;
@@ -37,8 +40,19 @@ const getProductsById = async (req: Request, res: Response) => {
   }
 };
 
-const getCategoryNames = async (req: Request, res: Response) => {
-
+const getCategorySpecificProducts = async (req: Request, res: Response) => {
+  const slug = req.params.slug;  
+  try {
+    const category = await Category.findOne({ slug });
+    if(!category){
+      return res.status(404).send('Category not found');
+    }
+    const products = await Category.findProducts(category._id);
+    res.json(products);
+  } catch(error){
+    console.error(error);
+    res.status(500).json({ status: 'Server error' });
+  }
 };
 
 const searchProducts = async (req: Request, res: Response) => {
@@ -50,4 +64,5 @@ const searchProducts = async (req: Request, res: Response) => {
   res.json(searchResult);
 };
 
-export default { getProducts, getProductsByCategory, getProductsById, getCategoryNames, searchProducts}
+// DEPRECATED????? export default { getProducts, getProductsByCategory, getProductsById, getCategorySpecificProducts, searchProducts}
+export default { getProducts, getProductsById, getCategorySpecificProducts, searchProducts}

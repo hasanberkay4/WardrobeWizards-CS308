@@ -5,9 +5,11 @@ const router = Router();
 
 router.get('/products', productController.getProducts)
 
-router.get('/products/:category', productController.getProductsByCategory);
+// DEPRECATED????? router.get('/products/:category', productController.getProductsByCategory);
 
 router.get('/products/id/:productid', productController.getProductsById);
+
+router.get('/categories/:slug', productController.getCategorySpecificProducts);
 
 router.get('/search', productController.searchProducts);
 
