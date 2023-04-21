@@ -1,20 +1,24 @@
+/* eslint-disable react/jsx-key */
 import { GetServerSideProps } from 'next';
 import axios, { AxiosResponse } from 'axios';
 import ProductListView from '../../components/productList/ProductList';
-import ProductList from '../../components/productList/ProductList';
-import { ProductListItem } from '../../types/productListType';
 import ProductListItemView from '../../components/productList/ProductListItem';
 import Pagination from '../../components/productList/Pagination';
+import { Product } from '../../types/productType';
 
 type ProductListProps = {
-    productList: ProductListItem[]
+    productList: Product[]
 }
 
 export default function ProductsListPage({ productList }: ProductListProps) {
     return (
         <>
+
             <ProductListView>
-                <ProductListItemView />
+                {/* create a for loop that takes each product from productList and renders a ProductListItemView */}
+                {productList.map((product) => (
+                    <ProductListItemView product={product} />
+                ))}
                 <Pagination />
             </ProductListView>
         </>
@@ -34,6 +38,12 @@ export const getServerSideProps: GetServerSideProps<ProductListProps> = async (c
 
     const res: AxiosResponse = await axios.get(apiUrl.toString());
     const productList = res.data;
+
+    productList.map((product: Product) => {
+        const productCategory = product.category;
+        const productName = product.image;
+        product.image = `http://localhost:5001/images/${productCategory}/${productName}`
+    })
 
     return {
         props: {

@@ -296,7 +296,9 @@ export default function ProductListView({ children }: ProductListProps) {
 
                             {/* Product grid - content here*/}
                             <div className="lg:col-span-3">
-                                {children}
+                                <div className="flex flex-row flex-wrap">
+                                    {children}
+                                </div>
                             </div>
                         </div>
                     </section>

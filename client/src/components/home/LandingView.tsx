@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-const heading = ""
-const subHeading = ""
-const buttonText = ""
+const heading = "Heading"
+const subHeading = "SubHeading"
+const buttonText = "ButtonText"
 
 export default function LandingView() {
     return (

@@ -1,4 +1,5 @@
 export type ProductListItem = {
+    id: number;
     name: string;
     price: number;
     imageUrl: string;
