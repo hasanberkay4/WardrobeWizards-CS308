@@ -1,4 +1,4 @@
-import Signin from "../../components/profile/Signin";
+import Signin from "../../components/auth/Signin";
 
 export default function SignInPage() {
     // check if user is logged in

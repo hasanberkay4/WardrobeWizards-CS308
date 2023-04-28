@@ -41,15 +41,15 @@ const getProductsById = async (req: Request, res: Response) => {
 };
 
 const getCategorySpecificProducts = async (req: Request, res: Response) => {
-  const slug = req.params.slug;  
+  const slug = req.params.slug;
   try {
     const category = await Category.findOne({ slug });
-    if(!category){
+    if (!category) {
       return res.status(404).send('Category not found');
     }
     const products = await Category.findProducts(category._id);
     res.json(products);
-  } catch(error){
+  } catch (error) {
     console.error(error);
     res.status(500).json({ status: 'Server error' });
   }
@@ -65,4 +65,4 @@ const searchProducts = async (req: Request, res: Response) => {
 };
 
 // DEPRECATED????? export default { getProducts, getProductsByCategory, getProductsById, getCategorySpecificProducts, searchProducts}
-export default { getProducts, getProductsById, getCategorySpecificProducts, searchProducts}
+export default { getProducts, getProductsById, getCategorySpecificProducts, searchProducts }
