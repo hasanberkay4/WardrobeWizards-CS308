@@ -3,6 +3,9 @@ import Image from "next/image";
 import { useContext } from "react";
 import { Store } from "../../context/Store";
 import { ActionKind, CartItem } from "../../types/shoppingCart";
+import Comment from "./Comments";
+import CommentList from "./CommentList";
+
 
 type Props = {
     product: Product;
@@ -22,6 +25,7 @@ export default function ProductView({ product }: Props) {
     }
 
     const addToCartHandler = () => {
+      
         const existItem = state.cart.cartItems.find((x) => x.slug === product._id);
         const quantity = existItem ? existItem.quantity + 1 : 1;
 
@@ -38,6 +42,7 @@ export default function ProductView({ product }: Props) {
         dispatch({ type: ActionKind.CART_ADD_ITEM, payload: { ...item, quantity } });
     };
 
+    const commentItems=[{"rating":4, "comment":"lorem ipsum", "name":"eren", "surname":"eren"}]
     return (
         <div className="bg-white">
             <div className="pt-6">
@@ -70,7 +75,7 @@ export default function ProductView({ product }: Props) {
 
                             <button
                                 onClick={addToCartHandler}
-                                type="submit"
+                                type="button"
                                 className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                             >
                                 Add to bag
@@ -90,6 +95,10 @@ export default function ProductView({ product }: Props) {
                     </div>
                 </div>
             </div>
+
+            <CommentList CommentItems={commentItems}></CommentList>
+
+
         </div>
     )
 }
