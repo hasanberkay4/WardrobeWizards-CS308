@@ -3,6 +3,7 @@ import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
 import { ProductList } from '../../types/productListType'
+import Link from 'next/link'
 
 const sortOptions = [
     { name: 'Most Popular', href: '#', current: true },
@@ -12,11 +13,11 @@ const sortOptions = [
     { name: 'Price: High to Low', href: '#', current: false },
 ]
 const subCategories = [
-    { name: 'Totes', href: '#' },
-    { name: 'Backpacks', href: '#' },
-    { name: 'Travel Bags', href: '#' },
-    { name: 'Hip Bags', href: '#' },
-    { name: 'Laptop Sleeves', href: '#' },
+    { name: 'Tshirt', href: 'products/tshirts' },
+    { name: 'Backpacks', href: 'products/bags' },
+    { name: 'Hats', href: 'products/hats' },
+    { name: 'Pants', href: 'products/pant' },
+    { name: 'Socks', href: '#' },
 ]
 const filters = [
     {
@@ -35,11 +36,11 @@ const filters = [
         id: 'category',
         name: 'Category',
         options: [
-            { value: 'new-arrivals', label: 'New Arrivals', checked: false },
-            { value: 'sale', label: 'Sale', checked: false },
-            { value: 'travel', label: 'Travel', checked: true },
-            { value: 'organization', label: 'Organization', checked: false },
-            { value: 'accessories', label: 'Accessories', checked: false },
+            { value: 'Tshirt', label: 'Tshirt', checked: false },
+            { value: 'Pants', label: 'Beige', checked: false },
+            { value: 'Backpacks', label: 'Backpacks', checked: true },
+            { value: 'Hats', label: 'Hats', checked: false },
+            { value: 'Socks', label: 'Socks', checked: false },
         ],
     },
     {
@@ -172,8 +173,11 @@ export default function ProductListView({ children }: ProductListProps) {
 
                 <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
-                        <h1 className="text-4xl font-bold tracking-tight text-gray-900">New Arrivals</h1>
+                    <Link href={`/products/`}>
+                    <h1 className="text-4xl font-bold tracking-tight text-gray-900">New Arrivals</h1>
 
+                    </Link>
+                        
                         <div className="flex items-center">
                             <Menu as="div" className="relative inline-block text-left">
                                 <div>
