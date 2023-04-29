@@ -3,11 +3,23 @@ import Image from "next/image";
 import { useContext } from "react";
 import { Store } from "../../context/Store";
 import { ActionKind, CartItem } from "../../types/shoppingCart";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 
 type Props = {
     product: Product;
 };
 
+const StarRating = ({ rating }: { rating: number }) => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+        if (i <= rating) {
+            stars.push(<AiFillStar key={i} size={40} color="#FBBF24"  />);
+        } else {
+            stars.push(<AiOutlineStar key={i} size={40} color="#FBBF24"  />);
+        }
+    }
+    return <div className="flex">{stars}</div>;
+};
 
 export default function ProductView({ product }: Props) {
 
@@ -51,6 +63,15 @@ export default function ProductView({ product }: Props) {
                             alt={product.image}
                             className="h-full w-full object-cover object-center"
                         />
+                    </div>
+
+                    <div
+                        className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block"
+                    >
+                        <div className="flex items-start justify-center space-x-4">
+                            <p className="text-3xl text-gray-900">{product.rating.toFixed(2)}</p>
+                            <StarRating rating={product.rating} />
+                        </div>
                     </div>
                 </div>
 

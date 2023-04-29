@@ -9,6 +9,8 @@ export type Product = {
     category: string;
     image: string;
     populariy: number;
+    rating:number;
+    number_of_voters:number;
 };
 
 

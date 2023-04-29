@@ -10,6 +10,8 @@ export interface IProduct {
     category_ids: Types.ObjectId[];
     image: string;
     popularity: number;
+    rating: number;
+    number_of_voters:number;
 }
 
 const productSchema = new Schema<IProduct>({
@@ -27,7 +29,10 @@ const productSchema = new Schema<IProduct>({
         }
       ],
       image: { type: String, required: true },
-      popularity: { type: Number, required: true }
+      popularity: { type: Number, required: true },
+      rating: {type: Number,required:true},
+      number_of_voters:{type: Number, required:true}
+
 });
 
 interface ProductModel extends Model<IProduct> {
