@@ -3,19 +3,19 @@ import { Schema, model, Model, Types } from 'mongoose';
 export interface IComment {
     customerId: Types.ObjectId
     productId: Types.ObjectId
-    Date: Date
-    Description: String
-    Approved: Boolean
-    Rating: number
+    date: Date
+    description: String
+    approved: Boolean
+    rating: number
 }
 
 const commentSchema = new Schema<IComment>({
     customerId: {type: Schema.Types.ObjectId, required:true, ref:"User"},
     productId: {type: Schema.Types.ObjectId, required:true, ref:"Product"},
-    Date: {type:Date, required:true},
-    Description:{type:String, required:false},
-    Approved: {type:Boolean, required:true},
-    Rating: {type:Number, required:true}
+    date: {type:Date, required:true},
+    description:{type:String, required:false},
+    approved: {type:Boolean, required:true},
+    rating: {type:Number, required:true}
 
 
 });

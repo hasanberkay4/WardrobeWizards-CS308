@@ -9,6 +9,8 @@ type ProductProps = {
 };
 
 
+
+
 export default function ProductPage({ product }: ProductProps) {
 
     return (
