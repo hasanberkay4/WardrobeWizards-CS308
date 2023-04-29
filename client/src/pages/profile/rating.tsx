@@ -143,7 +143,7 @@ export default function RateProductPage() {
             {showPopup && (
                 <Popup onClose={() => setShowPopup(false)}>
                     <div className="flex flex-col items-center">
-                        <h2 className="text-2xl font-bold mb-4">Rate the product</h2>
+                        <h2 className="text-2xl font-bold mb-4">Rate</h2>
                         <StarRating rating={rating} setRating={setRating} />
                         <button
                             className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
