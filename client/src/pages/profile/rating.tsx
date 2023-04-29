@@ -46,10 +46,10 @@ export default function RateProductPage() {
     const handleSubmit = () => {
         if (product) {
             const newVoters = product.number_of_voters + 1;
-            const newrating = (product.rating * product.number_of_voters + rating) / newVoters;
+            const newaveragerating = (product.rating * product.number_of_voters + rating) / newVoters;
     
             // Update the product with the new average rating and number of voters
-            updateProductRating(product._id, newrating, newVoters);
+            updateProductRating(product._id, newaveragerating, newVoters);
     
             // Close the popup
             setShowPopup(false);
