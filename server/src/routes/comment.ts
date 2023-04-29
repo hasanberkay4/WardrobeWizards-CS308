@@ -4,7 +4,7 @@ import { body, CustomValidator } from 'express-validator'
 
 const router = Router();
 
-router.get('/comments/:productid', commentController.getCommentsByProductId)
+router.get('/comments/productId/:productid', commentController.getCommentsByProductId)
 router.post('/comments/add', commentController.addComment)
 
 

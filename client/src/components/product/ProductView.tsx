@@ -3,8 +3,7 @@ import Image from "next/image";
 import { useContext } from "react";
 import { Store } from "../../context/Store";
 import { ActionKind, CartItem } from "../../types/shoppingCart";
-import Comment from "./Comments";
-import CommentList from "./CommentList";
+
 
 
 type Props = {
@@ -42,7 +41,6 @@ export default function ProductView({ product }: Props) {
         dispatch({ type: ActionKind.CART_ADD_ITEM, payload: { ...item, quantity } });
     };
 
-    const commentItems=[{"rating":4, "comment":"lorem ipsum", "name":"eren", "surname":"eren"}]
     return (
         <div className="bg-white">
             <div className="pt-6">
@@ -96,7 +94,7 @@ export default function ProductView({ product }: Props) {
                 </div>
             </div>
 
-            <CommentList CommentItems={commentItems}></CommentList>
+
 
 
         </div>

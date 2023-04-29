@@ -1,15 +1,11 @@
 import React from "react";
 import Comment from "./Comments";
+import { commentListItem } from "../../types/commentListType";
 
-type CommentProps = {
-  rating: number;
-  comment: string;
-  name: string;
-  surname: string;
-};
+
 
 type CommentListProps = {
-  CommentItems: CommentProps[];
+  CommentItems: commentListItem[];
   // add any other properties here
 };
 
@@ -19,9 +15,9 @@ const CommentList: React.FC<CommentListProps> = ({ CommentItems }) => {
       {CommentItems.map((comment, index) => (
         <Comment
           rating={comment.rating}
-          comment={comment.comment}
-          name={comment.name}
-          surname={comment.surname}
+          comment={comment.description}
+          name={comment.description}
+          surname={comment.description}
         />
       ))}
     </>
