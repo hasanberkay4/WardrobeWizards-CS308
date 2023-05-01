@@ -1,13 +1,14 @@
 const nodemailer = require('nodemailer');
 import PDFDocument from 'pdfkit';
 import * as fs from 'fs';
+
 import User from "../models/user"
+import Delivery, { IDelivery } from "../models/order";
+
 
 const path = require('path');
 const logo = path.join(__dirname, '../../../client/public/logo.jpg');
 const signature = path.join(__dirname, '../../../client/public/signature.png');
-
-import { IDelivery } from "../models/order"
 
 require('dotenv').config();
 
@@ -121,21 +122,23 @@ require('dotenv').config();
     generateHeader(doc);
     generateCustomerInformation(doc, user!.email, user!.name, user!.address, date);
     generateInvoiceTable(doc, deliveryData.totalPrice, deliveryData.products);
+
+    const pdfPath = path.join(__dirname, '../../../client/public/invoices', `${deliveryData._id}.pdf`);
   
-    const pdfBuffer = await new Promise((resolve, reject) => {
-      doc.pipe(
-        fs.createWriteStream('invoice.pdf').on('finish', () => {
-          fs.readFile('invoice.pdf', (err, data) => {
-            if (err) {
-              reject(err);
-            } else {
-              resolve(data);
-            }
-          });
-        })
-      );
+    const pdfBuffer = await new Promise(async (resolve, reject) => {
+      doc.pipe(fs.createWriteStream(pdfPath));
       doc.end();
+    
+      const pdfUrl = `http://localhost:3000/invoices/${deliveryData._id}.pdf`;
+    
+      try {
+        await Delivery.findByIdAndUpdate(deliveryData._id, { pdfUrl });
+        resolve(fs.readFileSync(pdfPath));
+      } catch (err) {
+        reject(err);
+      }
     });
+    
   
     // Create the email message
     const message = {

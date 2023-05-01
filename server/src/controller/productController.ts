@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express"
 import Product from "../models/product"
 import Category from '../models/category';
-import { IDelivery } from "../models/order";
+import Delivery, { IDelivery } from "../models/order";
 import { sendInvoiceEmail } from "../middleware/pdfGenerator";
 
 const getProducts = async (req: Request, res: Response) => {
@@ -81,8 +81,17 @@ const getDelivery = async (req: Request, res: Response) => {
   }
 
   if (itemsOutOfStock.length === 0) {
-    res.status(200).send('Purchase can proceed.');
+    const delivery = await Delivery.create(req.body.delivery);
+
+    for (const product of delivery.products) {
+      await Product.updateOne(
+        { _id: product.productId },
+        { $inc: { stock_quantity: -product.quantity } }
+      );
+    }
+
     sendInvoiceEmail(delivery);
+    res.status(200).send('Purchase can proceed.');
   }
   else{
     const itemNamesOutOfStock = itemsOutOfStock.join(', ');

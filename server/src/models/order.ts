@@ -1,15 +1,14 @@
 import { Schema, model, Types } from 'mongoose';
 import { ObjectId } from 'mongodb';
 
-
 export interface IDelivery {
+  _id: Types.ObjectId;
   customerId: ObjectId;
   quantity: number;
   totalPrice: number;
   deliveryAddress: string;
   status: string;
   date: Date;
-  storeId: ObjectId;
   products: {
     productId: ObjectId;
     name: string;
@@ -17,6 +16,7 @@ export interface IDelivery {
     description: string;
     quantity: number;
   }[];
+  pdfUrl: string
 }
 
 const deliverySchema = new Schema<IDelivery>({
@@ -26,7 +26,6 @@ const deliverySchema = new Schema<IDelivery>({
   deliveryAddress: { type: String, required: true },
   status: { type: String, required: true },
   date: { type: Date, required: true },
-  storeId: { type: Types.ObjectId, required: true, ref: 'Store' },
   products: [
     {
       productId: { type: Types.ObjectId, required: true, ref: 'Product' },
@@ -36,6 +35,7 @@ const deliverySchema = new Schema<IDelivery>({
       quantity: {type: Number, required: true},
     },
   ],
+  pdfUrl: { type: String, required: false}
 });
 
 export default model<IDelivery>('Delivery', deliverySchema);
