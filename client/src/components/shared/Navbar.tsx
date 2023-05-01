@@ -260,12 +260,12 @@ export default function NavBar() {
 
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                   <div className="flow-root">
-                    <a href="#" className="-m-2 block p-2 font-medium text-gray-900">
+                    <a href="/auth/sign-in" className="-m-2 block p-2 font-medium text-gray-900">
                       Sign in
                     </a>
                   </div>
                   <div className="flow-root">
-                    <a href="#" className="-m-2 block p-2 font-medium text-gray-900">
+                    <a href="/auth/sign-up" className="-m-2 block p-2 font-medium text-gray-900">
                       Create account
                     </a>
                   </div>
@@ -406,11 +406,11 @@ export default function NavBar() {
 
               <div className="ml-auto flex items-center">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  <Link href="profile/login" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                  <Link href="auth/sign-in" className="text-sm font-medium text-gray-700 hover:text-gray-800">
                     Sign in
                   </Link>
                   <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                  <Link href="profile/register" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                  <Link href="auth/sign-up" className="text-sm font-medium text-gray-700 hover:text-gray-800">
                     Create account
                   </Link>
                 </div>

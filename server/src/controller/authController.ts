@@ -1,87 +1,77 @@
-import {Request, Response, NextFunction} from "express"
+import { Request, Response } from "express"
 import User from "../models/user"
-import { validationResult } from 'express-validator';
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken";
 
+const signUpController = async (req: Request, res: Response) => {
+  try {
 
-//@desc Signup for customer
-//@route POST /signup
-//@access public
-const signUp = async (req: Request,res: Response)=>{
+    // Get user input
+    const name = req.body.name as string;
+    const email = req.body.email as string;
+    const password = req.body.password as string;
 
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-      }
+    // check if user already exist
+    const user = await User.findOne({ email: email });
+    if (user) {
+      return res.status(400).json({ message: "User already exists" });
+    }
 
-    const hashedPassword = await bcrypt.hash(req.body.password, 10)
+    // hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
 
+    // create new user
     const newUser = new User({
-        email : req.body.email,
-        name: req.body.name,
-        surname: req.body.surname,
-        adress : req.body.adress,
-        password : hashedPassword
-    })
+      email: email,
+      password: hashedPassword,
+      name: name
+    });
 
+    // save user to database
     const addedUser = await newUser.save()
-    res.status(200).json({status: "success", userInfo: addedUser})
 
+    // return new user info
+    res.status(200).json({ status: "success", userInfo: addedUser })
+  }
+  // if error
+  catch (err) {
+    return res.status(400).json({ errors: err });
+  }
 }
 
-const login = async (req: Request,res: Response)=>{
+const signInController = async (req: Request, res: Response) => {
+  try {
+    // Get user input
+    const email = req.body.email as string;
+    const password = req.body.password as string;
 
-    try {
+    // Validate if user exist in our database
+    const user = await User.findOne({ email: email });
+    if (!user) {
+      return res.send(400).json({ message: "User does not exist" })
+    }
 
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-          return res.status(400).json({ errors: errors.array() });
-        }
-  
-        // Get user input
-        const { email, password } = req.body;
-    
+    // Validate password is users password
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(400).json({ message: "Invalid Password!" });
+    }
 
-        // Validate if user exist in our database
-        const user = await User.findOne({ email });
-      
-    
-    
-        const comp = await bcrypt.compare(password, user!.password)
-        const hashedpw = await bcrypt.hash(password, 10);
-    
-    
-        console.log(
-          `
-          sentPassword: ${password}
-          hashedpw: ${hashedpw}
-          encryptedPassword: ${user!.password}
-          comp: ${comp}
-          `
-        )
-    
-        if (user && (await bcrypt.compare(password, user.password))) {
-          // Create token
-          const token = jwt.sign(
-            { user_id: user._id, email },
-            process.env.TOKEN_KEY!,
-            {expiresIn: "2h"}
-          );
-    
-          console.log(" token: " + token + "")
-    
+    // Create token
+    const token = jwt.sign(
+      { user_id: user._id, email },
+      process.env.TOKEN_KEY!,
+      { expiresIn: "2h" }
+    );
 
-    
-          // user
-          return res.status(200).json({token:token});
-        }
-        return res.status(400).send("Invalid Credentials");
-      } catch (err) {
-        console.log(err);
-      }
+    // return success response and JWT token
+    return res.status(200).json({ message: "Successfully Signed Up", token: token });
+  }
 
-
-
+  // if user not found or password not match
+  catch (err) {
+    return res.status(400).json({ errors: err });
+  }
 }
-export default {signUp, login}
+
+export default { signUpController, signInController }
