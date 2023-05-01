@@ -15,4 +15,10 @@ productRouter.get('/categories/:slug', productController.getCategorySpecificProd
 // search data
 productRouter.get('/search', productController.searchProducts);
 
+// handle delivery request
+productRouter.post('/delivery', productController.getDelivery);
+
+// handle ratings
+productRouter.put('/id/:productid', productController.updateProductRating);
+
 export { productRouter }
