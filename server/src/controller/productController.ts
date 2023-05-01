@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express"
 import Product from "../models/product"
 import Category from '../models/category';
 import { IDelivery } from "../models/order";
+import { sendInvoiceEmail } from "../middleware/pdfGenerator";
 
 const getProducts = async (req: Request, res: Response) => {
   try {
@@ -81,6 +82,7 @@ const getDelivery = async (req: Request, res: Response) => {
 
   if (itemsOutOfStock.length === 0) {
     res.status(200).send('Purchase can proceed.');
+    sendInvoiceEmail(delivery);
   }
   else{
     const itemNamesOutOfStock = itemsOutOfStock.join(', ');
