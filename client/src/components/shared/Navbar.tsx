@@ -5,6 +5,7 @@ import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@her
 import { Store } from '../../context/Store'
 import Link from 'next/link'
 import Image from 'next/image'
+import Cookies from 'js-cookie'
 
 const navigation = {
   categories: [
@@ -141,10 +142,16 @@ export default function NavBar() {
   const { state } = useContext(Store);
   const { cart } = state;
 
+
+
+
   const [cartItemsCount, setCartItemsCount] = useState(0);
+
+
   useEffect(() => {
+  
     setCartItemsCount(cart.cartItems.reduce((a, c) => a + c.quantity, 0));
-  }, [cart.cartItems]);
+  }, [state]);
 
   return (
     <div className="bg-white">

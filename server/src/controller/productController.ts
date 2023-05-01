@@ -64,5 +64,29 @@ const searchProducts = async (req: Request, res: Response) => {
   res.json(searchResult);
 };
 
+
+const updateProductInDatabase = async (productId: string, newAverageRating: number, newVoters: number) => {
+  await Product.findByIdAndUpdate(productId, {
+    rating: newAverageRating,
+    number_of_voters: newVoters,
+  });
+};
+
+const updateProductRating = async (req: Request, res: Response) => {
+  const productId = req.params.productid;
+  const newAverageRating = req.body.newAverageRating;
+  const newVoters = req.body.newVoters;
+
+  try {
+    // Update the product with the new rating and number of voters
+    await updateProductInDatabase(productId, newAverageRating, newVoters);
+
+    res.status(200).json({ message: 'Product rating updated successfully' });
+  } catch (error) {
+    console.error('Error updating product rating:', error);
+    res.status(500).json({ message: 'Error updating product rating' });
+  }
+};
+
 // DEPRECATED????? export default { getProducts, getProductsByCategory, getProductsById, getCategorySpecificProducts, searchProducts}
-export default { getProducts, getProductsById, getCategorySpecificProducts, searchProducts }
+export default { getProducts, getProductsById, getCategorySpecificProducts, searchProducts, updateProductRating }
