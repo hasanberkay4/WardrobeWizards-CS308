@@ -406,11 +406,11 @@ export default function NavBar() {
 
               <div className="ml-auto flex items-center">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  <Link href="profile/login" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                  <Link href="/profile/login" className="text-sm font-medium text-gray-700 hover:text-gray-800">
                     Sign in
                   </Link>
                   <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                  <Link href="profile/register" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                  <Link href="/profile/register" className="text-sm font-medium text-gray-700 hover:text-gray-800">
                     Create account
                   </Link>
                 </div>
