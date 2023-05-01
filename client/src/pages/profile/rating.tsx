@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { Product } from "../../types/productType";
 import { IconContext } from 'react-icons';
+import { AiOutlineClose } from 'react-icons/ai';
+
 
 type PopupProps = {
         onClose: () => void;
@@ -30,6 +32,8 @@ export default function RateProductPage() {
 
     const [rating, setRating] = useState(0);
 
+    const [comment, setComment] = useState('');
+
     const handleClick = async () => {
         // Fetch product data from the backend
         const productId = '643f02672b485eafeb274650';
@@ -50,6 +54,9 @@ export default function RateProductPage() {
     
             // Update the product with the new average rating and number of voters
             updateProductRating(product._id, newaveragerating, newVoters);
+
+            const customerId = '643da4243e2885673bef6be5'; // Replace this with the actual customer ID
+            submitComment(product._id, customerId, rating, comment);
     
             // Close the popup
             setShowPopup(false);
@@ -79,6 +86,35 @@ export default function RateProductPage() {
           console.error('Error updating product rating:', error);
         }
       };
+
+      const submitComment = async (productId: string, customerId: string, rating: number, description: string) => {
+        try {
+            const response = await fetch('http://localhost:5001/comments/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    productId,
+                    customerId,
+                    date: new Date(),
+                    description,
+                    approved: false,
+                    rating,
+                }),
+            });
+    
+            if (!response.ok) {
+                throw new Error('Error submitting comment');
+            }
+    
+            const data = await response.json();
+            console.log(data.message);
+        } catch (error) {
+            console.error('Error submitting comment:', error);
+        }
+    };
+    
       
 
 
@@ -143,12 +179,25 @@ export default function RateProductPage() {
             {showPopup && (
                 <Popup onClose={() => setShowPopup(false)}>
                     <div className="flex flex-col items-center">
-                        <h2 className="text-2xl font-bold mb-4">Rate</h2>
-                        <StarRating rating={rating} setRating={setRating} />
-                        <button
-                            className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                            onClick={handleSubmit}
-                        >
+                    <button
+                        className="absolute top-2 right-2 text-gray font-bold py-1 px-2 rounded"
+                        onClick={() => setShowPopup(false)}
+                    >
+                        <AiOutlineClose />
+                    </button>
+                    <h2 className="text-2xl font-bold mb-4">Rate</h2>
+                    <StarRating rating={rating} setRating={setRating} />
+
+                    <textarea
+                        className="mt-4 w-full p-2 border rounded"
+                        placeholder="Leave a comment..."
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
+                    ></textarea>
+                    <button
+                        className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        onClick={handleSubmit}
+                    >
                             Submit
                         </button>
                     </div>

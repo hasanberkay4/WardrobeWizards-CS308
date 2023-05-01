@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useContext } from "react";
 import { Store } from "../../context/Store";
 import { ActionKind, CartItem } from "../../types/shoppingCart";
+import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 
 type Props = {
     product: Product;
