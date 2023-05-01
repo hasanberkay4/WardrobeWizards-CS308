@@ -36,7 +36,6 @@ const CheckoutPage =()=> {
                      <button className="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded" type="submit">Complete Payment</button>
                         </div>
                 </form>
-                
             <div className="w-1/4 m-4 p-10 bg-white rounded shadow-xl">
                 <h3 className="text-lg font-semibold">Item Summary</h3>
                 <div> 
