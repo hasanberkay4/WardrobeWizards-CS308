@@ -149,7 +149,7 @@ export default function NavBar() {
 
 
   useEffect(() => {
-  
+
     setCartItemsCount(cart.cartItems.reduce((a, c) => a + c.quantity, 0));
   }, [state]);
 

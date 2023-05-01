@@ -1,14 +1,15 @@
-import Image from 'next/image';
+import CheckoutPage from '../checkout';
 import Link from 'next/link';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { XCircleIcon } from '@heroicons/react/20/solid';
 import { Store } from '../../context/Store';
 import { useRouter } from 'next/router';
 import { ActionKind, Action, CartItem, Cart } from "../../types/shoppingCart"
 import dynamic from 'next/dynamic';
 
-function CartScreen() {
 
+
+function CartScreen() {
   const router = useRouter();
   const { state, dispatch } = useContext(Store);
   const { cart: { cartItems } } = state;
@@ -21,6 +22,11 @@ function CartScreen() {
     const quantity = Number(qty);
     dispatch({ type: ActionKind.CART_ADD_ITEM, payload: { ...item, quantity } });
   };
+  const subtotal = cartItems.reduce((a, c) => a + c.quantity * c.price, 0);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+
+
+
 
   return (
 
@@ -93,19 +99,22 @@ function CartScreen() {
           <div className="card p-5">
             <ul>
               <li>
-                <div className="pb-3 text-xl">
-                  Subtotal ({cartItems.reduce((a, c) => a + c.quantity, 0)}) : $
-                  {cartItems.reduce((a, c) => a + c.quantity * c.price, 0)}
-                </div>
-              </li>
-              <li>
-                <button
-                  onClick={() => router.push('/shipping')}
-                  className="primary-button w-full"
-                >
-                  Check Out
-                </button>
-              </li>
+            {isLoggedIn ? (
+          <button
+            onClick={() => router.push(`/checkout?subtotal=${subtotal}`)}
+            className="primary-button w-full"
+          >
+            Check Out
+          </button>
+        ) : (
+          <button
+            onClick={() => router.push("/profile/login")}
+            className="primary-button w-full"
+          >
+            Check Out
+          </button>
+        )}
+      </li>
             </ul>
           </div>
         </div>
