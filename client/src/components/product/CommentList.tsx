@@ -14,6 +14,7 @@ const CommentList: React.FC<CommentListProps> = ({ CommentItems }) => {
     <>
       {CommentItems.map((comment, index) => (
         <Comment
+          index={index}
           rating={comment.rating}
           comment={comment.description}
           name={comment.description}
