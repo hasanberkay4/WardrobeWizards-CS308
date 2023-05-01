@@ -6,7 +6,10 @@ import { validationResult } from 'express-validator';
 // should return just approved comments
 const getCommentsByProductId = async (req: Request, res: Response) => {
   try {
-    const comments = await Comment.find();
+    const productid = req.params.productid;
+    const isApproved= true
+    const comments = await Comment.find({productId:productid, approved:isApproved }).sort({ date: -1 }).populate('customerId', 'name surname');
+    console.log(comments)
     res.json(comments);
   } catch (error) {
     console.error(error);
@@ -32,8 +35,7 @@ const addComment = async (req: Request, res: Response) => {
             description : req.body.description,
             approved : req.body.approved,
             rating : req.body.rating
-        })
-    
+        })   
         const addedComment = await newComment.save()
         res.status(200).json({status: "success", userInfo: addedComment})
     } catch (error) {

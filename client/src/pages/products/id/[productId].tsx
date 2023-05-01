@@ -53,6 +53,7 @@ export const getServerSideProps: GetServerSideProps<ProductProps> = async (conte
     let commentItems : commentListItem[]
     commentItems=comments
 
+
     return {
         props: {
             product,

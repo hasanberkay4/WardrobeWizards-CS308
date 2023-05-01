@@ -50,7 +50,7 @@ function CartScreen() {
                 {cartItems.map((item) => (
                   <tr key={item.slug} className="border-b">
                     <td>
-                      <Link className="flex items-center" href={`/product/${item.slug}`}>
+                      <Link className="flex items-center" href={`/products/id/${item.slug}`}>
 
                         <img
                           src={item.image}
@@ -115,3 +115,4 @@ function CartScreen() {
 }
 
 export default dynamic(() => Promise.resolve(CartScreen), { ssr: false });
+

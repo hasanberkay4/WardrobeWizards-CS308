@@ -1,6 +1,6 @@
 export type commentListItem = {
     id: string;
-    customerId: string;
+    customerId: Object;
     productId: string;
     date: Date;
     description: string;
