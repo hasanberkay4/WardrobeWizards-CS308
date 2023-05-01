@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import Layout from '../components/shared/Layout';
 import { StoreProvider } from "../context/Store"
+import { AuthProvider } from '../context/Auth';
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 

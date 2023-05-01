@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next';
 import { Product } from "../../../types/productType";
-import {commentListItem} from "../../../types/commentListType"
+import { commentListItem } from "../../../types/commentListType"
 import axios, { AxiosResponse } from 'axios';
 import ProductView from '../../../components/product/ProductView';
 import { useState, useEffect } from 'react';
@@ -49,9 +49,9 @@ export const getServerSideProps: GetServerSideProps<ProductProps> = async (conte
 
     const imageCategory = product.category;
     const imageName = product.image;
-    product.image = `http://localhost:5001/images/${imageCategory}/${imageName}`
-    let commentItems : commentListItem[]
-    commentItems=comments
+    product.image = `http://localhost:5001/images/${imageName}`
+    let commentItems: commentListItem[]
+    commentItems = comments
 
 
     return {

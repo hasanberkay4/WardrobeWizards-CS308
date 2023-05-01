@@ -9,9 +9,12 @@ imagesRouter.use(express.static('../images/'));
 imagesRouter.get('/', imageController.getImages)
 
 // get all items from a category
-imagesRouter.get('/:category', imageController.getImagesByCategory)
+//imagesRouter.get('/:category', imageController.getImagesByCategory)
 
 // specific images
-imagesRouter.get('/:category/:id', imageController.getImagesByName)
+//imagesRouter.get('/:category/:id', imageController.getImagesByName)
+
+// new images path
+imagesRouter.get('/:id', imageController.getImagesById);
 
 export { imagesRouter }

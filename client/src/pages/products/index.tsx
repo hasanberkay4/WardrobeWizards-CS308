@@ -42,7 +42,7 @@ export const getServerSideProps: GetServerSideProps<ProductListProps> = async (c
     productList.map((product: Product) => {
         const productCategory = product.category;
         const productName = product.image;
-        product.image = `http://localhost:5001/images/${productCategory}/${productName}`
+        product.image = `http://localhost:5001/images/${productName}`
     })
 
     return {

@@ -63,5 +63,19 @@ const getImagesByName = (req: Request, res: Response) => {
     res.sendFile(itemPath);
 };
 
+// Serve a specific item within a specific subfolder
+const getImagesById = (req: Request, res: Response) => {
+    const { id } = req.params;
 
-export default { getImages, getImagesByCategory, getImagesByName }
+    const itemPath = path.resolve(path.join(imagesDirectory, id));
+
+    if (!fs.existsSync(itemPath)) {
+        res.status(404).json({ error: 'Item not found' });
+        return;
+    }
+
+    res.sendFile(itemPath);
+};
+
+
+export default { getImages, getImagesByCategory, getImagesByName, getImagesById }
