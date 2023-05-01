@@ -1,4 +1,65 @@
+import Link from "next/link";
+import { useState } from "react";
+
 export default function Signup() {
+
+    const [name, setName] = useState('');
+    const [surname, setSurname] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+
+    const handleChange = (event: { target: { name: any; value: any; }; }) => {
+        const { name, value } = event.target;
+        switch (name) {
+            case 'name':
+                setName(value);
+                break;
+            case 'surname':
+                setSurname(value);
+                break;
+            case 'email':
+                setEmail(value);
+                break;
+            case 'password':
+                setPassword(value);
+                break;
+            case 'confirmPassword':
+                setConfirmPassword(value);
+                break;
+            default:
+                break;
+        }
+    };
+
+    const handleSubmit = async (event: { preventDefault: () => void; }) => {
+        event.preventDefault();
+        // handle form submission logic
+        const userInfo = {
+            name: name,
+            email: email,
+            password: password,
+        }
+        console.log("userInfo:", userInfo);
+
+        const response = await fetch('http://localhost:5001/auth/signUp', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userInfo),
+        });
+
+
+
+        const data = await response.json();
+        console.log("console:", data);
+    };
+
+    // TODO: show success / error message
+    // surname: string;
+
+
     return (
         <>
             <div className="bg-gray-100 flex h-full items-center py-16">
@@ -9,9 +70,9 @@ export default function Signup() {
                                 <h1 className="block text-2xl font-bold text-gray-800">Sign up</h1>
                                 <p className="mt-2 text-sm text-gray-600">
                                     Already have an account?
-                                    <a className="text-blue-600 decoration-2 hover:underline font-medium" href="../examples/html/signin.html">
+                                    <Link className="text-blue-600 decoration-2 hover:underline font-medium" href="../examples/html/signin.html">
                                         Sign in here
-                                    </a>
+                                    </Link>
                                 </p>
                             </div>
 
@@ -22,14 +83,34 @@ export default function Signup() {
 
                                 <div className="py-3 flex items-center text-xs text-gray-400 uppercase before:flex-[1_1_0%] before:border-t before:border-gray-200 before:mr-6 after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ml-6">Or</div>
 
-                                <form>
+                                <form onSubmit={handleSubmit}>
                                     <div className="grid gap-y-4">
+
+                                        <div>
+                                            <label htmlFor="name" className="block text-sm mb-2">Name</label>
+                                            <div className="relative">
+                                                <input onChange={handleChange} type="text" id="name" name="name" className="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500" required />
+                                                <div className="hidden absolute inset-y-0 right-0 flex items-center pointer-events-none pr-3">
+                                                </div>
+                                            </div>
+                                            <p className="hidden text-xs text-red-600 mt-2" id="email-error">Please include name</p>
+                                        </div>
+
+                                        <div>
+                                            <label htmlFor="surname" className="block text-sm mb-2">Surname</label>
+                                            <div className="relative">
+                                                <input onChange={handleChange} type="text" id="surname" name="surname" className="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500" required />
+                                                <div className="hidden absolute inset-y-0 right-0 flex items-center pointer-events-none pr-3">
+                                                </div>
+                                            </div>
+                                            <p className="hidden text-xs text-red-600 mt-2" id="email-error">Please include surname</p>
+                                        </div>
+
                                         <div>
                                             <label htmlFor="email" className="block text-sm mb-2">Email address</label>
                                             <div className="relative">
-                                                <input type="email" id="email" name="email" className="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500" required aria-describedby="email-error" />
+                                                <input onChange={handleChange} type="email" id="email" name="email" className="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500" required aria-describedby="email-error" />
                                                 <div className="hidden absolute inset-y-0 right-0 flex items-center pointer-events-none pr-3">
-
                                                 </div>
                                             </div>
                                             <p className="hidden text-xs text-red-600 mt-2" id="email-error">Please include a valid email address so we can get back to you</p>
@@ -40,7 +121,7 @@ export default function Signup() {
                                         <div>
                                             <label htmlFor="password" className="block text-sm mb-2">Password</label>
                                             <div className="relative">
-                                                <input type="password" id="password" name="password" className="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500" required aria-describedby="password-error" />
+                                                <input onChange={handleChange} type="password" id="password" name="password" className="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500" required aria-describedby="password-error" />
                                                 <div className="hidden absolute inset-y-0 right-0 flex items-center pointer-events-none pr-3">
 
                                                 </div>
@@ -53,7 +134,7 @@ export default function Signup() {
                                         <div>
                                             <label htmlFor="confirm-password" className="block text-sm mb-2">Confirm Password</label>
                                             <div className="relative">
-                                                <input type="password" id="confirm-password" name="confirm-password" className="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500" required aria-describedby="confirm-password-error" />
+                                                <input onChange={handleChange} type="password" id="confirm-password" name="confirm-password" className="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500" required aria-describedby="confirm-password-error" />
                                                 <div className="hidden absolute inset-y-0 right-0 flex items-center pointer-events-none pr-3">
 
                                                 </div>
