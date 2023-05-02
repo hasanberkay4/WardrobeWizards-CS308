@@ -11,10 +11,13 @@ type Props = {
 export default function ProductsPage({ products }: Props) {
     return (
     <ProductListView>
-  <h2 style={{ fontWeight: 'bold', fontSize: '1.5rem' }}>PANTS</h2>
+ 
   <ul className="grid grid-cols-2 gap-4">
+  
     {products.map((product) => (
       <li key={product._id}>
+        <h2 style={{ fontWeight: 'bold', fontSize: '1.5rem', textTransform: 'uppercase' }}>{product.category}</h2>
+
         <Link href={`/products/id/${product._id}`}>
           <div className="min-h-80 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md lg:aspect-none group-hover:opacity-75 lg:h-50">
             <img src={product.image} alt={product.name} className="object-cover w-full h-full" />
