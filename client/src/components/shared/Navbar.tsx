@@ -1,11 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import { Fragment, ReactNode, useContext, useState, useEffect } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
-import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Store } from '../../context/Store'
 import Link from 'next/link'
 import Image from 'next/image'
-import Cookies from 'js-cookie'
+import SearchBar from './SearchBar'
+
+import { handleSearchSubmit } from '../../scripts/search'
 
 const navigation = {
   categories: [
@@ -124,10 +126,7 @@ const navigation = {
       ],
     },
   ],
-  pages: [
-    { name: 'Company', href: '#' },
-    { name: 'Stores', href: '#' },
-  ],
+
 }
 
 function classNames(...classes: string[]) {
@@ -141,8 +140,6 @@ export default function NavBar() {
   const [open, setOpen] = useState(false)
   const { state } = useContext(Store);
   const { cart } = state;
-
-
 
 
   const [cartItemsCount, setCartItemsCount] = useState(0);
@@ -255,15 +252,7 @@ export default function NavBar() {
                   </Tab.Panels>
                 </Tab.Group>
 
-                <div className="space-y-6 border-t border-gray-200 px-4 py-6">
-                  {navigation.pages.map((page) => (
-                    <div key={page.name} className="flow-root">
-                      <a href={page.href} className="-m-2 block p-2 font-medium text-gray-900">
-                        {page.name}
-                      </a>
-                    </div>
-                  ))}
-                </div>
+
 
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                   <div className="flow-root">
@@ -271,6 +260,13 @@ export default function NavBar() {
                       Sign in
                     </Link>
                   </div>
+
+                  { /* search bar */}
+                  <div>
+                    <p>hello world</p>
+                    <SearchBar onSubmit={handleSearchSubmit} />
+                  </div>
+
                   <div className="flow-root">
                     <Link href="/auth/sign-up/" className="-m-2 block p-2 font-medium text-gray-900">
                       Create account
@@ -399,17 +395,13 @@ export default function NavBar() {
                     </Popover>
                   ))}
 
-                  {navigation.pages.map((page) => (
-                    <a
-                      key={page.name}
-                      href={page.href}
-                      className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
-                    >
-                      {page.name}
-                    </a>
-                  ))}
+
                 </div>
               </Popover.Group>
+
+
+              { /* search bar */}
+              <SearchBar onSubmit={handleSearchSubmit} />
 
               <div className="ml-auto flex items-center">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
@@ -420,14 +412,6 @@ export default function NavBar() {
                   <Link href="/auth/sign-up" className="text-sm font-medium text-gray-700 hover:text-gray-800">
                     Create account
                   </Link>
-                </div>
-
-                {/* Search */}
-                <div className="flex lg:ml-6">
-                  <a href="#" className="p-2 text-gray-400 hover:text-gray-500">
-                    <span className="sr-only">Search</span>
-                    <MagnifyingGlassIcon className="h-6 w-6" aria-hidden="true" />
-                  </a>
                 </div>
 
                 {/* Cart */}
@@ -451,6 +435,6 @@ export default function NavBar() {
           </div>
         </nav>
       </header>
-    </div>
+    </div >
   )
 }

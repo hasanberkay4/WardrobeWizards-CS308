@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../context/Auth";
 
 export default function Signin() {
+
+    const { setAuthCookie } = useAuth();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -38,6 +40,9 @@ export default function Signin() {
         });
 
         const data = await response.json();
+
+        setAuthCookie(data.token);
+
         console.log("console:", data);
     };
 

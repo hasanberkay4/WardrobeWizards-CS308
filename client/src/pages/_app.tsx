@@ -12,9 +12,11 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <StoreProvider>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <AuthProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </AuthProvider>
     </StoreProvider>
   );
 }
