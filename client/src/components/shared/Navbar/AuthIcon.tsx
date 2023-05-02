@@ -1,6 +1,6 @@
 import ProfileIcon from './ProfileIcon';
 import Link from 'next/link';
-import { useAuth } from '../../context/Auth';
+import { useAuth } from '../../../context/Auth';
 
 const AuthIcon = () => {
     const { token } = useAuth();

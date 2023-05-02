@@ -4,7 +4,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline'
 import ProfileIcon from './ProfileIcon';
 import SearchBar from './SearchBar';
 import Link from 'next/link';
-import { handleSearchSubmit } from '../../scripts/search'
+import { handleSearchSubmit } from '../../../scripts/search'
 
 const navigation = {
     categories: [
