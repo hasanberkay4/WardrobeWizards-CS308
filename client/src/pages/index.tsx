@@ -14,6 +14,18 @@ export default function Home({ categoryPreviewList }: CategoryPreviewList) {
 
 export const getStaticProps: GetStaticProps<CategoryPreviewList> = async (context) => {
 
+
+    await fetch('http://localhost:5001/images/', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then((response) => {
+        console.log(response);
+        return response.json();
+
+    })
+
     const categoryPreviewList = [
         {
             name: 'Trending fire',
