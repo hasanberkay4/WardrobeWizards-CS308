@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from "express"
 import Product from "../models/product"
 import Category from '../models/category';
+import Delivery, { IDelivery } from "../models/order";
+import { sendInvoiceEmail } from "../middleware/pdfGenerator";
 
 const getProducts = async (req: Request, res: Response) => {
   try {
@@ -64,6 +66,38 @@ const searchProducts = async (req: Request, res: Response) => {
   res.json(searchResult);
 };
 
+const getDelivery = async (req: Request, res: Response) => {
+  const delivery: IDelivery = req.body.delivery;
+
+  console.log(req.body);
+
+  const itemsOutOfStock = [];
+
+  for (const product of delivery.products) {
+    const dbProduct = await Product.findById(product.productId);
+    if (!dbProduct || dbProduct.stock_quantity < product.quantity) {
+      itemsOutOfStock.push(product.name);
+    }
+  }
+
+  if (itemsOutOfStock.length === 0) {
+    const delivery = await Delivery.create(req.body.delivery);
+
+    for (const product of delivery.products) {
+      await Product.updateOne(
+        { _id: product.productId },
+        { $inc: { stock_quantity: -product.quantity } }
+      );
+    }
+
+    sendInvoiceEmail(delivery);
+    res.status(200).send('Purchase can proceed.');
+  }
+  else{
+    const itemNamesOutOfStock = itemsOutOfStock.join(', ');
+    res.status(300).send(`The following products are not available: ${itemNamesOutOfStock}`);
+  }
+};
 
 const updateProductInDatabase = async (productId: string, newAverageRating: number, newVoters: number) => {
   await Product.findByIdAndUpdate(productId, {
@@ -89,4 +123,4 @@ const updateProductRating = async (req: Request, res: Response) => {
 };
 
 // DEPRECATED????? export default { getProducts, getProductsByCategory, getProductsById, getCategorySpecificProducts, searchProducts}
-export default { getProducts, getProductsById, getCategorySpecificProducts, searchProducts, updateProductRating }
+export default { getProducts, getProductsById, getCategorySpecificProducts, searchProducts, updateProductRating, getDelivery}

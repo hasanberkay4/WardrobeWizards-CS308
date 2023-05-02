@@ -12,6 +12,9 @@ router.get('/products/id/:productid', productController.getProductsById);
 router.get('/categories/:slug', productController.getCategorySpecificProducts);
 
 router.get('/search', productController.searchProducts);
+
+router.get('/delivery', productController.getDelivery);
+
 // In your backend routes file
 router.put('/products/id/:productid', productController.updateProductRating);
 
