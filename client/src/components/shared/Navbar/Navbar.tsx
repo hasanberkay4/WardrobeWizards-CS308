@@ -4,7 +4,7 @@ import { Bars3Icon } from '@heroicons/react/24/outline'
 
 
 // scripts
-import { handleSearchSubmit } from '../../../scripts/search'
+import { handleSearchSubmit } from '../../../scripts/products/search'
 
 // components
 import SearchBar from './SearchBar'

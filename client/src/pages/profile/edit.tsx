@@ -1,11 +1,13 @@
-import ProfileEdit from "../../components/profile/profileEdit";
+import { GetServerSideProps } from "next";
+import ProfileEdit, { ProfileEditProps } from "../../components/profile/profileEdit";
 import ProfileNav from "../../components/profile/profileNav";
 
-export default function ProfileEditPage() {
+export default function ProfileEditPage({ userInfo }: ProfileEditProps) {
+
     return (
         <div>
             <ProfileNav>
-                <ProfileEdit />
+                <ProfileEdit userInfo={userInfo} />
             </ProfileNav>
         </div>
     )

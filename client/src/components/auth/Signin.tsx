@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../../context/Auth";
+import { signInSchema } from "../../scripts/auth/validateSignIn";
 
 export default function Signin() {
 
