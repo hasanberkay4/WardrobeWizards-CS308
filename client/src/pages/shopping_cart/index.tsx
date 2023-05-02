@@ -23,9 +23,6 @@ function CartScreen() {
     dispatch({ type: ActionKind.CART_ADD_ITEM, payload: { ...item, quantity } });
   };
   const subtotal = cartItems.reduce((a, c) => a + c.quantity * c.price, 0);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-
-
 
 
   return (
@@ -33,13 +30,13 @@ function CartScreen() {
     <>
       <h1 className="mb-4 text-xl text-center mt-8">Shopping Cart</h1>
       {cartItems.length === 0 ? (
-          <div className="flex justify-center">
-            <Link href="/">
-              <div className="max-w-2xl p-8 bg-white shadow-lg rounded-lg cursor-pointer hover:bg-gray-100 transition-colors duration-300">
-                Cart is empty. Go shopping
-              </div>
-            </Link>
-          </div>
+        <div className="flex justify-center">
+          <Link href="/">
+            <div className="max-w-2xl p-8 bg-white shadow-lg rounded-lg cursor-pointer hover:bg-gray-100 transition-colors duration-300">
+              Cart is empty. Go shopping
+            </div>
+          </Link>
+        </div>
       ) : (
         <div className="grid md:grid-cols-4 md:gap-5">
           <div className="overflow-x-auto md:col-span-3">
@@ -99,22 +96,15 @@ function CartScreen() {
           <div className="card p-5">
             <ul>
               <li>
-            {isLoggedIn ? (
-          <button
-            onClick={() => router.push(`/checkout?subtotal=${subtotal}`)}
-            className="primary-button w-full"
-          >
-            Check Out
-          </button>
-        ) : (
-          <button
-            onClick={() => router.push("/profile/login")}
-            className="primary-button w-full"
-          >
-            Check Out
-          </button>
-        )}
-      </li>
+                {(
+                  <button
+                    onClick={() => router.push(`/checkout?subtotal=${subtotal}`)}
+                    className="primary-button w-full"
+                  >
+                    Check Out
+                  </button>
+                )}
+              </li>
             </ul>
           </div>
         </div>

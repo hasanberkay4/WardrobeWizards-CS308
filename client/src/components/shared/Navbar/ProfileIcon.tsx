@@ -10,7 +10,7 @@ const ProfileIcon = () => {
     // Check if user is authenticated on mount
     useEffect(() => {
         const authToken = localStorage.getItem('token');
-        setIsLoggedIn(!!authToken);
+        setIsLoggedIn(!authToken);
     }, []);
 
     const handleLogout = () => {

@@ -8,6 +8,7 @@ const AuthIcon = () => {
     return (
         token ? (
             <ProfileIcon />
+
         ) : (
             <div className="ml-auto flex items-center">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
@@ -25,3 +26,7 @@ const AuthIcon = () => {
 };
 
 export default AuthIcon;
+
+{/*
+    
+     />*/}

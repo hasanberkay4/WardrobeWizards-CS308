@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
-import { useState } from 'react'
-import { Bars3Icon } from '@heroicons/react/24/outline'
+import { useContext, useState } from 'react'
+import { Bars3Icon, ShoppingBagIcon } from '@heroicons/react/24/outline'
 
 
 // scripts
@@ -9,10 +9,13 @@ import { handleSearchSubmit } from '../../../scripts/products/search'
 // components
 import SearchBar from './SearchBar'
 import AuthIcon from './AuthIcon'
-import CartIcon from './CartIcon'
+// import CartIcon from './CartIcon'
 import MobileMenu from './MobileMenu'
 import Logo from './Logo'
 import Flyout from './Flyout'
+import { Store } from '../../../context/Store'
+import { CartItem } from '../../../types/shoppingCart'
+import Link from 'next/link'
 
 const navigation = {
   categories: [
@@ -137,14 +140,22 @@ const navigation = {
 export default function NavBar() {
   const [open, setOpen] = useState(false)
 
+  const {
+    state: { cart },
+  } = useContext(Store);
+
+  const cartItemsCount = cart.cartItems.reduce(
+    (count: number, item: CartItem) => count + item.quantity,
+    0
+  );
+
   return (
     <div className="bg-white">
       {/* Mobile menu */}
-      <MobileMenu />
+      {<MobileMenu />}
 
       {/* Normal Menu */}
       <header className="relative z-10 bg-white">
-
         <nav aria-label="Top" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="border-b border-gray-200">
             <div className="flex h-16 items-center">
@@ -162,24 +173,44 @@ export default function NavBar() {
               {/* Logo */}
               <Logo />
 
-              {/* Flyout menus */}
+              { /* Flyout menus */}
               <Flyout categories={navigation.categories} />
 
 
-              { /* search bar */}
+              { /* search bar 
               <SearchBar onSubmit={handleSearchSubmit} />
+              */}
 
+              <AuthIcon />
+
+              {/*
               <div className="ml-auto flex items-center">
 
-                {/* if not auth -> sigin/signup 
-                if auth -> profile icon */}
-                <AuthIcon />
+                {/* if not auth -> sigin/signup if auth -> profile icon }
 
 
-                {/* Cart */}
-                <CartIcon />
+                {/* Cart SORUN BURDA }
+                <div className="ml-4 flow-root lg:ml-6">
+                  <Link href="/shopping_cart">
+
+                    <ShoppingBagIcon
+                      className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                      aria-hidden="true"
+                    />
+
+                    {cartItemsCount > 0 && (
+                      <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
+                        {cartItemsCount}
+                      </span>
+                    )}
+                    <span className="sr-only">items in cart, view bag</span>
+
+                  </Link>
+                </div>
 
               </div>
+                      */}
+
             </div>
           </div>
         </nav>

@@ -40,7 +40,7 @@ const ProfileNav = ({ children }: LayoutProps) => {
                     { /* Add Props.tabs */}
                     {Tabs.map((tab) => {
                         return (
-                            <Link key={tab.name} href={tab.link}> {tab.name} </Link>
+                            <Link href={tab.link}> {tab.name} </Link>
                         )
                     })}
                 </nav>
