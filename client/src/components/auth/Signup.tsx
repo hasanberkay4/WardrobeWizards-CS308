@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { useState } from "react";
+import { signUpSchema } from "../../scripts/auth/validateSignUp";
+
 
 export default function Signup() {
 

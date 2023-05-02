@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 /* eslint-disable @next/next/no-img-element */
 const heading = "Heading"
 const subHeading = "SubHeading"
@@ -84,12 +86,12 @@ export default function LandingView() {
                                 </div>
                             </div>
 
-                            <a
+                            <Link
                                 href="/products"
                                 className="inline-block rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-center font-medium text-white hover:bg-indigo-700"
                             >
                                 Shop Collection
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </div>
