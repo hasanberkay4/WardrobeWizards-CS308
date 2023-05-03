@@ -15,19 +15,6 @@ const getProducts = async (req: Request, res: Response) => {
   }
 };
 
-/* DEPRECATED ??????
-const getProductsByCategory = async (req: Request, res: Response) => {
-  const category = req.params.category;
-
-  try {
-    const products = await Product.find({ category });
-    res.json(products);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ status: 'Server error' });
-  }
-};
-*/
 
 const getProductsById = async (req: Request, res: Response) => {
   const productid = req.params.productid;
@@ -69,8 +56,6 @@ const searchProducts = async (req: Request, res: Response) => {
 const getDelivery = async (req: Request, res: Response) => {
   const delivery: IDelivery = req.body.delivery;
 
-  console.log(req.body);
-
   const itemsOutOfStock = [];
 
   for (const product of delivery.products) {
@@ -93,10 +78,20 @@ const getDelivery = async (req: Request, res: Response) => {
     sendInvoiceEmail(delivery);
     res.status(200).send('Purchase can proceed.');
   }
-  else{
+  else {
     const itemNamesOutOfStock = itemsOutOfStock.join(', ');
     res.status(300).send(`The following products are not available: ${itemNamesOutOfStock}`);
   }
+};
+
+const getDeliveryInvoice = async (req: Request, res: Response) => {
+  const delivery = await Delivery.findById(req.params.id);
+  if (!delivery || !delivery.pdf || !delivery.pdf.data) {
+    res.status(404).send('Invoice not found');
+    return;
+  }
+  res.set('Content-Type', 'application/pdf');
+  res.send(delivery.pdf.data);
 };
 
 const updateProductInDatabase = async (productId: string, newAverageRating: number, newVoters: number) => {
@@ -122,5 +117,21 @@ const updateProductRating = async (req: Request, res: Response) => {
   }
 };
 
+export default { getProducts, getProductsById, getCategorySpecificProducts, searchProducts, updateProductRating, getDelivery, getDeliveryInvoice }
+
+
+
 // DEPRECATED????? export default { getProducts, getProductsByCategory, getProductsById, getCategorySpecificProducts, searchProducts}
-export default { getProducts, getProductsById, getCategorySpecificProducts, searchProducts, updateProductRating, getDelivery}
+/* DEPRECATED ??????
+const getProductsByCategory = async (req: Request, res: Response) => {
+  const category = req.params.category;
+
+  try {
+    const products = await Product.find({ category });
+    res.json(products);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ status: 'Server error' });
+  }
+};
+*/

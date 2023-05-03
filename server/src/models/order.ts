@@ -16,14 +16,17 @@ export interface IDelivery {
     description: string;
     quantity: number;
   }[];
-  pdfUrl: string
+  pdf: {
+    data: Buffer;
+    contentType: string;
+  } | undefined;
 }
 
 const deliverySchema = new Schema<IDelivery>({
   customerId: { type: Types.ObjectId, required: true, ref: 'Customer' },
   quantity: { type: Number, required: true },
   totalPrice: { type: Number, required: true },
-  deliveryAddress: { type: String, required: true },
+  deliveryAddress: { type: String, required: false, default: '' },
   status: { type: String, required: true },
   date: { type: Date, required: true },
   products: [
@@ -31,11 +34,14 @@ const deliverySchema = new Schema<IDelivery>({
       productId: { type: Types.ObjectId, required: true, ref: 'Product' },
       name: { type: String, required: true },
       price: { type: Number, required: true },
-      description: {type: String, required: true},
-      quantity: {type: Number, required: true},
+      description: { type: String, required: true },
+      quantity: { type: Number, required: true },
     },
   ],
-  pdfUrl: { type: String, required: false}
+  pdf: {
+    data: Buffer,
+    contentType: String
+  }
 });
 
 export default model<IDelivery>('Delivery', deliverySchema);

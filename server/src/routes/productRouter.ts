@@ -18,6 +18,9 @@ productRouter.get('/search', productController.searchProducts);
 // handle delivery request
 productRouter.post('/delivery', productController.getDelivery);
 
+// show delivery specific invoice
+productRouter.get('/delivery/invoice/:id', productController.getDeliveryInvoice);
+
 // handle ratings
 productRouter.put('/id/:productid', productController.updateProductRating);
 
