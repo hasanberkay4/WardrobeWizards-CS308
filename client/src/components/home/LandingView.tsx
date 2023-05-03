@@ -1,9 +1,10 @@
+import Image from "next/image"
 import Link from "next/link"
 
 /* eslint-disable @next/next/no-img-element */
-const heading = "Heading"
-const subHeading = "SubHeading"
-const buttonText = "ButtonText"
+const heading = "Wardrobe Wizard 🪄"
+const subHeading = "Your personal stylist 🧚🏼‍♂️"
+const buttonText = "Chekout our products"
 
 export default function LandingView() {
     return (
@@ -29,56 +30,70 @@ export default function LandingView() {
                                     <div className="flex items-center space-x-6 lg:space-x-8">
                                         <div className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
                                             <div className="h-64 w-44 overflow-hidden rounded-lg sm:opacity-0 lg:opacity-100">
-                                                <img
-                                                    src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-01.jpg"
-                                                    alt=""
+                                                <Image
+                                                    src="/landing-page/lp1.jpg"
+                                                    alt="/landing-page/lp1.jpg"
                                                     className="h-full w-full object-cover object-center"
+                                                    width={200}
+                                                    height={200}
                                                 />
                                             </div>
                                             <div className="h-64 w-44 overflow-hidden rounded-lg">
-                                                <img
-                                                    src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-02.jpg"
-                                                    alt=""
+                                                <Image
+                                                    src="/landing-page/lp2.jpg"
+                                                    alt="/landing-page/lp2.jpg"
                                                     className="h-full w-full object-cover object-center"
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
-                                            <div className="h-64 w-44 overflow-hidden rounded-lg">
-                                                <img
-                                                    src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-03.jpg"
-                                                    alt=""
-                                                    className="h-full w-full object-cover object-center"
-                                                />
-                                            </div>
-                                            <div className="h-64 w-44 overflow-hidden rounded-lg">
-                                                <img
-                                                    src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-04.jpg"
-                                                    alt=""
-                                                    className="h-full w-full object-cover object-center"
-                                                />
-                                            </div>
-                                            <div className="h-64 w-44 overflow-hidden rounded-lg">
-                                                <img
-                                                    src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-05.jpg"
-                                                    alt=""
-                                                    className="h-full w-full object-cover object-center"
+                                                    width={200}
+                                                    height={200}
                                                 />
                                             </div>
                                         </div>
                                         <div className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
                                             <div className="h-64 w-44 overflow-hidden rounded-lg">
-                                                <img
-                                                    src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-06.jpg"
-                                                    alt=""
+                                                <Image
+                                                    src="/landing-page/lp3.jpg"
+                                                    alt="/landing-page/lp3.jpg"
                                                     className="h-full w-full object-cover object-center"
+                                                    width={200}
+                                                    height={200}
                                                 />
                                             </div>
                                             <div className="h-64 w-44 overflow-hidden rounded-lg">
-                                                <img
-                                                    src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-07.jpg"
-                                                    alt=""
+                                                <Image
+                                                    src="/landing-page/lp4.jpg"
+                                                    alt="/landing-page/lp4.jpg"
                                                     className="h-full w-full object-cover object-center"
+                                                    width={200}
+                                                    height={200}
+                                                />
+                                            </div>
+                                            <div className="h-64 w-44 overflow-hidden rounded-lg">
+                                                <Image
+                                                    src="/landing-page/lp5.jpg"
+                                                    alt="/landing-page/lp5.jpg"
+                                                    className="h-full w-full object-cover object-center"
+                                                    width={200}
+                                                    height={200}
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
+                                            <div className="h-64 w-44 overflow-hidden rounded-lg">
+                                                <Image
+                                                    src="/landing-page/lp6.jpg"
+                                                    alt="/landing-page/lp6.jpg"
+                                                    className="h-full w-full object-cover object-center"
+                                                    width={200}
+                                                    height={200}
+                                                />
+                                            </div>
+                                            <div className="h-64 w-44 overflow-hidden rounded-lg">
+                                                <Image
+                                                    src="/landing-page/lp7.jpg"
+                                                    alt="/landing-page/lp7.jpg"
+                                                    className="h-full w-full object-cover object-center"
+                                                    width={200}
+                                                    height={200}
                                                 />
                                             </div>
                                         </div>
@@ -90,7 +105,7 @@ export default function LandingView() {
                                 href="/products"
                                 className="inline-block rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-center font-medium text-white hover:bg-indigo-700"
                             >
-                                Shop Collection
+                                {buttonText}
                             </Link>
                         </div>
                     </div>

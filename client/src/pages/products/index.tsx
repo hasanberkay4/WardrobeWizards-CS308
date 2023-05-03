@@ -2,7 +2,6 @@
 import { GetServerSideProps } from 'next';
 import axios, { AxiosResponse } from 'axios';
 import ProductListView from '../../components/productList/ProductList';
-import ProductListItemView from '../../components/productList/ProductListItem';
 import Pagination from '../../components/productList/Pagination';
 import { Product } from '../../types/productType';
 
@@ -13,14 +12,8 @@ type ProductListProps = {
 export default function ProductsListPage({ productList }: ProductListProps) {
     return (
         <>
-
-            <ProductListView>
-                {/* create a for loop that takes each product from productList and renders a ProductListItemView */}
-                {productList.map((product) => (
-                    <ProductListItemView product={product} />
-                ))}
-                <Pagination />
-            </ProductListView>
+            <ProductListView products={productList} />
+            <Pagination />
         </>
     )
 }

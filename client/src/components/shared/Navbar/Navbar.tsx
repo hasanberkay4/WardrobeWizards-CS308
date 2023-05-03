@@ -177,19 +177,17 @@ export default function NavBar() {
               <Flyout categories={navigation.categories} />
 
 
-              { /* search bar 
+              { /* search bar  */}
               <SearchBar onSubmit={handleSearchSubmit} />
-              */}
+
 
               <AuthIcon />
 
-              {/*
+
               <div className="ml-auto flex items-center">
 
-                {/* if not auth -> sigin/signup if auth -> profile icon }
 
-
-                {/* Cart SORUN BURDA }
+                {/* Cart SORUN BURDA */}
                 <div className="ml-4 flow-root lg:ml-6">
                   <Link href="/shopping_cart">
 
@@ -209,7 +207,6 @@ export default function NavBar() {
                 </div>
 
               </div>
-                      */}
 
             </div>
           </div>
