@@ -30,6 +30,7 @@ export default function ProductView({ product }: Props) {
         price: product.initial_price,
         image: product.image,
         countInStock: product.stock_quantity,
+        description: product.description,
         quantity: 1
     }
 

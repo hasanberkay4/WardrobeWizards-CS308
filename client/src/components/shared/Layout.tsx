@@ -13,7 +13,7 @@ const Layout = ({ children }: LayoutProps) => {
       <Head>
         <title>Wardrop Wizards</title>
       </Head>
-      <NavBar />
+      {/* <NavBar /> */}
       {children}
       <Footer />
     </>

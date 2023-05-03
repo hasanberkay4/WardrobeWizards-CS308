@@ -5,6 +5,7 @@ import { SortingMenu } from './SortIcon'
 import { FilterMenu } from './FilterMenu'
 import { Product } from '../../types/productType'
 import { ProductListItemView } from './ProductListItem'
+import Pagination from './Pagination'
 
 
 const subCategories = [
@@ -31,7 +32,7 @@ const filters = [
 ]
 
 type ProductListProps = {
-    products: Array<Product>; // Assuming you have a Product type
+    products: Array<Product>;
 };
 
 // type guard
@@ -47,6 +48,10 @@ export default function ProductListView({ products }: ProductListProps) {
     const [filteredProducts, setFilteredProducts] = useState(products);
     const [selectedSortOption, setSelectedSortOption] = useState('');
     const [activeFilters, setActiveFilters] = useState<{ [sectionId: string]: Set<string> }>({});
+
+    // Pagination state
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 4;
 
     const applyFiltersAndSort = (sortOption: string) => {
         let updatedFilteredProducts = products.filter((product) => {
@@ -108,6 +113,21 @@ export default function ProductListView({ products }: ProductListProps) {
         applyFiltersAndSort(selectedSortOption);
     };
 
+    // Pagination logic
+    const handlePageChange = (newPage: number) => {
+        setCurrentPage(newPage);
+    };
+
+    const renderProducts = () => {
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        const displayedItems = filteredProducts.slice(startIndex, endIndex);
+
+        return displayedItems.map((product) => (
+            <ProductListItemView key={product._id} product={product} />
+        ));
+    };
+
     return (
         <div className="bg-white">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -126,12 +146,17 @@ export default function ProductListView({ products }: ProductListProps) {
                         {/* Product Grid */}
                         <div className="lg:col-span-3">
                             <div className="mt-4 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-                                {filteredProducts.map((product) => (
-                                    <ProductListItemView key={product._id} product={product} />
-                                ))}
+                                {renderProducts()}
                             </div>
                         </div>
                     </div>
+                    {/* Pagination */}
+                    <Pagination
+                        totalItems={filteredProducts.length}
+                        itemsPerPage={itemsPerPage}
+                        currentPage={currentPage}
+                        onPageChange={handlePageChange}
+                    />
                 </section>
             </div>
         </div>

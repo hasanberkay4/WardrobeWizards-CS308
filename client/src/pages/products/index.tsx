@@ -2,20 +2,29 @@
 import { GetServerSideProps } from 'next';
 import axios, { AxiosResponse } from 'axios';
 import ProductListView from '../../components/productList/ProductList';
-import Pagination from '../../components/productList/Pagination';
 import { Product } from '../../types/productType';
+import { useEffect, useState } from 'react';
 
 type ProductListProps = {
     productList: Product[]
 }
 
 export default function ProductsListPage({ productList }: ProductListProps) {
+
+    const [clientSideProductList, setClientSideProductList] = useState<Product[]>([]);
+
+    useEffect(() => {
+        setClientSideProductList(productList);
+    }, [productList]);
+
     return (
         <>
-            <ProductListView products={productList} />
-            <Pagination />
+            {clientSideProductList.length > 0 && (
+                <ProductListView key="product-list-view" products={clientSideProductList} />
+            )}
         </>
-    )
+    );
+
 }
 
 export const getServerSideProps: GetServerSideProps<ProductListProps> = async (context) => {

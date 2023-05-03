@@ -19,6 +19,7 @@ export type CartItem = {
   price: number;
   image: string;
   countInStock: number;
+  description: string;
 
   // add any other properties here
 };

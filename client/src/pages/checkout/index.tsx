@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Store } from '../../context/Store';
 import dynamic from 'next/dynamic';
@@ -7,15 +7,13 @@ import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 
 const CheckoutPage = () => {
-
   const router = useRouter();
-  const subtotalParam = router.query.subtotal;
-  const subtotal = parseFloat(
-    Array.isArray(subtotalParam) ? subtotalParam[0] : subtotalParam || '0'
-  );
+  const subtotal = router.query.subtotal;
 
   const { state } = useContext(Store);
   const { cart: { cartItems } } = state;
+  const [paymentAddress, setPaymentAddress] = useState('');
+
   useEffect(() => {
     const authToken = Cookies.get('token');
 
@@ -28,9 +26,16 @@ const CheckoutPage = () => {
     user_id: string;
   }
 
-  const handlePaymentSubmit = async (e: React.FormEvent) => {
+  const handlePaymentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const paymentAddressInput = e.currentTarget.querySelector('input[name="payment_address"]');
 
+    if (!paymentAddressInput) {
+      console.error('Payment address input not found');
+      return;
+    }
+
+    setPaymentAddress((paymentAddressInput as HTMLInputElement).value)
     const authToken = Cookies.get('token');
 
     if (authToken === '' || !authToken) {
@@ -45,7 +50,7 @@ const CheckoutPage = () => {
       productId: item.slug,
       name: item.name,
       price: item.price,
-      description: 'black pants',
+      description: item.description,
       quantity: item.quantity
     }));
 
@@ -55,7 +60,8 @@ const CheckoutPage = () => {
       totalPrice: subtotal,
       status: 'pending',
       date: new Date().toISOString(),
-      products
+      products,
+      address: paymentAddress
     };
 
     try {
@@ -72,10 +78,15 @@ const CheckoutPage = () => {
       console.error(error);
     }
   };
+
   return (
     <div className="leading-loose">
       <div className="flex justify-center  mt-16">
         <form className="w-1/4 m-4 p-10 bg-white rounded shadow-xl" onSubmit={handlePaymentSubmit}>
+          <div className="mt-4">
+            <label className="block text-sm text-gray-600" htmlFor="payment_address">Payment Address</label>
+            <input className="w-full px-2 py-2 text-gray-700 bg-gray-200 rounded" id="payment_address" name="payment_address" type="text" placeholder="Payment Address" aria-label="Payment Address" />
+          </div>
           <h3 className="text-lg font-semibold">Payment Information</h3>
 
           <div className="" >
@@ -90,7 +101,8 @@ const CheckoutPage = () => {
             <label className="hidden block text-sm text-gray-600" htmlFor="cus_email">Card Expiration </label>
             <input className="w-full px-2 py-2 text-gray-700 bg-gray-200 rounded" id="cus_email" name="cus_email" type="date" placeholder="/ /" aria-label="Email" />
           </div>
-          <div className="mt-16">
+
+          <div className="mt-8">
             <button className="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded" type="submit">Complete Payment</button>
           </div>
         </form>
@@ -133,10 +145,6 @@ const CheckoutPage = () => {
     </div>
   );
 };
-
-
-
-
 
 
 const DynamicCheckoutPage = dynamic(() => Promise.resolve(CheckoutPage), {
