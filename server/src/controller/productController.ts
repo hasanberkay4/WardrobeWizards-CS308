@@ -117,7 +117,33 @@ const updateProductRating = async (req: Request, res: Response) => {
   }
 };
 
-export default { getProducts, getProductsById, getCategorySpecificProducts, searchProducts, updateProductRating, getDelivery, getDeliveryInvoice }
+const getAllDeliveries = async (req: Request, res: Response) => {
+  try {
+    const deliveries = await Delivery.find();
+    res.json(deliveries);
+    //res.status(200).json({status: "Successfully fetched products"})
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ status: "Server error" });
+  }
+
+}
+
+
+const getDeliveriesByUserId = async (req: Request, res: Response) => {
+  try {
+    const user_id = req.params.user_id;
+    const deliveries = await Delivery.find({ customerId: user_id });
+    res.json(deliveries);
+    //res.status(200).json({status: "Successfully fetched products"})
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ status: "Server error" });
+  }
+
+}
+
+export default { getProducts, getProductsById, getCategorySpecificProducts, searchProducts, updateProductRating, getDelivery, getDeliveryInvoice, getAllDeliveries, getDeliveriesByUserId }
 
 
 

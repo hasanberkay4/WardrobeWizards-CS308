@@ -8,6 +8,7 @@ const signUpController = async (req: Request, res: Response) => {
 
     // Get user input
     const name = req.body.name as string;
+    const surname = req.body.surname as string;
     const email = req.body.email as string;
     const password = req.body.password as string;
 
@@ -24,7 +25,8 @@ const signUpController = async (req: Request, res: Response) => {
     const newUser = new User({
       email: email,
       password: hashedPassword,
-      name: name
+      name: name,
+      surname: surname,
     });
 
     // save user to database

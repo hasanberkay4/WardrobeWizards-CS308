@@ -21,6 +21,12 @@ productRouter.post('/delivery', productController.getDelivery);
 // show delivery specific invoice
 productRouter.get('/delivery/invoice/:id', productController.getDeliveryInvoice);
 
+// get all delivieries
+productRouter.get('/delivery', productController.getAllDeliveries);
+
+// get all delivieries by user id
+productRouter.get('/delivery/:user_id', productController.getDeliveriesByUserId);
+
 // handle ratings
 productRouter.put('/id/:productid', productController.updateProductRating);
 
