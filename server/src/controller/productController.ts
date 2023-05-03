@@ -85,6 +85,7 @@ const getDelivery = async (req: Request, res: Response) => {
 };
 
 const getDeliveryInvoice = async (req: Request, res: Response) => {
+
   const delivery = await Delivery.findById(req.params.id);
   if (!delivery || !delivery.pdf || !delivery.pdf.data) {
     res.status(404).send('Invoice not found');
