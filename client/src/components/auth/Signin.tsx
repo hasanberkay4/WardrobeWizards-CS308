@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useAuth } from "../../context/Auth";
 import { signInSchema } from "../../scripts/auth/validateSignIn";
 import Link from "next/link";
+import router from "next/router";
+import { ZodError } from "zod";
 
 export default function Signin() {
 
@@ -26,26 +28,43 @@ export default function Signin() {
 
     const handleSubmit = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
-        // handle form submission logic
-        const userInfo = {
+        // validate form data
+        const formData = {
             email: email,
             password: password,
+        };
+        try {
+            signInSchema.parse(formData);
+        } catch (error) {
+            alert((error as ZodError).errors[0].message)
+            return;
         }
-        console.log("userInfo:", userInfo);
 
+        // handle form submission logic
         const response = await fetch('http://localhost:5001/auth/signIn', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(userInfo),
+            body: JSON.stringify(formData),
         });
 
         const data = await response.json();
 
-        setAuthCookie(data.token);
+        // handle error
+        if (data.error) {
+            console.log("error:", data.error);
+            return;
+        }
 
+        // set auth cookie
+        setAuthCookie(data.token);
         console.log("console:", data);
+
+        // show success message
+        alert(data.message);
+        // redirect to home page
+        router.push('/');
     };
 
     return (

@@ -8,6 +8,7 @@ const signInSchema = zod.object({
 
 const signUpSchema = zod.object({
   name: zod.string(),
+  surname: zod.string(),
   email: zod.string().email(),
   password: zod.string().min(8)
 })

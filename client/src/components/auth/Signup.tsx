@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import { signUpSchema } from "../../scripts/auth/validateSignUp";
+import router from "next/router";
+import { ZodError } from "zod";
 
 
 export default function Signup() {
@@ -26,7 +28,7 @@ export default function Signup() {
             case 'password':
                 setPassword(value);
                 break;
-            case 'confirmPassword':
+            case 'confirm-password':
                 setConfirmPassword(value);
                 break;
             default:
@@ -36,9 +38,26 @@ export default function Signup() {
 
     const handleSubmit = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
+        // validate form data
+        const formData = {
+            name: name,
+            surname: surname,
+            email: email,
+            password: password,
+            confirmPassword: confirmPassword,
+        };
+        try {
+            signUpSchema.parse(formData);
+        } catch (error) {
+            alert((error as ZodError).errors[0].message)
+            console.log("error:", error);
+            return;
+        }
+
         // handle form submission logic
         const userInfo = {
-            name: name + surname,
+            name: name,
+            surname: surname,
             email: email,
             password: password,
         }
@@ -52,15 +71,20 @@ export default function Signup() {
             body: JSON.stringify(userInfo),
         });
 
-
-
         const data = await response.json();
-        console.log("console:", data);
+
+        if (data.error) {
+            // show error message
+            alert(data.message);
+            return;
+        }
+
+        // show success message
+        alert("You have successfully signed up! Please login to continue.")
+        // redirect to login page
+        router.push('/auth/sign-in');
+
     };
-
-    // TODO: show success / error message
-    // surname: string;
-
 
     return (
         <>
