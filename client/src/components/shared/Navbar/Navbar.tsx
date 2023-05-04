@@ -16,6 +16,8 @@ import Flyout from './Flyout'
 import { Store } from '../../../context/Store'
 import { CartItem } from '../../../types/shoppingCart'
 import Link from 'next/link'
+import { useStore } from '../../../context/Store'
+import Cookies from "js-cookie"
 
 const navigation = {
   categories: [
@@ -140,15 +142,6 @@ const navigation = {
 export default function NavBar() {
   const [open, setOpen] = useState(false)
 
-  const {
-    state: { cart },
-  } = useContext(Store);
-
-  const cartItemsCount = cart.cartItems.reduce(
-    (count: number, item: CartItem) => count + item.quantity,
-    0
-  );
-
   return (
     <div className="bg-white">
       {/* Mobile menu */}
@@ -166,7 +159,7 @@ export default function NavBar() {
                 className="rounded-md bg-white p-2 text-gray-400 lg:hidden"
                 onClick={() => setOpen(true)}
               >
-                <span className="sr-only">Open menu</span>
+                <span >Open menu</span>
                 <Bars3Icon className="h-6 w-6" aria-hidden="true" />
               </button>
 
@@ -187,7 +180,8 @@ export default function NavBar() {
               <div className="ml-auto flex items-center">
 
 
-                {/* Cart SORUN BURDA */}
+                {/* Cart SORUN BURDA 
+                */}
                 <div className="ml-4 flow-root lg:ml-6">
                   <Link href="/shopping_cart">
 
@@ -196,9 +190,9 @@ export default function NavBar() {
                       aria-hidden="true"
                     />
 
-                    {cartItemsCount > 0 && (
+                    {(
                       <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
-                        {cartItemsCount}
+                        { }
                       </span>
                     )}
                     <span className="sr-only">items in cart, view bag</span>

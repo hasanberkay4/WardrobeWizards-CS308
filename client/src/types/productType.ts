@@ -3,14 +3,15 @@ export type Product = {
     name: string;
     description: string;
     model: string;
+    color: string
     number: number;
     stock_quantity: number;
     initial_price: number;
     category: string;
     image: string;
     populariy: number;
-    rating:number;
-    number_of_voters:number;
+    rating: number;
+    number_of_voters: number;
 };
 
 

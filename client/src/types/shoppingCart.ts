@@ -26,6 +26,7 @@ export type CartItem = {
 
 export type Cart = {
   cartItems: CartItem[];
+  number_of_items: number;
   // add any other properties here
 };
 

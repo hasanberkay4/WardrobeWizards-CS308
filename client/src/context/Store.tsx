@@ -1,4 +1,4 @@
-import { createContext, useReducer, Dispatch } from 'react';
+import { createContext, useReducer, Dispatch, useContext } from 'react';
 import { ActionKind, Action, CartItem, Cart } from "../types/shoppingCart"
 import Cookies from "js-cookie"
 
@@ -61,5 +61,7 @@ export function StoreProvider({ children }: StoreProviderProps) {
   const value = { state, dispatch };
   return <Store.Provider value={value}>{children}</Store.Provider>;;
 }
+
+export const useStore = () => useContext(Store);
 
 

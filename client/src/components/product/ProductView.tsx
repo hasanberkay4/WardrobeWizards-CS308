@@ -46,6 +46,7 @@ export default function ProductView({ product }: Props) {
         }
 
         dispatch({ type: ActionKind.CART_ADD_ITEM, payload: { ...itemFromProduct, quantity } });
+        alert('Product added to cart')
     };
 
     const updateCartHandler = (item: CartItem, qty: string) => {
@@ -80,6 +81,27 @@ export default function ProductView({ product }: Props) {
                                     <p className="text-base text-gray-900 mb-6">{product.description}</p>
                                 </div>
                             </div>
+                            <div>
+                                <h3 className="sr-only">Description</h3>
+
+                                <div className="space-y-6">
+                                    <p className="text-base text-gray-900 mb-6"><span className="font-bold">Model:</span> {product.model}</p>
+                                    <p className="text-base text-gray-900 mb-6"><span className="font-bold">Color:</span> {product.color}</p>
+
+
+                                </div>
+                            </div>
+                            <div className="space-y-6">
+                                {product.stock_quantity > 5 && (
+                                    <p className="text-base text-gray-900 mb-6">In Stock</p>
+                                )}
+                                {product.stock_quantity > 0 && product.stock_quantity <= 5 && (
+                                    <p className="text-base text-red-500 mb-6">Critical Stock {product.stock_quantity}</p>
+                                )}
+                                {product.stock_quantity === 0 && (
+                                    <p className="text-base font-bold text-black mb-6">Out of Stock</p>
+                                )}
+                            </div>
                         </div>
 
                         {/* Options */}
@@ -92,7 +114,8 @@ export default function ProductView({ product }: Props) {
                                 <button
                                     onClick={addToCartHandler}
                                     type="button"
-                                    className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                    disabled={product.stock_quantity === 0}
+                                    className={`mt-10 flex w-full items-center justify-center rounded-md border border-transparent px-8 py-3 text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${product.stock_quantity === 0 ? 'bg-gray-500 opacity-50 line-through cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700'}`}
                                 >
                                     Add to bag
                                 </button>
