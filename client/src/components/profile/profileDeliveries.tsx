@@ -17,6 +17,8 @@ const options = {
     second: "numeric",
 };
 
+let color: string;
+
 const ProfileDeliveries = ({ deliveries }: DeliveryProps) => {
     return (
         <div className="parent-container">
@@ -38,31 +40,35 @@ const ProfileDeliveries = ({ deliveries }: DeliveryProps) => {
                                 <div className="flex items-center" key={product.productId}>
                                     <a
                                         href={`http://localhost:3000/products/id/${product.productId}`}
-                                        className="hover:font-bold mt-2 text-gray-800 dark:text-gray-400 italic"
+                                        className="hover:font-bold mt-2 text-gray-800 dark:text-gray-400"
                                     >
                                         {"-" + product.name + "(" + product.quantity + ")"}
                                     </a>
+                                    {
+                                        delivery.status == "delivered" ? (
 
-                                    <a
-                                        className="inline-flex items-center gap-2 mt-3 text-sm font-medium text-blue-500 hover:text-blue-700"
-                                        onClick={() =>
-                                            window.open(
-                                                `http://localhost:3000/profile/rating/${product.productId}`,
-                                                "popup",
-                                                "width=600,height=600"
-                                            )
-                                        }
-                                    >
-                                        <FaCommentAlt className="w-5 ml-2 h-auto text-orange-300 hover:text-orange-500 transition-colors duration-300" />
-                                    </a>
+                                            <a
+                                                className="inline-flex items-center gap-2 mt-3 text-sm font-medium text-blue-500 hover:text-blue-700"
+
+                                                href={`http://localhost:3000/profile/rating/${product.productId}`}
+                                            >
+                                                <FaCommentAlt className="w-5 ml-2 h-auto text-orange-300 hover:text-orange-500 transition-colors duration-300" />
+                                            </a>
+                                        ) : (<div></div>)
+                                    }
+
+
                                 </div>
-                            );
+                            )
                         })}
                         <div className="item-center flex">
                             <p className="mt-2 font-bold text-green-700 dark:text-green-400">
                                 {"Total Price: " + delivery.totalPrice + " TL"}
                             </p>
-                            <p className="mt-2 ml-7 font-bold text-red-600 dark:text-green-400">
+
+
+
+                            <p className={`mt-2 ml-7 font-bold dark:text-green-400 ${color = delivery.status == "delivered" ? "text-green-600" : ""} ${color = delivery.status == "intransit" ? "text-orange-600" : ""} ${color = delivery.status == "processing" ? "text-red-600" : ""}`}>
                                 {"Status: " + delivery.status}
                             </p>
                         </div>

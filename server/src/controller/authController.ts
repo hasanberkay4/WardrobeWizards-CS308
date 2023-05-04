@@ -67,7 +67,7 @@ const signInController = async (req: Request, res: Response) => {
     );
 
     // return success response and JWT token
-    return res.status(200).json({ message: "Successfully Signed Up", token: token });
+    return res.status(200).json({ message: "Successfully Signed In", token: token });
   }
 
   // if user not found or password not match

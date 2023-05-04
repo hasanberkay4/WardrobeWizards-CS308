@@ -166,8 +166,12 @@ const getDeliveriesByUserId = async (req: Request, res: Response) => {
 const getProductsByCategoryFilter = async (req: Request, res: Response) => {
   try {
     const { category } = req.query;
-    const filteredProducts = await Product.find({ category: category });
-    console.log("category filter:", category)
+    const categoryObj = await Category.findOne({ slug: category });
+    // console.log("category filter:", categoryObj)
+
+    const filteredProducts = await Product.find({ category_ids: categoryObj });
+    // console.log("filtered products:", filteredProducts);
+
     res.json(filteredProducts);
   } catch (error) {
     res.status(404).json({ message: 'Products not found for given filter' });

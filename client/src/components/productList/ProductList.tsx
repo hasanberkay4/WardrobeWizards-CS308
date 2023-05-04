@@ -51,7 +51,7 @@ function ProductListView({ products }: ProductListProps) {
 
     // Pagination state
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 4;
+    const itemsPerPage = 8;
 
     // Filter logic
     const handleFilterChange = async (filterValue: string) => {

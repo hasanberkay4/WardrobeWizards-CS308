@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { Product } from "../../types/productType";
 import Image from "next/image";
 import { useContext } from "react";

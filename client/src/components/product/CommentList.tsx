@@ -14,12 +14,13 @@ const CommentList: React.FC<CommentListProps> = ({ CommentItems }) => {
     <>
       {CommentItems.map((comment, index) => (
         <Comment
+          key={index}
           index={index}
           rating={comment.rating}
           comment={comment.description}
           name={comment.customerId.name}
           surname={comment.customerId.surname}
-          date= {comment.date}
+          date={comment.date}
         />
       ))}
     </>

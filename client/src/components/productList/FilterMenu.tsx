@@ -43,8 +43,10 @@ function FilterMenu({ onFilterChange }: FiltersProps) {
 
     return (
         <form className="hidden lg:block">
-            <h3 className="sr-only">Categories</h3>
-            <ul role="list" className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
+            <h3 className="text-2xl font-bold tracking-tight text-gray-900">Categories</h3>
+            {/* create a divider */}
+            <div className="border-b border-gray-200 py-1" />
+            <ul role="list" className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900 py-4">
                 {categories.map((category: any) => (
                     <li key={category.name}>
                         {/* filter options, you can select one */}

@@ -30,6 +30,23 @@ export const getServerSideProps: GetServerSideProps<ProductProps> = async (conte
     const { req } = context;
     const productId = context.params?.productId ?? '';
 
+    const productResponse = await fetch(`http://localhost:5001/products/id/${productId}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    const commentResponse = await fetch(`http://localhost:5001/comments/productId/${productId}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+
+
+
     // The target API endpoint you want to proxy
     const targetUrl = encodeURIComponent(`http://localhost:5001/products/id/${productId}`);
     const targetUrlComment = encodeURIComponent(`http://localhost:5001/comments/productId/${productId}`);

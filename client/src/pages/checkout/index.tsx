@@ -13,14 +13,28 @@ const CheckoutPage = () => {
   const { state } = useContext(Store);
   const { cart: { cartItems } } = state;
   const [paymentAddress, setPaymentAddress] = useState('');
-
   useEffect(() => {
     const authToken = Cookies.get('token');
+    const cart = Cookies.get('cart') || '{}';
 
     if (authToken === '' || !authToken) {
       router.push('/auth/sign-in');
     }
+
+    let parsedCart;
+    try {
+      parsedCart = JSON.parse(cart);
+    } catch (error) {
+      console.error('Error parsing cart JSON:', error);
+    }
+
+    if (!parsedCart || !parsedCart.cartItems || parsedCart.cartItems.length === 0) {
+      router.push('/');
+    }
+
   }, []);
+
+
 
   interface DecodedToken {
     user_id: string;
@@ -58,7 +72,7 @@ const CheckoutPage = () => {
       customerId: userId,
       quantity: products.reduce((total, product) => total + product.quantity, 0),
       totalPrice: subtotal,
-      status: 'pending',
+      status: 'processing',
       date: new Date().toISOString(),
       products,
       address: paymentAddress
@@ -81,64 +95,36 @@ const CheckoutPage = () => {
 
   return (
     <div className="leading-loose">
-      <div className="flex justify-center  mt-16">
-        <form className="w-1/4 m-4 p-10 bg-white rounded shadow-xl" onSubmit={handlePaymentSubmit}>
+      <h2 className="mb-4 text-xl text-center mt-8">Enter Your Payment Details</h2>
+      <div className="flex justify-center ">
+        <form className="w-1/2 m-4 p-16 bg-white rounded shadow-xl" onSubmit={handlePaymentSubmit}>
           <div className="mt-4">
             <label className="block text-sm text-gray-600" htmlFor="payment_address">Payment Address</label>
-            <input className="w-full px-2 py-2 text-gray-700 bg-gray-200 rounded" id="payment_address" name="payment_address" type="text" placeholder="Payment Address" aria-label="Payment Address" />
+            <input className="w-full px-2 py-2 text-gray-700 bg-gray-200 rounded" id="payment_address" name="payment_address" type="text" placeholder="Payment Address" aria-label="Payment Address" required />
           </div>
           <h3 className="text-lg font-semibold">Payment Information</h3>
 
           <div className="" >
             <label className="block text-sm text-gray-600" htmlFor="cus_name">Card</label>
-            <input className="w-full px-2 py-2 text-gray-700 bg-gray-200 rounded" id="cus_name" name="cus_name" type="text" placeholder="Card Number MM/YY CVC" aria-label="Name" />
+            <input className="w-full px-2 py-2 text-gray-700 bg-gray-200 rounded" id="cus_name" name="cus_name" type="text" placeholder="Card Number MM/YY CVC" aria-label="Name" required />
           </div>
           <div className="inline-block mt-2 w-1/2 pr-1">
             <label className="hidden block text-sm text-gray-600" htmlFor="cus_email">CVV</label>
-            <input className="w-full px-2 py-2 text-gray-700 bg-gray-200 rounded" id="cus_email" name="cus_email" type="text" placeholder="CVC" aria-label="Email" />
+            <input className="w-full px-2 py-2 text-gray-700 bg-gray-200 rounded" id="cus_email" name="cus_email" type="text" placeholder="CVC" aria-label="Email" required />
           </div>
           <div className="inline-block mt-2 -mx-1 pl-1 w-1/2">
             <label className="hidden block text-sm text-gray-600" htmlFor="cus_email">Card Expiration </label>
-            <input className="w-full px-2 py-2 text-gray-700 bg-gray-200 rounded" id="cus_email" name="cus_email" type="date" placeholder="/ /" aria-label="Email" />
+            <input className="w-full px-2 py-2 text-gray-700 bg-gray-200 rounded" id="cus_email" name="cus_email" type="date" placeholder="/ /" aria-label="Email" required />
           </div>
-
-          <div className="mt-8">
-            <button className="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded" type="submit">Complete Payment</button>
-          </div>
-        </form>
-        <div className="w-1/4 m-4 p-10 bg-white rounded shadow-xl">
-          <h3 className="text-lg font-semibold">Item Summary</h3>
+          <div className="border-t border-gray-300 my-4"></div>
           <div>
-
+            <p className="mb-4 pt-10 font-bold">Total: {subtotal} TL</p>
           </div>
-          <ul>
-            {cartItems.map((item) => (
-              <li key={item.slug} className="flex justify-between mt-2 items-center">
-                <div className="flex items-center">
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    width={100} // Increase width
-                    height={100} // Increase height
-                    className="mr-2 mb-4"
-                  />
-                  <span className='ml-16'>{item.name}</span>
-                </div>
-                <span>
-                  <span className="font-bold">{item.quantity} x $</span>
-                  <span className="font-bold">{item.price}</span>
-                </span>
-              </li>
-            ))}
-            <div className="border-t border-gray-300 my-4"></div>
-            <div className="mt-4">
-              <p className="mt-8">
-                <span className="font-bold">Total Price{subtotal}$</span>
-              </p>
-            </div>
+          <div className="mt-8 flex justify-center">
+            <button className="nline-block rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-center font-medium text-white hover:bg-indigo-700" type="submit">Complete Payment</button>
+          </div>
 
-          </ul>
-        </div>
+        </form>
 
       </div>
 
