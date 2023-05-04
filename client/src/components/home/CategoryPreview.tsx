@@ -6,24 +6,21 @@ import Link from "next/link"
 const categoryPreviewList = [
     {
         name: 'Bags ',
-        description: 'Trending 🔥',
         imageSrc: '/landing-page/cat1.jpg',
         imageAlt: '/landing-page/cat1.jpg',
-        href: '/products/bags',
+        href: '/products/bag',
     },
     {
         name: 'Zip Hoodies',
-        description: 'Most Sold ✅',
         imageSrc: '/landing-page/cat2.jpg',
         imageAlt: '/landing-page/cat2.jpg',
-        href: '/products/pant',
+        href: '/products/zip-hoodie',
     },
     {
-        name: 'Creative Tshirts',
-        description: 'On Discount 🤑',
+        name: 'Tshirts',
         imageSrc: '/landing-page/cat3.jpg',
         imageAlt: '/landing-page/cat3.jpg',
-        href: 'products/bags',
+        href: '/products/tshirt',
     },
 ]
 

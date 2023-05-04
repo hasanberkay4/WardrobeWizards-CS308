@@ -3,17 +3,28 @@ import productController from "../controller/productController"
 
 const productRouter = Router();
 
+// --- products ---
+
 // all products
 productRouter.get('/', productController.getProducts)
 
 // product by id
 productRouter.get('/id/:productid', productController.getProductsById);
 
+
+// --- categories ---
+
 // all products by category
 productRouter.get('/categories/:slug', productController.getCategorySpecificProducts);
 
+
+// --- search ---
+
 // search data
 productRouter.get('/search', productController.searchProducts);
+
+
+// --- deliveries ---
 
 // handle delivery request
 productRouter.post('/delivery', productController.getDelivery);
@@ -31,7 +42,7 @@ productRouter.get('/delivery/:user_id', productController.getDeliveriesByUserId)
 productRouter.put('/id/:productid', productController.updateProductRating);
 
 
-// yagiz - filter
+// --- yagiz - filter ---
 
 // get products by category filter with query params
 productRouter.get('/filter', productController.getProductsByCategoryFilter);

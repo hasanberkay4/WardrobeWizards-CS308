@@ -30,6 +30,22 @@ export default function ProductsListPage({ productList }: ProductListProps) {
 export const getServerSideProps: GetServerSideProps<ProductListProps> = async (context) => {
     const { req } = context;
 
+    const result = await fetch('http://localhost:5001/products/', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+    const productList = await result.json();
+
+    productList.map((product: Product) => {
+        const productCategory = product.category;
+        const productName = product.image;
+        product.image = `http://localhost:5001/images/${productName}`
+    });
+
+    // old code
+    /*
     // The target API endpoint you want to proxy
     const targetUrl = encodeURIComponent('http://localhost:5001/products/');
 
@@ -46,6 +62,7 @@ export const getServerSideProps: GetServerSideProps<ProductListProps> = async (c
         const productName = product.image;
         product.image = `http://localhost:5001/images/${productName}`
     })
+    */
 
     return {
         props: {

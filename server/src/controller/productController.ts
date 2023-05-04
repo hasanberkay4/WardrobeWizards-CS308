@@ -30,21 +30,28 @@ const getProductsById = async (req: Request, res: Response) => {
   }
 };
 
-// all products by category
+// all products by category [DOESNT WORK]
 const getCategorySpecificProducts = async (req: Request, res: Response) => {
   const slug = req.params.slug;
+  console.log("slug:", slug);
+
   try {
-    const category = await Category.findOne({ slug });
+    const category = await Category.findOne({ slug: slug });
     if (!category) {
       return res.status(404).send('Category not found');
     }
-    const products = await Category.findProducts(category._id);
+    console.log("category:", category);
+
+    const products = await Product.find({ category_ids: category._id });
+    console.log("products", products);
+
     res.json(products);
   } catch (error) {
     console.error(error);
     res.status(500).json({ status: 'Server error' });
   }
 };
+
 
 // search data
 const searchProducts = async (req: Request, res: Response) => {
