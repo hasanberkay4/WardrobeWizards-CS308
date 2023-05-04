@@ -1,46 +1,79 @@
-import { Disclosure } from '@headlessui/react';
-import { MinusIcon, PlusIcon } from '@heroicons/react/20/solid'
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState, useEffect } from 'react';
 
-type FilterOption = {
-    value: string;
-    label: string;
-    checked: boolean;
-};
 
-type FilterSection = {
-    id: string;
-    name: string;
-    options: FilterOption[];
-};
 
 type FiltersProps = {
-    subCategories: { name: string; href: string }[];
-    filters: FilterSection[];
-    onFilterChange: (sectionId: string, filterValue: string, isChecked: boolean) => void;
+    onFilterChange: (filterValue: string) => void;
 };
 
-function FilterMenu({ subCategories, filters, onFilterChange }: FiltersProps) {
-    const handleFilterChange = (event: ChangeEvent<HTMLInputElement>, sectionId: string) => {
-        const isChecked = event.target.checked;
+
+function FilterMenu({ onFilterChange }: FiltersProps) {
+
+    const [categories, setCategories] = useState([]);
+    const [selectedFilter, setSelectedFilter] = useState("");
+
+    // filter categories will be taken from the server
+    const getCategories = async () => {
+        const categories = await fetch('http://localhost:5001/products/categories', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const categoriesJson = await categories.json();
+        setCategories(categoriesJson);
+    }
+
+    useEffect(() => {
+        getCategories();
+    }, []);
+
+    const handleFilterChange = (event: ChangeEvent<HTMLInputElement>) => {
         const filterValue = event.target.value;
 
+        setSelectedFilter(filterValue);
         // Call the parent's onFilterChange function
-        onFilterChange(sectionId, filterValue, isChecked);
+        onFilterChange(filterValue);
     };
+
+    const clearFilter = () => {
+        setSelectedFilter("");
+        onFilterChange("");
+    }
 
     return (
         <form className="hidden lg:block">
             <h3 className="sr-only">Categories</h3>
             <ul role="list" className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
-                {subCategories.map((category) => (
+                {categories.map((category: any) => (
                     <li key={category.name}>
-                        <a href={category.href}>{category.name}</a>
+                        {/* filter options, you can select one */}
+                        <span className="cursor-pointer flex items-center">
+                            <input
+                                id={`filter-${category.slug}`}
+                                name="category"
+                                defaultValue={category.slug}
+                                type="radio"
+                                className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
+                                onChange={handleFilterChange}
+                                checked={selectedFilter === category.slug}
+                            />
+                            <label htmlFor={`filter-${category.slug}`} className="ml-3"
+                                onDoubleClick={clearFilter}>{category.slug}</label>
+                        </span>
                     </li>
                 ))}
             </ul>
+        </form>
+    );
+}
 
-            {filters.map((section) => (
+export { FilterMenu }
+
+// old
+{/*
+            
+            categoriesJson.map((section) => (
                 <Disclosure as="div" key={section.id} className="border-b border-gray-200 py-6">
                     {({ open }) => (
                         <>
@@ -77,9 +110,8 @@ function FilterMenu({ subCategories, filters, onFilterChange }: FiltersProps) {
                         </>
                     )}
                 </Disclosure>
-            ))}
+            ))}                                    
         </form>
     );
 }
-
-export { FilterMenu }
+*/}

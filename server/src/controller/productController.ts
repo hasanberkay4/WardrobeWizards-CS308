@@ -155,7 +155,7 @@ const getDeliveriesByUserId = async (req: Request, res: Response) => {
 
 // yagiz - filter
 
-// get products by category gilter with query params
+// get products by category filter with query params
 const getProductsByCategoryFilter = async (req: Request, res: Response) => {
   try {
     const { category } = req.query;
@@ -167,6 +167,20 @@ const getProductsByCategoryFilter = async (req: Request, res: Response) => {
   }
 }
 
+// get all categories for filter dropdown
+const getAllCategories = async (req: Request, res: Response) => {
+  try {
+    const categories = await Category.find();
+    res.json(categories);
+
+  } catch (error) {
+    res.status(404).json({ message: 'Categories not found' });
+  }
+}
 
 
-export default { getProducts, getProductsById, getCategorySpecificProducts, searchProducts, updateProductRating, getDelivery, getDeliveryInvoice, getAllDeliveries, getDeliveriesByUserId, getProductsByCategoryFilter }
+
+export default {
+  getProducts, getProductsById, getCategorySpecificProducts, searchProducts, updateProductRating, getDelivery, getDeliveryInvoice, getAllDeliveries, getDeliveriesByUserId,
+  getProductsByCategoryFilter, getAllCategories
+}

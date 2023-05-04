@@ -36,6 +36,9 @@ productRouter.put('/id/:productid', productController.updateProductRating);
 // get products by category filter with query params
 productRouter.get('/filter', productController.getProductsByCategoryFilter);
 
+// get all categories for filter dropdown
+productRouter.get('/categories', productController.getAllCategories);
+
 
 
 export { productRouter }

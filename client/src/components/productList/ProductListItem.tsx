@@ -1,11 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import { Product } from "../../types/productType"
+import Image from 'next/image'
 
 type Props = {
   product: Product
 }
 
 export function ProductListItemView({ product }: Props) {
+
   return (
     <div key={product._id} className="group relative">
       <div className="min-h-80 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
@@ -30,4 +32,3 @@ export function ProductListItemView({ product }: Props) {
     </div>
   );
 }
-
