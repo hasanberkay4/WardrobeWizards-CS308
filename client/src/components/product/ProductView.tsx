@@ -84,16 +84,14 @@ export default function ProductView({ product }: Props) {
                             <div>
                                 <h3 className="sr-only">Description</h3>
 
-                                <div className="space-y-6">
-                                    <p className="text-base text-gray-900 mb-6"><span className="font-bold">Model:</span> {product.model}</p>
-                                    <p className="text-base text-gray-900 mb-6"><span className="font-bold">Color:</span> {product.color}</p>
-
-
+                                <div className="space-y-3">
+                                    <p className="text-base text-gray-900 mb-2"><span className="font-bold">Model:</span> {product.model}</p>
+                                    <p className="text-base text-gray-900 mb-10"><span className="font-bold">Color:</span> {product.color}</p>
                                 </div>
                             </div>
                             <div className="space-y-6">
                                 {product.stock_quantity > 5 && (
-                                    <p className="text-base text-gray-900 mb-6">In Stock</p>
+                                    <p className="text-base text-green-500 mb-6">In Stock</p>
                                 )}
                                 {product.stock_quantity > 0 && product.stock_quantity <= 5 && (
                                     <p className="text-base text-red-500 mb-6">Critical Stock {product.stock_quantity}</p>
@@ -101,6 +99,11 @@ export default function ProductView({ product }: Props) {
                                 {product.stock_quantity === 0 && (
                                     <p className="text-base font-bold text-black mb-6">Out of Stock</p>
                                 )}
+                            </div>
+
+                            <div className="space-y-6">
+
+                                <StarRating rating={product.rating} />
                             </div>
                         </div>
 
