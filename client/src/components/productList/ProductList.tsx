@@ -35,14 +35,6 @@ type ProductListProps = {
     products: Array<Product>;
 };
 
-// type guard
-function isKeyOfProduct(key: string): key is keyof Product {
-    const productKeys: Array<keyof Product> = [
-        '_id', 'name', 'description', 'model', 'number', 'stock_quantity', 'initial_price',
-        'category', 'image', 'populariy', 'rating', 'number_of_voters'
-    ];
-    return productKeys.includes(key as keyof Product);
-}
 
 function ProductListView({ products }: ProductListProps) {
 

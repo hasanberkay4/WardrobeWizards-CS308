@@ -1,7 +1,8 @@
+import { Product } from "../../types/productType";
 
 const handleSearchSubmit = async (searchTerm: string) => {
     try {
-        const response = await fetch(`http://localhost:5001/search/${searchTerm}`, {
+        const response = await fetch(`http://localhost:5001/products/search?q=${searchTerm}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -11,9 +12,19 @@ const handleSearchSubmit = async (searchTerm: string) => {
         if (!response.ok) {
             throw new Error("Error submitting search");
         }
-
         const data = await response.json();
         console.log(data);
+
+        if (data) {
+            data.map((product: Product) => {
+                const productName = product.image;
+                product.image = `http://localhost:5001/images/${productName}`
+            });
+            return (data as Array<Product>);
+        } else {
+            return [];
+        }
+
     } catch (error) {
         console.error("Error:", error);
     }

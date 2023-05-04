@@ -139,6 +139,10 @@ const navigation = {
 
 }
 
+interface SearchBarProps {
+  products: any
+}
+
 export default function NavBar() {
   const [open, setOpen] = useState(false)
 
@@ -171,7 +175,7 @@ export default function NavBar() {
 
 
               { /* search bar  */}
-              <SearchBar onSubmit={handleSearchSubmit} />
+              <SearchBar />
 
 
               <AuthIcon />

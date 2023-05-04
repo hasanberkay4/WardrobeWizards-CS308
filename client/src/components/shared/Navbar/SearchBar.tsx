@@ -1,21 +1,22 @@
 // SearchBar.tsx
-import React, { useState, FormEvent } from "react";
+import React, { useState, FormEvent, Dispatch, SetStateAction } from "react";
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
+import { Product } from "../../../types/productType";
+import { handleSearchSubmit } from "../../../scripts/products/search";
+import router from "next/router";
 
-interface SearchBarProps {
-    onSubmit: (searchTerm: string) => void;
-}
 
-const SearchBar: React.FC<SearchBarProps> = ({ onSubmit }) => {
+const SearchBar = () => {
     const [searchTerm, setSearchTerm] = useState<string>("");
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(event.target.value);
     };
 
-    const handleSubmit = (event: FormEvent) => {
+    const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
-        onSubmit(searchTerm);
+        const searchQuery = encodeURIComponent(searchTerm);
+        router.push(`/products?q=${searchQuery}`);
     };
 
     return (
