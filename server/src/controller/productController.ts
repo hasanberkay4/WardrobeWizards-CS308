@@ -4,6 +4,7 @@ import Category from '../models/category';
 import Delivery, { IDelivery } from "../models/order";
 import { sendInvoiceEmail } from "../middleware/pdfGenerator";
 
+// all products
 const getProducts = async (req: Request, res: Response) => {
   try {
     const products = await Product.find();
@@ -15,7 +16,7 @@ const getProducts = async (req: Request, res: Response) => {
   }
 };
 
-
+// product by id
 const getProductsById = async (req: Request, res: Response) => {
   const productid = req.params.productid;
 
@@ -29,6 +30,7 @@ const getProductsById = async (req: Request, res: Response) => {
   }
 };
 
+// all products by category
 const getCategorySpecificProducts = async (req: Request, res: Response) => {
   const slug = req.params.slug;
   try {
@@ -44,6 +46,7 @@ const getCategorySpecificProducts = async (req: Request, res: Response) => {
   }
 };
 
+// search data
 const searchProducts = async (req: Request, res: Response) => {
   const query = req.query.q as string;
   if (!query) {
@@ -53,6 +56,7 @@ const searchProducts = async (req: Request, res: Response) => {
   res.json(searchResult);
 };
 
+// handle delivery request
 const getDelivery = async (req: Request, res: Response) => {
   const delivery: IDelivery = req.body.delivery;
 
@@ -84,6 +88,7 @@ const getDelivery = async (req: Request, res: Response) => {
   }
 };
 
+// show delivery specific invoice
 const getDeliveryInvoice = async (req: Request, res: Response) => {
 
   const delivery = await Delivery.findById(req.params.id);
@@ -95,6 +100,7 @@ const getDeliveryInvoice = async (req: Request, res: Response) => {
   res.send(delivery.pdf.data);
 };
 
+// handle ratings
 const updateProductInDatabase = async (productId: string, newAverageRating: number, newVoters: number) => {
   await Product.findByIdAndUpdate(productId, {
     rating: newAverageRating,
@@ -102,6 +108,7 @@ const updateProductInDatabase = async (productId: string, newAverageRating: numb
   });
 };
 
+// handle ratings
 const updateProductRating = async (req: Request, res: Response) => {
   const productId = req.params.productid;
   const newAverageRating = req.body.newAverageRating;
@@ -118,6 +125,7 @@ const updateProductRating = async (req: Request, res: Response) => {
   }
 };
 
+// get all deliveries
 const getAllDeliveries = async (req: Request, res: Response) => {
   try {
     const deliveries = await Delivery.find();
@@ -130,7 +138,7 @@ const getAllDeliveries = async (req: Request, res: Response) => {
 
 }
 
-
+// get deliveries by user id
 const getDeliveriesByUserId = async (req: Request, res: Response) => {
   try {
     const user_id = req.params.user_id;
@@ -144,21 +152,21 @@ const getDeliveriesByUserId = async (req: Request, res: Response) => {
 
 }
 
-export default { getProducts, getProductsById, getCategorySpecificProducts, searchProducts, updateProductRating, getDelivery, getDeliveryInvoice, getAllDeliveries, getDeliveriesByUserId }
 
+// yagiz - filter
 
-
-// DEPRECATED????? export default { getProducts, getProductsByCategory, getProductsById, getCategorySpecificProducts, searchProducts}
-/* DEPRECATED ??????
-const getProductsByCategory = async (req: Request, res: Response) => {
-  const category = req.params.category;
-
+// get products by category gilter with query params
+const getProductsByCategoryFilter = async (req: Request, res: Response) => {
   try {
-    const products = await Product.find({ category });
-    res.json(products);
+    const { category } = req.query;
+    const filteredProducts = await Product.find({ category: category });
+    console.log("category filter:", category)
+    res.json(filteredProducts);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ status: 'Server error' });
+    res.status(404).json({ message: 'Products not found for given filter' });
   }
-};
-*/
+}
+
+
+
+export default { getProducts, getProductsById, getCategorySpecificProducts, searchProducts, updateProductRating, getDelivery, getDeliveryInvoice, getAllDeliveries, getDeliveriesByUserId, getProductsByCategoryFilter }

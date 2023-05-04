@@ -30,4 +30,12 @@ productRouter.get('/delivery/:user_id', productController.getDeliveriesByUserId)
 // handle ratings
 productRouter.put('/id/:productid', productController.updateProductRating);
 
+
+// yagiz - filter
+
+// get products by category filter with query params
+productRouter.get('/filter', productController.getProductsByCategoryFilter);
+
+
+
 export { productRouter }
