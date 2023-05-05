@@ -11,28 +11,31 @@ export interface IProduct {
     image: string;
     popularity: number;
     rating: number;
-    number_of_voters:number;
+    number_of_voters: number;
+    warrant_status: boolean;
+    delivery_info: string;
 }
 
 const productSchema = new Schema<IProduct>({
-      name: { type: String, required: true },
-      description: { type: String, required: true },
-      model: { type: String, required: true },
-      number: { type: Number, required: true },
-      stock_quantity: { type: Number, required: true },
-      initial_price: { type: Number, required: true },
-      category_ids: [
+    name: { type: String, required: true },
+    description: { type: String, required: true },
+    model: { type: String, required: true },
+    number: { type: Number, required: true },
+    stock_quantity: { type: Number, required: true },
+    initial_price: { type: Number, required: true },
+    category_ids: [
         {
-          type: Types.ObjectId,
-          required: true,
-          ref: 'Category'
+            type: Types.ObjectId,
+            required: true,
+            ref: 'Category'
         }
-      ],
-      image: { type: String, required: true },
-      popularity: { type: Number, required: true },
-      rating: {type: Number,required:true},
-      number_of_voters:{type: Number, required:true}
-
+    ],
+    image: { type: String, required: true },
+    popularity: { type: Number, required: true },
+    rating: { type: Number, required: true },
+    number_of_voters: { type: Number, required: true },
+    warrant_status: { type: Boolean, required: false, default: false },
+    delivery_info: { type: String, required: false }
 });
 
 interface ProductModel extends Model<IProduct> {
@@ -42,15 +45,40 @@ interface ProductModel extends Model<IProduct> {
 productSchema.statics.search = async function (query: string): Promise<IProduct[]> {
     const words = query.split(' ').map(w => `\\b${w}\\b`).join('|');
     const regex = new RegExp(words, 'i');
-    // NOT SEPERATE WORDS const regex = new RegExp(`.*${query}.*`, 'i');
-    // COMPLEX (FOR PARTIAL AND SEPERATE WORDS) const regex = new RegExp(`(${query.split(' ').join('|')})|(${query.split(' ').map(w => `(?=.*${w})`).join('')}${query.split(' ').map(w => `\\b${w}\\b`).join('')})`, 'i');
-    return this.find({
+
+    const matches = await this.find({
         $or: [
             { name: { $regex: regex } },
             { description: { $regex: regex } },
         ],
     });
+
+    const calculateMatchScore = (str: string, queryWords: string[], regex: RegExp) => {
+        const matchedWords = str.match(regex) || [];
+        return queryWords.reduce((score, word) => {
+            return score + matchedWords.filter(matchedWord => matchedWord.toLowerCase() === word.toLowerCase()).length;
+        }, 0);
+    };
+
+    const queryWords = query.split(' ');
+
+    const sortedMatches = matches.sort((a: { name: string; description: string; }, b: { name: string; description: string; }) => {
+        const matchScoreA = calculateMatchScore(a.name + ' ' + a.description, queryWords, regex);
+        const matchScoreB = calculateMatchScore(b.name + ' ' + b.description, queryWords, regex);
+
+        if (matchScoreA > matchScoreB) {
+            return -1;
+        }
+        if (matchScoreA < matchScoreB) {
+            return 1;
+        }
+        return 0;
+    });
+
+    return sortedMatches;
 };
+
+
 
 export default model<IProduct, ProductModel>('Product', productSchema);
 

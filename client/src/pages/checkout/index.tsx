@@ -19,6 +19,7 @@ const CheckoutPage = () => {
     const cart = Cookies.get('cart') || '{}';
 
     if (authToken === '' || !authToken) {
+      // alert("You must be logged in to checkout")
       router.push('/auth/sign-in');
     }
 
@@ -82,16 +83,19 @@ const CheckoutPage = () => {
       dispatch({ type: ActionKind.CART_REMOVE_ITEM, payload: item });
     };
 
+
     try {
-      await axios.post('http://localhost:5001/products/delivery', {
+      const invoiceResponse = await axios.post('http://localhost:5001/products/delivery', {
         delivery
       }, {
         headers: {
           'Authorization': `Bearer ${authToken}`
         }
       });
+      // json invoiceResponse
+      console.log("invoiceResponse", invoiceResponse.data);
 
-      router.push('/checkout/order_success');
+      router.push(`/checkout/order_success?q=${invoiceResponse.data}`);
 
       { cartItems.map((item) => removeItemHandler(item)) }
 

@@ -77,7 +77,7 @@ function ProductListView({ products }: ProductListProps) {
             let updatedFilteredProducts = [...filteredProducts];
             switch (sortValue) {
                 case "Most Popular":
-                    updatedFilteredProducts.sort((a, b) => b.populariy - a.populariy);
+                    updatedFilteredProducts.sort((a, b) => b.popularity - a.popularity);
                     break;
                 case "Best Rating":
                     updatedFilteredProducts.sort((a, b) => b.rating - a.rating);

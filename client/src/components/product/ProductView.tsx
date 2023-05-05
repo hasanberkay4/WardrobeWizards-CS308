@@ -19,7 +19,10 @@ const StarRating = ({ rating }: { rating: number }) => {
             stars.push(<AiOutlineStar key={i} size={40} color="#FBBF24" />);
         }
     }
-    return <div className="flex">{stars}</div>;
+    return <div className="flex">
+        <p className="text-3xl text-gray-900 mr-2">{rating.toFixed(2)}</p>
+        {stars}
+    </div>;
 };
 
 export default function ProductView({ product }: Props) {
@@ -104,6 +107,7 @@ export default function ProductView({ product }: Props) {
                             <div className="space-y-6">
 
                                 <StarRating rating={product.rating} />
+
                             </div>
                         </div>
 

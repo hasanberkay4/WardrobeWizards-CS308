@@ -7,6 +7,7 @@ type Props = {
 }
 
 export function ProductListItemView({ product }: Props) {
+  const stars = Array(product.rating).fill('★').join('');
 
   return (
     <div key={product._id} className="group relative">
@@ -26,8 +27,10 @@ export function ProductListItemView({ product }: Props) {
             </a>
           </h3>
           <p className="mt-1 text-sm text-gray-500">{product.description}</p>
+          <div className="mr-2 text-yellow-400">{stars}</div>
+          <div className="mr-2 text-sm text-green-500">popularity: {product.popularity}</div>
         </div>
-        <p className="text-sm font-medium text-gray-900">{product.initial_price}</p>
+        <p className="text-sm font-medium text-gray-900">{product.initial_price} TL</p>
       </div>
     </div>
   );

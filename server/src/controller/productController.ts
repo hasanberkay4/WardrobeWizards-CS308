@@ -76,18 +76,19 @@ const getDelivery = async (req: Request, res: Response) => {
     }
   }
 
+  let newDelivery;
   if (itemsOutOfStock.length === 0) {
-    const delivery = await Delivery.create(req.body.delivery);
+    newDelivery = await Delivery.create(req.body.delivery);
 
-    for (const product of delivery.products) {
+    for (const product of newDelivery.products) {
       await Product.updateOne(
         { _id: product.productId },
         { $inc: { stock_quantity: -product.quantity } }
       );
     }
 
-    sendInvoiceEmail(delivery);
-    res.status(200).send('Purchase can proceed.');
+    sendInvoiceEmail(newDelivery);
+    res.status(200).json(newDelivery._id);
   }
   else {
     const itemNamesOutOfStock = itemsOutOfStock.join(', ');
@@ -149,7 +150,8 @@ const getAllDeliveries = async (req: Request, res: Response) => {
 const getDeliveriesByUserId = async (req: Request, res: Response) => {
   try {
     const user_id = req.params.user_id;
-    const deliveries = await Delivery.find({ customerId: user_id });
+    const deliveries = await Delivery.find({ customerId: user_id }).sort({ date: -1 });
+
     res.json(deliveries);
     //res.status(200).json({status: "Successfully fetched products"})
   } catch (error) {

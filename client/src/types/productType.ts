@@ -9,7 +9,7 @@ export type Product = {
     initial_price: number;
     category: string;
     image: string;
-    populariy: number;
+    popularity: number;
     rating: number;
     number_of_voters: number;
 };
