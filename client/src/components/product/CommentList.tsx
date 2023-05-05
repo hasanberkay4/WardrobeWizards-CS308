@@ -21,6 +21,7 @@ const CommentList: React.FC<CommentListProps> = ({ CommentItems }) => {
           name={comment.customerId.name}
           surname={comment.customerId.surname}
           date={comment.date}
+          approved={comment.approved}
         />
       ))}
     </>

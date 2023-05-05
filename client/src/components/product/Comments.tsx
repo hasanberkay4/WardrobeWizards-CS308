@@ -7,9 +7,10 @@ type CommentProps = {
     name: string;
     surname: string;
     date: Date;
+    approved: boolean
 };
 
-const Comment: React.FC<CommentProps> = ({ index, rating, comment, name, surname,date}) => {
+const Comment: React.FC<CommentProps> = ({ index, rating, comment, name, surname,date,approved}) => {
   const stars = Array(rating).fill('★').join('');
   function formatDate(date:Date) {
     // Extract the day, month, and year
@@ -35,7 +36,11 @@ const Comment: React.FC<CommentProps> = ({ index, rating, comment, name, surname
         <div className="text-gray-600">{name}  {surname} {"   "}   </div>
         <div className="text-gray-600 ml-2">{  formatDate(new Date(date))}</div>
       </div>
-      <div className="text-gray-500 text-sm">{comment}</div>
+      {
+        approved &&  <div className="text-gray-500 text-sm">{comment}</div>
+      }
+
+
     </div>
   );
 };
