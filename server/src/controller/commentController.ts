@@ -8,7 +8,11 @@ const getCommentsByProductId = async (req: Request, res: Response) => {
   try {
     const productid = req.params.productid;
     const isApproved = true
-    const comments = await Comment.find({ productId: productid, approved: isApproved }).sort({ date: -1 }).populate('customerId', 'name surname');
+    const comments = await Comment.find({ productId: productid,     
+       $or: [
+      { approved: isApproved },
+      { rating: { $ne: 0 } }
+    ] }).sort({ date: -1 }).populate('customerId', 'name surname');
     console.log(comments)
     res.json(comments);
   } catch (error) {
@@ -62,4 +66,33 @@ const getCommentsByProductandUserId = async (req: Request, res: Response) => {
   }
 };
 
-export default { getCommentsByProductId, addComment, getCommentsByProductandUserId }
+
+
+const updateComment = async (req: Request, res: Response) => {
+  const productid = req.body.productId;
+  const userid = req.body.customerId;
+  const comment = req.body.description
+
+  try {
+    // Update the product with the new rating and number of voters
+   const updatedComment =  await Comment.findOneAndUpdate({productId:productid, customerId: userid}, {
+      description: comment,
+      approved: false,
+    },   { new: true });
+
+    console.log( "prodid:",productid , "   userid:",userid)
+
+    if (!updatedComment) {
+      // Return an error if the comment was not found
+      return res.status(404).json({ message: 'Comment not found' });
+    }
+    
+
+    res.status(200).json({ message: 'Comment updated successfully'});
+  } catch (error) {
+    console.error('Error updating product rating:', error);
+    res.status(500).json({ message: 'Error updating product rating' });
+  }
+};
+
+export default { getCommentsByProductId, addComment, getCommentsByProductandUserId, updateComment }

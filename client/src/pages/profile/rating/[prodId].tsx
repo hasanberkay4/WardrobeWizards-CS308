@@ -76,20 +76,33 @@ export const getServerSideProps = async (context: any) => {
     // Fetch data from the custom API route
     const res: AxiosResponse = await axios.get(apiUrl.toString());
 
-    const comments = !isEmpty(res.data) ? false : true;
+    const commentData = res.data;
+
+   
+        const comments = isEmpty(res.data)  ? true : false;
 
     return {
-        props: { params: context.params, comments: comments },
+        props: { params: context.params, comments: comments , commentData : commentData},
     };
 };
 
-const RateProductPage = ({ params, comments }: any) => {
+const RateProductPage = ({ params, comments, commentData }: any) => {
     // check whether already commented
 
     let userId = "";
     const router = useRouter();
     const { prodId } = params;
     console.log("ratingprodId: ", prodId);
+    console.log("commentData", commentData    )
+    let description;
+    !isEmpty(commentData) ? description = commentData[0].description : description=""
+
+    const isShow = (comments || description == "") ? true : false
+    // comment yoksa ve description yoksa true
+    // comment varsa description varsa false
+    // comment varsa ve description yoksa true
+
+
 
     if (typeof window === "undefined") {
         // Running on the server, skip client-side code
@@ -131,24 +144,71 @@ const RateProductPage = ({ params, comments }: any) => {
     }
 
     const handleSubmit = () => {
-        if (product) {
-            const newVoters = product.number_of_voters + 1;
-            const newaveragerating =
-                (product.rating * product.number_of_voters + rating) / newVoters;
+        console.log("rating",rating)
 
-            // Update the product with the new average rating and number of voters
-            updateProductRating(product._id, newaveragerating, newVoters);
 
-            const customerId = userId; // Replace this with the actual customer ID
-            submitComment(product._id, customerId, rating, comment);
+            if(comments){
 
-            // Close the popup
-            setShowPopup(false);
+                if(rating==0){
 
-            router.push("/profile");
-        } else {
-            console.error("Product data is not available");
-        }
+                    alert('You must enter your rating to continue.');
+                }else{
+
+                    if (product) {
+                        const newVoters = product.number_of_voters + 1;
+                        const newaveragerating =
+                            (product.rating * product.number_of_voters + rating) / newVoters;
+            
+                        // Update the product with the new average rating and number of voters
+                        updateProductRating(product._id, newaveragerating, newVoters);
+            
+                        const customerId = userId; // Replace this with the actual customer ID
+                        
+                        submitComment(product._id, customerId, rating, comment);
+            
+                        // Close the popup
+                        setShowPopup(false);
+            
+                        router.push("/profile/deliveries");
+                    } else {
+                        console.error("Product data is not available");
+                    }
+
+
+                }
+
+
+
+            }else{
+
+                if(product){
+                    const customerId = userId; // Replace this with the actual customer ID
+                    updateComment(product._id, customerId, comment);
+                            
+                    // Close the popup
+                    setShowPopup(false);
+        
+                    router.push("/profile/deliveries");
+    
+                }else{
+                    console.error("Product data is not available");
+
+                }
+
+
+                
+
+
+
+            }
+
+
+
+
+    
+
+
+
     };
 
     const updateProductRating = async (
@@ -209,6 +269,43 @@ const RateProductPage = ({ params, comments }: any) => {
         }
     };
 
+
+
+    const updateComment = async (
+        productId: string,
+        customerId: string,
+ 
+        description: string
+    ) => {
+        try {
+            const response = await fetch("http://localhost:5001/comments/update", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    productId,
+                    customerId,
+                 
+                    description,
+        
+                    
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error("Error submitting comment");
+            }
+
+            const data = await response.json();
+            console.log(data.message);
+        } catch (error) {
+            console.error("Error submitting comment:", error);
+        }
+    };
+
+    
+
     const fetchProductById = async (id: string): Promise<Product | null> => {
         try {
             const response = await fetch(`http://localhost:5001/products/id/${id}`);
@@ -255,7 +352,7 @@ const RateProductPage = ({ params, comments }: any) => {
         return <div className="flex">{stars}</div>;
     };
 
-    return comments ? (
+    return isShow  ? (
         <div className="min-h-screen bg-gray-100 flex items-center justify-center">
             <button
                 onClick={handleClick}
@@ -273,8 +370,17 @@ const RateProductPage = ({ params, comments }: any) => {
                         >
                             <AiOutlineClose />
                         </button>
-                        <h2 className="text-2xl font-bold mb-4">Rate</h2>
-                        <StarRating rating={rating} setRating={setRating} />
+                        {
+                            comments && (
+                                <>
+                                <h2 className="text-2xl font-bold mb-4">Rate</h2>
+                                <StarRating rating={rating} setRating={setRating} />
+                                </>
+
+                            )
+
+                        }
+
 
                         <textarea
                             className="mt-4 w-full p-2 border rounded"
