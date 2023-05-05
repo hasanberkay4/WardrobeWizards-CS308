@@ -41,13 +41,20 @@ export default function Signin() {
         }
 
         // handle form submission logic
-        const response = await fetch('http://localhost:5001/auth/signIn', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-        });
+        let response;
+        try {
+            response = await fetch('http://localhost:5001/auth/signIn', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+        } catch (error) {
+            console.log("error:", error);
+            alert("User Does not exist, Please sign up")
+            return;
+        }
 
         const data = await response.json();
 
