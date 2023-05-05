@@ -8,7 +8,9 @@ type Props = {
 }
 
 export function ProductListItemView({ product }: Props) {
-  const stars = Array(product.rating).fill('★').join('');
+  // get the average of product ratings
+  const flored = Math.floor(product.rating)
+  const stars = Array(flored).fill('★').join('');
 
   return (
     <div key={product._id} className="group relative">
