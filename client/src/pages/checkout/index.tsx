@@ -5,12 +5,13 @@ import dynamic from 'next/dynamic';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
+import { ActionKind, CartItem, Cart } from "../../types/shoppingCart"
 
 const CheckoutPage = () => {
   const router = useRouter();
   const subtotal = router.query.subtotal;
 
-  const { state } = useContext(Store);
+  const { state, dispatch } = useContext(Store);
   const { cart: { cartItems } } = state;
   const [paymentAddress, setPaymentAddress] = useState('');
   useEffect(() => {
@@ -77,6 +78,9 @@ const CheckoutPage = () => {
       products,
       address: paymentAddress
     };
+    const removeItemHandler = (item: CartItem) => {
+      dispatch({ type: ActionKind.CART_REMOVE_ITEM, payload: item });
+    };
 
     try {
       await axios.post('http://localhost:5001/products/delivery', {
@@ -88,6 +92,10 @@ const CheckoutPage = () => {
       });
 
       router.push('/checkout/order_success');
+
+      { cartItems.map((item) => removeItemHandler(item)) }
+
+
     } catch (error) {
       console.error(error);
     }
@@ -121,7 +129,9 @@ const CheckoutPage = () => {
             <p className="mb-4 pt-10 font-bold">Total: {subtotal} TL</p>
           </div>
           <div className="mt-8 flex justify-center">
-            <button className="nline-block rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-center font-medium text-white hover:bg-indigo-700" type="submit">Complete Payment</button>
+
+            <button className="inline-block rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-center font-medium text-white hover:bg-indigo-700" type="submit">Complete Payment</button>
+
           </div>
 
         </form>
