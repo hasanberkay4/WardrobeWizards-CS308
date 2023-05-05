@@ -28,9 +28,10 @@ const ProfileIcon = () => {
                     aria-label="Profile"
                     onClick={() => router.push('/profile')}
                 >
-                    <svg className="h-6 w-6 fill-current" viewBox="0 0 24 24">
+                    Profile
+                    {/* <svg className="h-6 w-6 fill-current" viewBox="0 0 24 24">
                         <path d="M12 12A4 4 0 1 0 12 4a4 4 0 0 0 0 8zm0 2a6 6 0 1 1 6-6 6 6 0 0 1-6 6z" />
-                    </svg>
+            </svg> */}
                 </button>
             ) : null}
             {isLoggedIn ? (

@@ -60,10 +60,10 @@ export default function NavBar() {
               <SearchBar />
 
 
-              <AuthIcon />
-
-
               <div className="ml-auto flex items-center">
+                <AuthIcon />
+
+
 
 
                 {/* Cart SORUN BURDA 
