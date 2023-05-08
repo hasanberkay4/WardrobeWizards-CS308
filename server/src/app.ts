@@ -9,6 +9,7 @@ import { productRouter } from "./routes/productRouter"
 import { imagesRouter } from "./routes/imagesRouter";
 import { userRouter } from "./routes/userRouter";
 import { commentRouter } from "./routes/commentRouter";
+import { adminRouter } from './routes/adminRouter';
 
 dotenv.config()
 
@@ -24,6 +25,7 @@ app.use('/products', productRouter);
 app.use('/images/', imagesRouter);
 app.use('/users/', userRouter);
 app.use('/comments/', commentRouter);
+app.use('/admin/', adminRouter);
 
 app.listen(port, () => {
     console.log(`Server running on port http://localhost:${port}`);
