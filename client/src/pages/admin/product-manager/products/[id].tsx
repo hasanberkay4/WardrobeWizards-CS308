@@ -19,7 +19,10 @@ const ProductManagerProductsPage = ({ product_info }: ProductManagerProductPageP
         <div>
             <AdminLayout>
                 <ProductManagerLayout>
-                    <h1> Delivery Info: {product_info._id} </h1>
+                    <h1> Product Info: {product_info._id} </h1>
+                    <p> Name: {product_info.name} </p>
+                    <p> Initial Price: {product_info.initial_price} </p>
+                    <p> Category Ids: {product_info.category_ids} </p>
                 </ProductManagerLayout>
             </AdminLayout>
         </div>

@@ -34,6 +34,27 @@ const ProductManagerProductsPage = ({ delivery_info }: ProductManagerDeliveryPag
             <AdminLayout>
                 <ProductManagerLayout>
                     <h1> Delivery Info: {delivery_info._id} </h1>
+                    <p> Delivery Address: {delivery_info.deliveryAddress} </p>
+                    <p> Customer Id: {delivery_info.customerId} </p>
+                    <p> Quantity: {delivery_info.quantity} </p>
+                    <p> Total Price: {delivery_info.totalPrice} </p>
+                    <p> Status: {delivery_info.status} </p>
+                    <p> Date: {delivery_info.date} </p>
+                    <br />
+                    <p> Products: </p>
+                    {delivery_info.products.map((product) => {
+                        return (
+                            <div key={product._id}>
+                                <h3> Product Id:{product.productId} </h3>
+                                <p> Name: {product.name} </p>
+                                <p> Price: {product.price} </p>
+                                <p> Description: {product.description} </p>
+                                <p> Quantity:{product.quantity} </p>
+                            </div>
+                        )
+                    })}
+                    <p> __v: {delivery_info.__v} </p>
+                    <p> pdfUrl: {delivery_info.pdfUrl} </p>
                 </ProductManagerLayout>
             </AdminLayout>
         </div>

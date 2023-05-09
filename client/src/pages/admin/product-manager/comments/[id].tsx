@@ -22,7 +22,13 @@ const ProductManagerProductsPage = ({ comment_info }: ProductManagerCommentPageP
         <div>
             <AdminLayout>
                 <ProductManagerLayout>
-                    <h1> Delivery Info: {comment_info._id} </h1>
+                    <h1> Comment Info: {comment_info._id} </h1>
+                    <p> Customer Id: {comment_info.customerId} </p>
+                    <p> Product Id: {comment_info.productId} </p>
+                    <p> Date: {comment_info.date} </p>
+                    <p> Approved: {comment_info.approved} </p>
+                    <p> Rating: {comment_info.rating} </p>
+                    <p> __v: {comment_info.__v} </p>
                 </ProductManagerLayout>
             </AdminLayout>
         </div>
