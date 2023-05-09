@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import styles from '../../../styles/ProductManagerFeatureCart.module.scss'
 
 type ProductContent = {
@@ -14,11 +15,13 @@ const ProductManagerProductCart = ({ product_data }: ProductContent) => {
     return (
         <div className={styles.cartItem}>
             CartItem:
-            <div className={styles.content}>
-                <p>{product_data.name}</p>
-                <p>{product_data.initial_price}</p>
-                <p>{product_data.category_ids}</p>
-            </div>
+            <Link href={'/admin/product-manager/products/' + product_data._id}>
+                <div className={styles.content}>
+                    <p>{product_data.name}</p>
+                    <p>{product_data.initial_price}</p>
+                    <p>{product_data.category_ids}</p>
+                </div>
+            </Link>
         </div>
     )
 }

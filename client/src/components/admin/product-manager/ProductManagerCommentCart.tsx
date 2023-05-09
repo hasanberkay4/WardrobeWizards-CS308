@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import styles from '../../../styles/ProductManagerFeatureCart.module.scss'
+import Link from 'next/link'
 
 
 type CommentContent = {
@@ -38,21 +39,22 @@ const ProductManagerCommentCart = ({ comment_data }: CommentContent) => {
     return (
         <div className={styles.cartItem}>
             CommentItem:
+            <Link href={'/admin/product-manager/comments/' + comment_data._id}>
+                <div className={styles.content}>
+                    <p>{comment_data.customerId}</p>
+                    <p>{comment_data.productId}</p>
+                    <p>{comment_data.date}</p>
+                    {isApproved
+                        ? <p>Approved</p>
+                        : <p>Not approved</p>
+                    }
+                    <button onClick={toggleApproval}>
+                        {isApproved ? 'Disapprove' : 'Approve'}
+                    </button>
+                    <p>{comment_data.rating}</p>
+                </div>
 
-            <div className={styles.content}>
-                <p>{comment_data.customerId}</p>
-                <p>{comment_data.productId}</p>
-                <p>{comment_data.date}</p>
-                {isApproved
-                    ? <p>Approved</p>
-                    : <p>Not approved</p>
-                }
-                <button onClick={toggleApproval}>
-                    {isApproved ? 'Disapprove' : 'Approve'}
-                </button>
-                <p>{comment_data.rating}</p>
-            </div>
-
+            </Link>
         </div>
     )
 }
