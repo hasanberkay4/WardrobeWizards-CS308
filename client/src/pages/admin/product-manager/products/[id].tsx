@@ -21,7 +21,7 @@ const ProductManagerProductsPage = ({ product_info }: ProductManagerProductPageP
                 <ProductManagerLayout>
                     <h1> Delivery Info: {product_info._id} </h1>
                 </ProductManagerLayout>
-            </AdminLayout>a
+            </AdminLayout>
         </div>
     )
 }

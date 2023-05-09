@@ -35,7 +35,7 @@ const ProductManagerProductsPage = ({ delivery_info }: ProductManagerDeliveryPag
                 <ProductManagerLayout>
                     <h1> Delivery Info: {delivery_info._id} </h1>
                 </ProductManagerLayout>
-            </AdminLayout>a
+            </AdminLayout>
         </div>
     )
 }
