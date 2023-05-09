@@ -1,0 +1,34 @@
+// ProductManagerFeatureCart.module.scss
+
+.cartItem {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        p {
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .deliveryProduct {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+
+            p {
+                margin: 0;
+                line-height: 1.5;
+            }
+        }
+    }
+}

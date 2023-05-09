@@ -8,11 +8,10 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-    { label: 'Dashboard', href: '/dashboard' },
+    { label: 'Dashboard', href: '/' },
+    { label: 'Deliveries', href: '/deliveries' },
     { label: 'Products', href: '/products' },
-    { label: 'Orders', href: '/orders' },
-    { label: 'Customers', href: '/customers' },
-    { label: 'Settings', href: '/settings' },
+    { label: 'Comments', href: '/comments' },
 ];
 
 const ProductManagerNav: React.FC = () => {
@@ -21,7 +20,7 @@ const ProductManagerNav: React.FC = () => {
             <ul className={styles.navList}>
                 {navItems.map((item, index) => (
                     <li key={index} className={styles.navItem}>
-                        <Link href={"product-manager/" + item.href}>
+                        <Link href={"/admin/product-manager" + item.href}>
                             <span className={styles.navLink}>{item.label}</span>
                         </Link>
                     </li>

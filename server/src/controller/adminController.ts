@@ -1,5 +1,8 @@
 import { Request, Response } from "express"
 import Admin from "../models/admin"
+import Product from "../models/product";
+import Deliveries from "../models/order";
+import Comments from "../models/comment";
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken";
 
@@ -81,4 +84,130 @@ const adminSignUpController = async (req: Request, res: Response) => {
     }
 }
 
-export default { adminSignInController, adminSignUpController }  
+
+// admin products
+const adminGetProductsController = async (req: Request, res: Response) => {
+    try {
+        const products = await Product.find();
+        res.status(200).json({ status: "success", products: products })
+    }
+    catch (err) {
+        return res.status(400).json({ errors: err });
+    }
+}
+
+const adminGetProductController = async (req: Request, res: Response) => {
+    try {
+        const product = await Product.findById(req.params.id);
+        res.status(200).json({ status: "success", product: product })
+    }
+    catch (err) {
+        return res.status(400).json({ errors: err });
+    }
+}
+
+const adminCreateProductController = async (req: Request, res: Response) => {
+    try {
+
+
+    }
+    catch (err) {
+
+    }
+}
+
+const adminUpdateProductController = async (req: Request, res: Response) => {
+    try {
+
+    }
+    catch (err) {
+
+    }
+}
+
+const adminDeleteProductController = async (req: Request, res: Response) => {
+
+    try {
+
+    }
+    catch (err) {
+
+    }
+}
+
+
+
+// admin deliveries
+const adminGetDeliveriesController = async (req: Request, res: Response) => {
+    try {
+        const deliveries = await Deliveries.find();
+        res.status(200).json({ status: "success", deliveries: deliveries })
+    }
+    catch (err) {
+        return res.status(400).json({ errors: err });
+    }
+}
+
+const adminGetDeliveryController = async (req: Request, res: Response) => {
+    try {
+        const delivery = await Deliveries.findById(req.params.id);
+        res.status(200).json({ status: "success", delivery: delivery })
+    }
+    catch (err) {
+        return res.status(400).json({ errors: err });
+    }
+}
+
+const adminGetDeliveryByUserIdController = async (req: Request, res: Response) => {
+    try {
+        const delivery = await Deliveries.find({ customerId: req.params.user_id });
+        res.status(200).json({ status: "success", delivery: delivery })
+    }
+    catch (err) {
+        return res.status(400).json({ errors: err });
+    }
+}
+
+const adminUpdateDeliveryController = async (req: Request, res: Response) => {
+    try {
+        const delivery = await Deliveries.findById(req.params.id);
+        if (delivery) {
+            delivery.status = req.body.status;
+            const updatedDelivery = await delivery.save();
+            res.status(200).json({ status: "success", delivery: updatedDelivery })
+        }
+    }
+    catch (err) {
+        return res.status(400).json({ errors: err });
+    }
+}
+
+
+// admin comments
+const adminGetCommentsController = async (req: Request, res: Response) => {
+    try {
+        const comments = await Comments.find();
+        res.status(200).json({ status: "success", comments: comments })
+    }
+    catch (err) {
+        res.status(400).json({ errors: err });
+    }
+}
+
+const adminGetCommentController = async (req: Request, res: Response) => {
+    try {
+        const comment = await Comments.findById(req.params.id);
+        res.status(200).json({ status: "success", comment: comment })
+    }
+    catch (err) {
+        res.status(400).json({ errors: err });
+    }
+}
+
+
+export default {
+    adminSignInController, adminSignUpController,
+    adminGetProductsController, adminGetProductController, adminCreateProductController, adminUpdateProductController, adminDeleteProductController,
+    adminGetDeliveriesController, adminGetDeliveryController, adminGetDeliveryByUserIdController, adminUpdateDeliveryController,
+    adminGetCommentsController, adminGetCommentController,
+}  
