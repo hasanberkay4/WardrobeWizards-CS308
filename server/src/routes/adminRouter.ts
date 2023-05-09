@@ -25,5 +25,6 @@ adminRouter.put('/deliveries/:id', adminController.adminUpdateDeliveryController
 // admin comments
 adminRouter.get('/comments', adminController.adminGetCommentsController);
 adminRouter.get('/comments/:id', adminController.adminGetCommentController);
+adminRouter.put('/comments/:id', adminController.adminUpdateCommentController);
 
 export { adminRouter }

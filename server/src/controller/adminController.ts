@@ -204,10 +204,29 @@ const adminGetCommentController = async (req: Request, res: Response) => {
     }
 }
 
+const adminUpdateCommentController = async (req: Request, res: Response) => {
+    try {
+        const comment = await Comments.findById(req.params.id);
+        if (comment) {
+            if (comment.approved == true) {
+                comment.approved = false;
+            }
+            else {
+                comment.approved = true;
+            }
+            const updatedComment = await comment.save();
+            res.status(200).json({ status: "success", comment: updatedComment })
+        }
+    }
+    catch (err) {
+        res.status(400).json({ errors: err });
+    }
+}
+
 
 export default {
     adminSignInController, adminSignUpController,
     adminGetProductsController, adminGetProductController, adminCreateProductController, adminUpdateProductController, adminDeleteProductController,
     adminGetDeliveriesController, adminGetDeliveryController, adminGetDeliveryByUserIdController, adminUpdateDeliveryController,
-    adminGetCommentsController, adminGetCommentController,
+    adminGetCommentsController, adminGetCommentController, adminUpdateCommentController,
 }  

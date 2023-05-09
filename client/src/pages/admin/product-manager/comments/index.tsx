@@ -1,6 +1,6 @@
 import { GetServerSideProps } from "next"
 import { ProductManagerLayout } from "../../../../components/admin/product-manager/ProductManagerLayout"
-import { ProductManagerFeatureCart } from "../../../../components/admin/product-manager/ProductManagerFeatureCart"
+import { ProductManagerCommentCart } from "../../../../components/admin/product-manager/ProductManagerCommentCart"
 import { AdminLayout } from "../../../../components/admin/shared/AdminLayout"
 
 type ProductManagerCommentsPageProps = {
@@ -26,7 +26,7 @@ const ProductManagerProductsPage = ({ comment_array }: ProductManagerCommentsPag
                     {comment_array.map((data: any) => {
                         return (
                             <div key={data._id}>
-                                <ProductManagerFeatureCart feature_name={'comments'} feature_data={data} />
+                                <ProductManagerCommentCart comment_data={data} />
                             </div>
                         )
                     })}

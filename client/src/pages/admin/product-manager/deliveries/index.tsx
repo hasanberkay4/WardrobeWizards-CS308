@@ -1,6 +1,6 @@
 import { GetServerSideProps } from "next"
 import { ProductManagerLayout } from "../../../../components/admin/product-manager/ProductManagerLayout"
-import { ProductManagerFeatureCart } from "../../../../components/admin/product-manager/ProductManagerFeatureCart"
+import { ProductManagerDeliveryCart } from "../../../../components/admin/product-manager/ProductManagerDeliveryCart"
 import { AdminLayout } from "../../../../components/admin/shared/AdminLayout"
 
 type ProductManagerDeliveriesPageProps = {
@@ -36,7 +36,7 @@ const ProductManagerProductsPage = ({ delivery_array }: ProductManagerDeliveries
                     {delivery_array.map((data: any) => {
                         return (
                             <div key={data._id}>
-                                <ProductManagerFeatureCart feature_name={'deliveries'} feature_data={data} />
+                                <ProductManagerDeliveryCart delivery_data={data} />
                             </div>
                         )
                     })}
