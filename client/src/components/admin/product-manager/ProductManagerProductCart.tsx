@@ -6,7 +6,8 @@ type ProductContent = {
         _id: string,
         name: string,
         initial_price: number,
-        category_ids: Array<string>
+        category_ids: Array<string>,
+        stock_quantity: number,
     }
 }
 
@@ -20,6 +21,7 @@ const ProductManagerProductCart = ({ product_data }: ProductContent) => {
                     <p>{product_data.name}</p>
                     <p>{product_data.initial_price}</p>
                     <p>{product_data.category_ids}</p>
+                    <p>{product_data.stock_quantity}</p>
                 </div>
             </Link>
         </div>

@@ -108,20 +108,45 @@ const adminGetProductController = async (req: Request, res: Response) => {
 
 const adminCreateProductController = async (req: Request, res: Response) => {
     try {
+        const { name, description, stock_quantity, initial_price, category_ids, image_name } = req.body;
+        const product = new Product({
+            name: name,
+            description: description,
+            stock_quantity: stock_quantity,
+            initial_price: initial_price,
+            category_ids: category_ids,
+            image: image_name,
 
+            // filler
+            delivery_info: "intransit",
+            model: "model",
+            number: 0,
+            number_of_voters: 0,
+            rating: 0,
+            popularity: 0,
+            warrant_status: true,
+        });
 
+        const addedProduct = await product.save();
+        res.status(200).json({ status: "success", product: addedProduct });
+    } catch (err) {
+        return res.status(400).json({ errors: err });
     }
-    catch (err) {
-
-    }
-}
+};
 
 const adminUpdateProductController = async (req: Request, res: Response) => {
     try {
-
+        const product = await Product.findById(req.params.id);
+        if (product) {
+            product.stock_quantity = req.body.stock_quantity;
+            res.status(200).json({ status: "success", product: product })
+        }
+        else {
+            return res.status(400).json({ message: "Product not found" });
+        }
     }
     catch (err) {
-
+        return res.status(400).json({ errors: err });
     }
 }
 

@@ -5,7 +5,7 @@ const SalesManagerPage = () => {
     return (
         <AdminLayout>
             <ProductManagerLayout>
-                <h1>Product Manager Page</h1>
+                <h1>Sales Manager Page</h1>
             </ProductManagerLayout>
         </AdminLayout>
     )

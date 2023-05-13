@@ -1,9 +1,10 @@
 import { GetServerSideProps } from "next"
 import { ProductManagerLayout } from "../../../../components/admin/product-manager/ProductManagerLayout"
-import { ProductManagerDeliveryCart } from "../../../../components/admin/product-manager/ProductManagerDeliveryCart"
 import { AdminLayout } from "../../../../components/admin/shared/AdminLayout"
+import styles from '../../../../styles/ProductManagerDeliveryPage.module.scss'
+import { useState } from "react"
 
-type ProductManagerDeliveryPageProps = {
+export type ProductManagerDeliveryPageProps = {
     delivery_info: {
         _id: string,
         deliveryAddress: string,
@@ -27,34 +28,68 @@ type ProductManagerDeliveryPageProps = {
 
 
 const features = ['deliveries', 'products', 'comments'];
-const ProductManagerProductsPage = ({ delivery_info }: ProductManagerDeliveryPageProps) => {
+const ProductManagerDeliveryPage = ({ delivery_info }: ProductManagerDeliveryPageProps) => {
+
+    const [status, setStatus] = useState(delivery_info.status);
+
+    const toggleStatus = async (newStatus: string) => {
+        const response = await fetch(`http://localhost:5001/admin/deliveries/${delivery_info._id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ status: newStatus })
+        });
+
+        if (response.ok) {
+            const responseJson = await response.json();
+            setStatus(responseJson.delivery.status);
+        } else {
+            // handle error
+            console.error("Error updating delivery status");
+        }
+    };
+
+    const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        toggleStatus(event.target.value);
+    };
 
     return (
         <div>
             <AdminLayout>
                 <ProductManagerLayout>
-                    <h1> Delivery Info: {delivery_info._id} </h1>
-                    <p> Delivery Address: {delivery_info.deliveryAddress} </p>
-                    <p> Customer Id: {delivery_info.customerId} </p>
-                    <p> Quantity: {delivery_info.quantity} </p>
-                    <p> Total Price: {delivery_info.totalPrice} </p>
-                    <p> Status: {delivery_info.status} </p>
-                    <p> Date: {delivery_info.date} </p>
-                    <br />
-                    <p> Products: </p>
-                    {delivery_info.products.map((product) => {
-                        return (
-                            <div key={product._id}>
-                                <h3> Product Id:{product.productId} </h3>
-                                <p> Name: {product.name} </p>
-                                <p> Price: {product.price} </p>
-                                <p> Description: {product.description} </p>
-                                <p> Quantity:{product.quantity} </p>
-                            </div>
-                        )
-                    })}
-                    <p> __v: {delivery_info.__v} </p>
-                    <p> pdfUrl: {delivery_info.pdfUrl} </p>
+                    <div className={styles.deliveryItem}>
+                        <p>{delivery_info._id}</p>
+                        <p>{delivery_info.deliveryAddress}</p>
+                        <p>{delivery_info.customerId}</p>
+                        <p>{delivery_info.quantity}</p>
+                        <p>{delivery_info.totalPrice}</p>
+                        <p>{status}</p>
+                        <div>
+                            {/* dropdown for changing delivery status of a product */}
+                            <select value={status} onChange={handleSelectChange}>
+                                <option value="pending">pending</option>
+                                <option value="delivered">delivered</option>
+                                <option value="cancelled">cancelled</option>
+                            </select>
+                        </div>
+                        <p>{delivery_info.date}</p>
+                        {delivery_info.products.map((product: any) => {
+                            return (
+                                <div className={styles.product} key={product._id}>
+                                    <p>{product._id}</p>
+                                    <p>{product.productId}</p>
+                                    <p>{product.name}</p>
+                                    <p>{product.price}</p>
+                                    <p>{product.description}</p>
+                                    <p>{product.quantity}</p>
+                                </div>
+                            )
+                        })}
+
+                        <p>{delivery_info.__v}</p>
+                        <p>{delivery_info.pdfUrl}</p>
+                    </div>
                 </ProductManagerLayout>
             </AdminLayout>
         </div>
@@ -80,4 +115,4 @@ export const getServerSideProps: GetServerSideProps<ProductManagerDeliveryPagePr
 }
 
 
-export default ProductManagerProductsPage
+export default ProductManagerDeliveryPage

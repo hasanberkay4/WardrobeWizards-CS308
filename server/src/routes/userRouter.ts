@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { isValidUserToken } from "../middleware/userMiddleware";
 import userController from "../controller/userContoller"
 
 const userRouter = Router();
