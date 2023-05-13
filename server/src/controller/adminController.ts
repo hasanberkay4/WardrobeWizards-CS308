@@ -151,12 +151,18 @@ const adminUpdateProductController = async (req: Request, res: Response) => {
 }
 
 const adminDeleteProductController = async (req: Request, res: Response) => {
-
     try {
-
+        const product = await Product.findById(req.params.id);
+        if (product) {
+            await product.deleteOne();
+            res.status(200).json({ status: "success", message: "Product deleted" })
+        }
+        else {
+            return res.status(400).json({ message: "Product not found" });
+        }
     }
     catch (err) {
-
+        return res.status(400).json({ errors: err });
     }
 }
 

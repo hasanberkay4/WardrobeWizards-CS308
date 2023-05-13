@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useRouter } from "next/router";
 import styles from '../../../../../styles/AddProductPage.module.scss'
 
 const AddProductPage = () => {
@@ -8,6 +9,8 @@ const AddProductPage = () => {
     const [stock_quantity, setStockQuantity] = useState(0);
     const [imageName, setImageName] = useState("");
     const [imageFile, setImageFile] = useState<File | null>(null);
+
+    const router = useRouter();
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
@@ -50,10 +53,13 @@ const AddProductPage = () => {
         if (response.ok) {
             const responseJson = await response.json();
             console.log(responseJson);
+            alert("Product added successfully!")
+            router.push('/admin/product-manager/products');
         } else {
             // handle error
             console.error("Error adding product", await response.text());
         }
+
     };
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {

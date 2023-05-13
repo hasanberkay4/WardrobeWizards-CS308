@@ -3,6 +3,7 @@ import { ProductManagerLayout } from "../../../../components/admin/product-manag
 import { AdminLayout } from "../../../../components/admin/shared/AdminLayout"
 import styles from '../../../../styles/ProductManagerProductPage.module.scss'
 import { useState } from "react"
+import { useRouter } from "next/router"
 
 export type ProductManagerProductPageProps = {
     product_info: {
@@ -18,6 +19,8 @@ const ProductManagerProductsPage = ({ product_info }: ProductManagerProductPageP
 
     const [stock, setStock] = useState<number>(product_info.stock_quantity);
     const [currentStock, setCurrentStock] = useState<number>(product_info.stock_quantity);
+
+    const router = useRouter();
 
     const toggleStock = async (newStock: number) => {
         const response = await fetch(`http://localhost:5001/admin/products/${product_info._id}`, {
@@ -47,6 +50,22 @@ const ProductManagerProductsPage = ({ product_info }: ProductManagerProductPageP
         toggleStock(stock);
     };
 
+    const handleDelete = async () => {
+        const response = await fetch(`http://localhost:5001/admin/products/${product_info._id}`, {
+            method: 'DELETE'
+        });
+
+        if (response.ok) {
+            const responseJson = await response.json();
+            console.log(responseJson);
+            alert("Product successfully deleted");
+            router.push('/admin/product-manager/products');
+        } else {
+            // handle error
+            console.error("Error deleting product");
+        }
+    };
+
     return (
         <div>
             <AdminLayout>
@@ -63,6 +82,11 @@ const ProductManagerProductsPage = ({ product_info }: ProductManagerProductPageP
                                 <input type="number" id="stock" name="stock" value={stock} onChange={handleChange} />
                                 <button type="submit">Update Stock</button>
                             </form>
+                        </div>
+
+                        {/* delete product button */}
+                        <div>
+                            <button onClick={handleDelete}>Delete Product</button>
                         </div>
                     </div>
                 </ProductManagerLayout>
