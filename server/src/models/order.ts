@@ -23,7 +23,7 @@ export interface IDelivery {
 }
 
 const deliverySchema = new Schema<IDelivery>({
-  customerId: { type: Types.ObjectId, required: true, ref: 'Customer' },
+  customerId: { type: Types.ObjectId, required: true, ref: 'User' },
   quantity: { type: Number, required: true },
   totalPrice: { type: Number, required: true },
   deliveryAddress: { type: String, required: false, default: '' },
