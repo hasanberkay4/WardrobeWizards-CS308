@@ -31,7 +31,7 @@ const SearchBar = () => {
             />
             <button type="submit"></button>
             <span className="sr-only">Search</span>
-            <MagnifyingGlassIcon className="h-6 w-6" aria-hidden="true" />
+            <MagnifyingGlassIcon className="h-6 w-6" aria-hidden="true" style={{ marginTop: '6px' }} />
         </form>
     );
 };
