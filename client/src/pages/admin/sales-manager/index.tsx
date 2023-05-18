@@ -1,12 +1,12 @@
 import { AdminLayout } from "../../../components/admin/shared/AdminLayout";
-import { ProductManagerLayout } from "../../../components/admin/product-manager/ProductManagerLayout";
+import { SalesManagerLayout } from "../../../components/admin/sales-manager/SalesManagerLayout";
 
 const SalesManagerPage = () => {
     return (
         <AdminLayout>
-            <ProductManagerLayout>
-                <h1>Product Manager Page</h1>
-            </ProductManagerLayout>
+            <SalesManagerLayout>
+                <h1>Sales Manager Page</h1>
+            </SalesManagerLayout>
         </AdminLayout>
     )
 
