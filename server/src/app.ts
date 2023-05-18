@@ -10,6 +10,7 @@ import { imagesRouter } from "./routes/imagesRouter";
 import { userRouter } from "./routes/userRouter";
 import { commentRouter } from "./routes/commentRouter";
 import { adminRouter } from './routes/adminRouter';
+import { upload } from "./middleware/adminMiddleware/productMiddleware";
 
 dotenv.config()
 
@@ -17,15 +18,20 @@ connectDb();
 const app = express()
 const port = process.env.PORT || 5000
 
+// middleware
 app.use(cors());
 
-app.use(express.json());
-app.use('/auth', authRouter);
-app.use('/products', productRouter);
-app.use('/images/', imagesRouter);
-app.use('/users/', userRouter);
-app.use('/comments/', commentRouter);
-app.use('/admin/', adminRouter);
+app.use('/auth/', express.json(), authRouter);
+app.use('/products/', express.json(), productRouter);
+app.use('/images/', express.json(), imagesRouter);
+app.use('/users/', express.json(), userRouter);
+app.use('/comments/', express.json(), commentRouter);
+app.use('/admin/', express.json(), adminRouter);
+
+// upload image
+app.post('/upload', upload, (req, res) => {
+    res.json({ file: req.file });
+});
 
 app.listen(port, () => {
     console.log(`Server running on port http://localhost:${port}`);

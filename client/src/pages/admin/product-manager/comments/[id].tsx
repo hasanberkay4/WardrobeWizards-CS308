@@ -1,9 +1,11 @@
 import { GetServerSideProps } from "next"
 import { ProductManagerLayout } from "../../../../components/admin/product-manager/ProductManagerLayout"
-import { ProductManagerDeliveryCart } from "../../../../components/admin/product-manager/ProductManagerDeliveryCart"
 import { AdminLayout } from "../../../../components/admin/shared/AdminLayout"
+import { useState } from "react"
+import Link from "next/link"
+import styles from '../../../../styles/ProductManagerCommentPage.module.scss'
 
-type ProductManagerCommentPageProps = {
+export type ProductManagerCommentPageProps = {
     comment_info: {
         _id: string,
         customerId: string,
@@ -16,19 +18,51 @@ type ProductManagerCommentPageProps = {
 }
 
 const features = ['deliveries', 'products', 'comments'];
-const ProductManagerProductsPage = ({ comment_info }: ProductManagerCommentPageProps) => {
+const ProductManagerCommentPage = ({ comment_info }: ProductManagerCommentPageProps) => {
+
+
+    const [isApproved, setIsApproved] = useState(comment_info.approved);
+
+    const toggleApproval = async () => {
+        const response = await fetch(`http://localhost:5001/admin/comments/${comment_info._id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (response.ok) {
+            setIsApproved(!isApproved);
+        } else {
+            // handle error
+            console.error("Error updating approval status");
+        }
+    };
+
 
     return (
         <div>
             <AdminLayout>
                 <ProductManagerLayout>
-                    <h1> Comment Info: {comment_info._id} </h1>
-                    <p> Customer Id: {comment_info.customerId} </p>
-                    <p> Product Id: {comment_info.productId} </p>
-                    <p> Date: {comment_info.date} </p>
-                    <p> Approved: {comment_info.approved} </p>
-                    <p> Rating: {comment_info.rating} </p>
-                    <p> __v: {comment_info.__v} </p>
+                    <div className={styles.cartItem}>
+                        CommentItem:
+                        <Link href={'/admin/product-manager/comments/' + comment_info._id}>
+                            <div className={styles.content}>
+                                <p>{comment_info.customerId}</p>
+                                <p>{comment_info.productId}</p>
+                                <p>{comment_info.date}</p>
+                                {isApproved
+                                    ? <p>Approved</p>
+                                    : <p>Not approved</p>
+                                }
+                                <button onClick={toggleApproval}>
+                                    {isApproved ? 'Disapprove' : 'Approve'}
+                                </button>
+                                <p>{comment_info.rating}</p>
+                            </div>
+
+                        </Link>
+                    </div>
                 </ProductManagerLayout>
             </AdminLayout>
         </div>
@@ -54,4 +88,4 @@ export const getServerSideProps: GetServerSideProps<ProductManagerCommentPagePro
 }
 
 
-export default ProductManagerProductsPage
+export default ProductManagerCommentPage

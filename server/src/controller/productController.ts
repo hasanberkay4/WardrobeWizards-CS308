@@ -33,17 +33,14 @@ const getProductsById = async (req: Request, res: Response) => {
 // all products by category [DOESNT WORK]
 const getCategorySpecificProducts = async (req: Request, res: Response) => {
   const slug = req.params.slug;
-  console.log("slug:", slug);
 
   try {
     const category = await Category.findOne({ slug: slug });
     if (!category) {
       return res.status(404).send('Category not found');
     }
-    console.log("category:", category);
 
     const products = await Product.find({ category_ids: category._id });
-    console.log("products", products);
 
     res.json(products);
   } catch (error) {

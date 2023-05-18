@@ -5,6 +5,9 @@ import { useContext } from "react";
 import { Store } from "../../context/Store";
 import { ActionKind, CartItem } from "../../types/shoppingCart";
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
+import axios from "axios";
+import jwt_decode from 'jwt-decode';
+import Cookies from "js-cookie";
 
 type Props = {
     product: Product;
@@ -51,6 +54,24 @@ export default function ProductView({ product }: Props) {
         dispatch({ type: ActionKind.CART_ADD_ITEM, payload: { ...itemFromProduct, quantity } });
         alert('Product added to cart')
     };
+
+    const addWishHandler = async () => {
+        try {
+          const token = Cookies.get('token');
+          const { user_id } = jwt_decode(token!) as { user_id: string };
+      
+          const response = await axios.put('http://localhost:5001/products/add-wish', {
+            product: product._id,
+            customer: user_id
+          });
+      
+          if (response.status === 200) {
+            alert('Product successfully added to wishlist');
+          }
+        } catch (error) {
+          alert(error);
+        }
+      };
 
     const updateCartHandler = (item: CartItem, qty: string) => {
         const quantity = Number(qty);
@@ -117,7 +138,7 @@ export default function ProductView({ product }: Props) {
                             <p className="text-3xl tracking-tight text-gray-900 mb-6">{product.initial_price} TL</p>
 
                             {/* Add to bag */}
-                            <form className="mt-10">
+                            <form className="mt-1">
                                 <button
                                     onClick={addToCartHandler}
                                     type="button"
@@ -126,6 +147,18 @@ export default function ProductView({ product }: Props) {
                                 >
                                     Add to bag
                                 </button>
+                            </form>
+
+                            
+                            {/* Add to wishlist */}
+                            <form className="mt-4">
+                                    <button
+                                    onClick={addWishHandler}
+                                    type="button"
+                                    className={`flex w-full items-center justify-center rounded-md border border-transparent px-8 py-3 text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 bg-indigo-600 hover:bg-indigo-700`}
+                                    >
+                                    Add to wishlist
+                                    </button>
                             </form>
                         </div>
                     </div>

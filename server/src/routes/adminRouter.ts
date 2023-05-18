@@ -1,7 +1,10 @@
 
 import { Router } from "express";
-import { isValidAdminSignInForm, isValidAdminSignUpForm } from "../middleware/adminMiddleware";
 import adminController from "../controller/adminController";
+
+// middleware
+import { isValidAdminSignInForm, isValidAdminSignUpForm } from "../middleware/adminMiddleware";
+import { validateAddProductForm } from "../middleware/adminMiddleware/productMiddleware";
 
 const adminRouter = Router();
 
@@ -12,7 +15,7 @@ adminRouter.post('/register', [isValidAdminSignUpForm], adminController.adminSig
 // admin products
 adminRouter.get('/products', adminController.adminGetProductsController);
 adminRouter.get('/products/:id', adminController.adminGetProductController);
-adminRouter.post('/products/:id', adminController.adminCreateProductController);
+adminRouter.post('/products', [validateAddProductForm], adminController.adminCreateProductController);
 adminRouter.put('/products/:id', adminController.adminUpdateProductController);
 adminRouter.delete('/products/:id', adminController.adminDeleteProductController);
 

@@ -74,6 +74,7 @@ export default function NavBar() {
                     <ShoppingBagIcon
                       className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                       aria-hidden="true"
+                      style={{ marginTop: '20px' }}
                     />
 
                     {(

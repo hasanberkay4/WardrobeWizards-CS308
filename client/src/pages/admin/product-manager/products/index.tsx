@@ -2,6 +2,7 @@ import { GetServerSideProps } from "next"
 import { ProductManagerLayout } from "../../../../components/admin/product-manager/ProductManagerLayout"
 import { ProductManagerProductCart } from "../../../../components/admin/product-manager/ProductManagerProductCart"
 import { AdminLayout } from "../../../../components/admin/shared/AdminLayout"
+import Link from "next/link"
 
 type ProductManagerProductsPageProps = {
     product_array: Array<{
@@ -20,6 +21,14 @@ const ProductManagerProductsPage = ({ product_array }: ProductManagerProductsPag
         <div>
             <AdminLayout>
                 <ProductManagerLayout>
+                    {/* add product */}
+                    <div>
+                        <Link href={'/admin/product-manager/products/add-product/'}>
+                            <button>
+                                Add Product
+                            </button>
+                        </Link>
+                    </div>
                     {product_array.map((data: any) => {
                         return (
                             <div key={data._id}>

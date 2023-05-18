@@ -1,5 +1,6 @@
 import { Router } from "express";
 import productController from "../controller/productController"
+import wishController from "../controller/wishController";
 
 const productRouter = Router();
 
@@ -40,6 +41,9 @@ productRouter.get('/delivery/:user_id', productController.getDeliveriesByUserId)
 
 // handle ratings
 productRouter.put('/id/:productid', productController.updateProductRating);
+
+// add wish
+productRouter.put('/add-wish', wishController.addWish);
 
 
 // --- yagiz - filter ---
