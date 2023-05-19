@@ -36,6 +36,7 @@ const deliverySchema = new Schema<IDelivery>({
       price: { type: Number, required: true },
       description: { type: String, required: true },
       quantity: { type: Number, required: true },
+      
     },
   ],
   pdf: {
