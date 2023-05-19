@@ -41,7 +41,7 @@ const ProfileDeliveries = ({
         setDeliveries(
           deliveries.map((delivery) =>
             delivery._id === deliveryId
-              ? { ...delivery, status: "cancelled" }
+              ? { ...delivery, status: "cancelled" , totalPrice:0}
               : delivery
           )
         );
@@ -59,6 +59,47 @@ const ProfileDeliveries = ({
       console.error("Failed to cancel delivery: ", err);
     }
   };
+
+  const handleRefundDelivery = async (
+    deliveryId: string,
+    productId: string
+  ) => {
+    try {
+      // change the status of delivery to cancelled
+      const response = await axios.post(
+        `http://localhost:5001/products/delivery/product/update-status`,
+        {
+          deliveryId: deliveryId,
+          prodId: productId,
+          status: "pending-refund",
+        }
+      );
+
+      if (response.status === 200) {
+        setDeliveries(
+          deliveries.map((delivery) => {
+            if (delivery._id === deliveryId) {
+              const updatedProducts = delivery.products.map((product) => {
+                // Check if the product matches the desired condition for updating its status
+                if (product.productId == productId) {
+                  // Update the status of the product
+                  return { ...product, status: "pending-refund" };
+                }
+                return product; // Return the product as is
+              });
+
+              // Return the updated delivery object with the modified products array
+              return { ...delivery, products: updatedProducts };
+            }
+            return delivery; // Return the delivery as is
+          })
+        );
+      }
+    } catch (err) {
+      console.error("Failed to refund delivery: ", err);
+    }
+  };
+
   return (
     <div className="parent-container">
       {deliveries.map((delivery: Delivery) => {
@@ -79,7 +120,11 @@ const ProfileDeliveries = ({
                 <div className="flex items-center" key={product.productId}>
                   <a
                     href={`http://localhost:3000/products/id/${product.productId}`}
-                    className="hover:font-bold mt-2 text-gray-800 dark:text-gray-400"
+                    className={`hover:font-bold mt-2 text-gray-800 dark:text-gray-400 ${
+                        product.status === "refunded" || delivery.status === "cancelled"
+                          ? "line-through"
+                          : ""
+                      }`}
                   >
                     {"-" +
                       product.name +
@@ -89,19 +134,41 @@ const ProfileDeliveries = ({
                       product.price +
                       " TL)"}
                   </a>
-                  {delivery.status == "delivered" ? (
+                  {(delivery.status == "delivered" ) ? (
                     <div className="flex">
-                      <a
-                        className="inline-flex items-center gap-2 mt-3 text-sm font-medium text-blue-500 hover:text-blue-700"
-                        href={`http://localhost:3000/profile/rating/${product.productId}`}
-                      >
-                        <FaCommentAlt className="w-5 ml-2 h-auto text-orange-300 hover:text-orange-500 transition-colors duration-300" />
-                      </a>
-                      {product.status === "" ? (
-                        <button className="ml-4 mt-2 px-2 py-1 text-sm text-red-600 font-bold bg-red-500 hover:bg-red-700 text-white rounded">
+                        {
+                            (delivery.status == "delivered" &&( product.status == ""|| product.status=="rejected-refund")) &&(                      <a
+                                className="inline-flex items-center gap-2 mt-3 text-sm font-medium text-blue-500 hover:text-blue-700"
+                                href={`http://localhost:3000/profile/rating/${product.productId}`}
+                              >
+                                <FaCommentAlt className="w-5 ml-2 h-auto text-orange-300 hover:text-orange-500 transition-colors duration-300" />
+                              </a>)
+
+
+                        }
+
+                      {(product.status === "" && delivery.date > new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)) ? (
+                        <button
+                          onClick={() =>
+                            handleRefundDelivery(
+                              delivery._id,
+                              product.productId
+                            )
+                          }
+                          className="ml-4 mt-2 px-2 py-1 text-sm text-red-600 font-bold bg-red-500 hover:bg-red-700 text-white rounded"
+                        >
                           Refund
                         </button>
-                      ):(<p className="ml-4 mt-2 px-2 py-1 text-red-500" >{product.status=="pending-refund" &&("pending refund approval")}</p>)}
+                      ) : (
+                        <div>
+                          <p className="ml-4 mt-2 px-2 py-1 text-red-500">
+                            {product.status === "pending-refund" &&
+                              "pending refund approval"}
+                            {product.status === "refunded" && "refunded"}
+                            {product.status === "rejected-refund" && "refund rejected"}
+                          </p>
+                        </div>
+                      )}
                     </div>
                   ) : (
                     <div></div>
@@ -111,9 +178,7 @@ const ProfileDeliveries = ({
             })}
             <div className="item-center flex">
               <p
-                className={`${
-                  delivery.status === "cancelled" ? "line-through" : ""
-                } mt-2 font-bold text-green-700 dark:text-green-400`}
+                className={`mt-2 font-bold text-green-700 dark:text-green-400`}
               >
                 {"Total Price: " + delivery.totalPrice + " TL"}
               </p>
@@ -133,7 +198,7 @@ const ProfileDeliveries = ({
             </div>
 
             <div className="flex gap-4">
-              {delivery.status !== "cancelled" && (
+         
                 <a
                   className="inline-flex items-center gap-2 mt-3 text-sm font-medium text-blue-500 hover:text-blue-700"
                   href={`http://localhost:5001/products/delivery/invoice/${delivery._id}`}
@@ -155,7 +220,7 @@ const ProfileDeliveries = ({
                     />
                   </svg>
                 </a>
-              )}
+           
 
               {/* Cancel delivery button */}
               {delivery.status === "processing" && (
@@ -166,13 +231,6 @@ const ProfileDeliveries = ({
                   className="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Cancel Delivery
-                </button>
-              )}
-
-              {/* refund delivery button */}
-              {delivery.status === "delivered" && (
-                <button className="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                  Refund All Products
                 </button>
               )}
             </div>

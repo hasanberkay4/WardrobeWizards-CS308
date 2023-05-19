@@ -45,6 +45,9 @@ productRouter.get('/delivery/:user_id', productController.getDeliveriesByUserId)
 // update delivery status
 productRouter.post('/delivery/update-status', productController.updateDeliveryStatus);
 
+// update product status in delivery
+productRouter.post('/delivery/product/update-status', productController.updateDeliveryProductStatus);
+
 // handle ratings
 productRouter.put('/id/:productid', productController.updateProductRating);
 

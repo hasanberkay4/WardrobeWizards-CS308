@@ -196,15 +196,76 @@ const updateDeliveryStatus = async (req: Request, res: Response) => {
 
   try {
     // Update the delivery with new status
+    if(newStatus==="cancelled"){
+      await Delivery.findByIdAndUpdate(deliveryId, {
+        status: newStatus,
+        totalPrice: 0,
+        
+      });
+
+    }else{
     await Delivery.findByIdAndUpdate(deliveryId, {
       status: newStatus,
     });
+
+  }
 
     res.status(200).json({ message: "Delivery status updated successfully" });
   } catch (error) {
     console.error("Error updating delivery status:", error);
     res.status(500).json({ message: "Error updating delivery status" });
   }
+};
+
+// update Delivery Status
+const updateDeliveryProductStatus = async (req: Request, res: Response) => {
+
+
+
+
+  const newStatus = req.body.status;
+  const productId = req.body.prodId;
+  const deliveryId = req.body.deliveryId;
+
+
+  try {
+    // Find the delivery by ID
+    const delivery = await Delivery.findById(deliveryId);
+
+    if (!delivery) {
+      // Delivery not found
+      console.log('Delivery not found');
+      return;
+    }
+
+    // Find the product in the delivery's products array by its ID
+    const productToUpdate = delivery.products.find(
+      (product) => product.productId.toString() === productId
+    );
+
+    if (!productToUpdate) {
+      // Product not found in the delivery
+      console.log('Product not found in the delivery');
+      return;
+    }
+
+    // Update the product's status
+    productToUpdate.status = newStatus;
+
+    // Save the updated delivery
+    const updatedDelivery = await delivery.save();
+
+    // Updated delivery with the product's status updated
+    console.log('Product status updated:', updatedDelivery);
+    res.status(200).json({ message: "Delivery product status successfully", updatedDelivery:updatedDelivery });
+  } catch (err) {
+    // Handle the error
+    console.error(err);
+
+    res.status(500).json({ message: "Error updating delivery product status" });
+  }
+
+
 };
 
 // update Product Stock
@@ -263,5 +324,6 @@ export default {
   getProductsByCategoryFilter,
   getAllCategories,
   updateDeliveryStatus,
+  updateDeliveryProductStatus,
   updateProductStock,
 };

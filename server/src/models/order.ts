@@ -15,6 +15,7 @@ export interface IDelivery {
     price: number;
     description: string;
     quantity: number;
+    status: string;
   }[];
   pdf: {
     data: Buffer;
