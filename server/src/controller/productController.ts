@@ -193,15 +193,25 @@ const getAllCategories = async (req: Request, res: Response) => {
 const updateDeliveryStatus = async (req: Request, res: Response) => {
   const newStatus = req.body.status;
   const deliveryId = req.body.deliveryId;
+  const oldStatus = req.body.oldStatus;
 
   try {
     // Update the delivery with new status
     if(newStatus==="cancelled"){
-      await Delivery.findByIdAndUpdate(deliveryId, {
-        status: newStatus,
-        totalPrice: 0,
-        
-      });
+
+      if(oldStatus=== "processing"){
+
+        await Delivery.findByIdAndUpdate(deliveryId, {
+          status: newStatus,
+          totalPrice: 0,
+          
+        });
+
+      }else{
+        throw new Error("To cancel delivery, its status must be processing");
+      }
+      
+
 
     }else{
     await Delivery.findByIdAndUpdate(deliveryId, {

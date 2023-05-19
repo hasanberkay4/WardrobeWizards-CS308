@@ -21,12 +21,29 @@ const options = {
 
 let color: string;
 
+function isPast30Days(date0:Date) {
+    const date2 = new Date();
+    const date1 = new Date(date0);
+    const utcDate2 = Date.UTC(date2.getFullYear(), date2.getMonth(), date2.getDate());
+    const utcDate1 = Date.UTC(date1.getFullYear(), date1.getMonth(), date1.getDate());
+
+  
+    // Calculate the difference in milliseconds
+    const differenceInMilliseconds = Math.abs(utcDate2 - utcDate1);
+  
+    // Convert the difference to days
+    const differenceInDays = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
+
+    const isPast30Days = differenceInDays > 30 ? false : true
+    return isPast30Days;
+  }
+
 const ProfileDeliveries = ({
   deliveries: initialDeliveries,
 }: DeliveryProps) => {
   const [deliveries, setDeliveries] = useState(initialDeliveries);
 
-  const handleCancelDelivery = async (deliveryId: string, products: any) => {
+  const handleCancelDelivery = async (deliveryId: string, products: any, oldStatus: string) => {
     try {
       // change the status of delivery to cancelled
       const response = await axios.post(
@@ -34,6 +51,7 @@ const ProfileDeliveries = ({
         {
           deliveryId: deliveryId,
           status: "cancelled",
+          oldStatus: oldStatus
         }
       );
 
@@ -147,7 +165,7 @@ const ProfileDeliveries = ({
 
                         }
 
-                      {(product.status === "" && delivery.date > new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)) ? (
+                      {(product.status === "" && isPast30Days(delivery.date)) ? (
                         <button
                           onClick={() =>
                             handleRefundDelivery(
@@ -226,7 +244,7 @@ const ProfileDeliveries = ({
               {delivery.status === "processing" && (
                 <button
                   onClick={() =>
-                    handleCancelDelivery(delivery._id, delivery.products)
+                    handleCancelDelivery(delivery._id, delivery.products, delivery.status)
                   }
                   className="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                 >
