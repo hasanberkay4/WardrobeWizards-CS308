@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction } from "express"
-import Product from "../models/product"
-import Category from '../models/category';
+import { Request, Response, NextFunction } from "express";
+import Product from "../models/product";
+import Category from "../models/category";
 import Delivery, { IDelivery } from "../models/order";
 import { sendInvoiceEmail } from "../middleware/pdfGenerator";
 
@@ -26,7 +26,7 @@ const getProductsById = async (req: Request, res: Response) => {
     res.json(product);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ status: 'Server error' });
+    res.status(500).json({ status: "Server error" });
   }
 };
 
@@ -37,7 +37,7 @@ const getCategorySpecificProducts = async (req: Request, res: Response) => {
   try {
     const category = await Category.findOne({ slug: slug });
     if (!category) {
-      return res.status(404).send('Category not found');
+      return res.status(404).send("Category not found");
     }
 
     const products = await Product.find({ category_ids: category._id });
@@ -45,16 +45,15 @@ const getCategorySpecificProducts = async (req: Request, res: Response) => {
     res.json(products);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ status: 'Server error' });
+    res.status(500).json({ status: "Server error" });
   }
 };
-
 
 // search data
 const searchProducts = async (req: Request, res: Response) => {
   const query = req.query.q as string;
   if (!query) {
-    return res.status(400).json({ message: 'Missing query parameter' });
+    return res.status(400).json({ message: "Missing query parameter" });
   }
   const searchResult = await Product.search(query);
   res.json(searchResult);
@@ -86,27 +85,31 @@ const getDelivery = async (req: Request, res: Response) => {
 
     sendInvoiceEmail(newDelivery);
     res.status(200).json(newDelivery._id);
-  }
-  else {
-    const itemNamesOutOfStock = itemsOutOfStock.join(', ');
-    res.status(300).send(`The following products are not available: ${itemNamesOutOfStock}`);
+  } else {
+    const itemNamesOutOfStock = itemsOutOfStock.join(", ");
+    res
+      .status(300)
+      .send(`The following products are not available: ${itemNamesOutOfStock}`);
   }
 };
 
 // show delivery specific invoice
 const getDeliveryInvoice = async (req: Request, res: Response) => {
-
   const delivery = await Delivery.findById(req.params.id);
   if (!delivery || !delivery.pdf || !delivery.pdf.data) {
-    res.status(404).send('Invoice not found');
+    res.status(404).send("Invoice not found");
     return;
   }
-  res.set('Content-Type', 'application/pdf');
+  res.set("Content-Type", "application/pdf");
   res.send(delivery.pdf.data);
 };
 
 // handle ratings
-const updateProductInDatabase = async (productId: string, newAverageRating: number, newVoters: number) => {
+const updateProductInDatabase = async (
+  productId: string,
+  newAverageRating: number,
+  newVoters: number
+) => {
   await Product.findByIdAndUpdate(productId, {
     rating: newAverageRating,
     number_of_voters: newVoters,
@@ -123,10 +126,10 @@ const updateProductRating = async (req: Request, res: Response) => {
     // Update the product with the new rating and number of voters
     await updateProductInDatabase(productId, newAverageRating, newVoters);
 
-    res.status(200).json({ message: 'Product rating updated successfully' });
+    res.status(200).json({ message: "Product rating updated successfully" });
   } catch (error) {
-    console.error('Error updating product rating:', error);
-    res.status(500).json({ message: 'Error updating product rating' });
+    console.error("Error updating product rating:", error);
+    res.status(500).json({ message: "Error updating product rating" });
   }
 };
 
@@ -140,14 +143,15 @@ const getAllDeliveries = async (req: Request, res: Response) => {
     console.error(error);
     res.status(500).json({ status: "Server error" });
   }
-
-}
+};
 
 // get deliveries by user id
 const getDeliveriesByUserId = async (req: Request, res: Response) => {
   try {
     const user_id = req.params.user_id;
-    const deliveries = await Delivery.find({ customerId: user_id }).sort({ date: -1 });
+    const deliveries = await Delivery.find({ customerId: user_id }).sort({
+      date: -1,
+    });
 
     res.json(deliveries);
     //res.status(200).json({status: "Successfully fetched products"})
@@ -155,9 +159,7 @@ const getDeliveriesByUserId = async (req: Request, res: Response) => {
     console.error(error);
     res.status(500).json({ status: "Server error" });
   }
-
-}
-
+};
 
 // yagiz - filter
 
@@ -173,24 +175,93 @@ const getProductsByCategoryFilter = async (req: Request, res: Response) => {
 
     res.json(filteredProducts);
   } catch (error) {
-    res.status(404).json({ message: 'Products not found for given filter' });
+    res.status(404).json({ message: "Products not found for given filter" });
   }
-}
+};
 
 // get all categories for filter dropdown
 const getAllCategories = async (req: Request, res: Response) => {
   try {
     const categories = await Category.find();
     res.json(categories);
-
   } catch (error) {
-    res.status(404).json({ message: 'Categories not found' });
+    res.status(404).json({ message: "Categories not found" });
   }
-}
+};
 
+// update Delivery Status
+const updateDeliveryStatus = async (req: Request, res: Response) => {
+  const newStatus = req.body.status;
+  const deliveryId = req.body.deliveryId;
 
+  try {
+    // Update the delivery with new status
+    await Delivery.findByIdAndUpdate(deliveryId, {
+      status: newStatus,
+    });
+
+    res.status(200).json({ message: "Delivery status updated successfully" });
+  } catch (error) {
+    console.error("Error updating delivery status:", error);
+    res.status(500).json({ message: "Error updating delivery status" });
+  }
+};
+
+// update Product Stock
+const updateProductStock = async (req: Request, res: Response) => {
+  const changeValue = req.body.stock;
+  const productId = req.body.prodId;
+  const isIncrease = req.body.isIncrease;
+
+  try {
+    // Find the product first
+    const product = await Product.findById(productId);
+
+    if (!product) {
+      throw new Error("Product not found");
+    }
+
+    // Calculate the new stock count
+    let newStockCount = isIncrease
+      ? product.stock_quantity + changeValue
+      : product.stock_quantity - changeValue;
+
+    // Ensure it's not less than zero
+    if (newStockCount < 0) {
+      newStockCount = 0;
+    }
+
+    // Update the product
+    product.stock_quantity = newStockCount;
+    const updatedProduct = await product.save();
+
+    if (!updatedProduct) {
+      throw new Error("UpdatedProduct not found");
+    }
+
+    // Log and return the updated product
+    console.log("Updated product: ", updatedProduct);
+    
+   
+    res.status(200).json({ message: "Product stock updated successfully", updatedProduct:updatedProduct });
+  } catch (error) {
+    console.error("Error updating product stock:", error);
+    res.status(500).json({ message: "Error updating product stock" });
+  }
+};
 
 export default {
-  getProducts, getProductsById, getCategorySpecificProducts, searchProducts, updateProductRating, getDelivery, getDeliveryInvoice, getAllDeliveries, getDeliveriesByUserId,
-  getProductsByCategoryFilter, getAllCategories
-}
+  getProducts,
+  getProductsById,
+  getCategorySpecificProducts,
+  searchProducts,
+  updateProductRating,
+  getDelivery,
+  getDeliveryInvoice,
+  getAllDeliveries,
+  getDeliveriesByUserId,
+  getProductsByCategoryFilter,
+  getAllCategories,
+  updateDeliveryStatus,
+  updateProductStock,
+};
