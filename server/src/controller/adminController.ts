@@ -166,7 +166,48 @@ const adminDeleteProductController = async (req: Request, res: Response) => {
     }
 }
 
-
+const adminUpdateProductPriceController = async (req: Request, res: Response) => {
+    try {
+        console.log("Received request to update product price");
+        console.log("Request body:", req.body);
+        const product = await Product.findById(req.params.id);
+        if (product) {
+            console.log("updated price:", req.body);
+            const newPrice = parseInt(req.body.newPrice);
+            product.initial_price = newPrice;
+            const updatedProduct = await product.updateOne(product)
+            console.log("new price:", product.initial_price);
+            res.status(200).json({ status: "success", product: updatedProduct })
+        }
+        else {
+            return res.status(400).json({ message: "Product not found" });
+        }
+    }
+    catch (err) {
+        return res.status(400).json({ errors: err });
+    }
+}
+const adminUpdateProductDiscountController = async (req: Request, res: Response) => {
+    try {
+        console.log("Received request to update product price");
+        console.log("Request body:", req.body);
+        const product = await Product.findById(req.params.id);
+        if (product) {
+            console.log("updated price:", req.body);
+            const newPrice = parseInt(req.body.newPrice);
+            product.initial_price = newPrice;
+            const updatedProduct = await product.updateOne(product)
+            console.log("new price:", product.initial_price);
+            res.status(200).json({ status: "success", product: updatedProduct })
+        }
+        else {
+            return res.status(400).json({ message: "Product not found" });
+        }
+    }
+    catch (err) {
+        return res.status(400).json({ errors: err });
+    }
+}
 
 // admin deliveries
 const adminGetDeliveriesController = async (req: Request, res: Response) => {
@@ -259,5 +300,5 @@ export default {
     adminSignInController, adminSignUpController,
     adminGetProductsController, adminGetProductController, adminCreateProductController, adminUpdateProductController, adminDeleteProductController,
     adminGetDeliveriesController, adminGetDeliveryController, adminGetDeliveryByUserIdController, adminUpdateDeliveryController,
-    adminGetCommentsController, adminGetCommentController, adminUpdateCommentController,
+    adminGetCommentsController, adminGetCommentController, adminUpdateCommentController,adminUpdateProductPriceController,adminUpdateProductDiscountController,
 }  

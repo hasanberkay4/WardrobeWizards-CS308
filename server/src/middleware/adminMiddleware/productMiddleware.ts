@@ -1,15 +1,18 @@
 import { Request, Response, NextFunction } from 'express';
-import multer from 'multer';
+//import multer from 'multer';
 import * as zod from 'zod';
 
+/*
 const storage = multer.diskStorage({
     destination: './src/images/',
     filename: (req, file, cb) => {
         cb(null, file.originalname);
     }
+    const upload = multer({ storage: storage }).single('image_file');
 });
 
-const upload = multer({ storage: storage }).single('image_file');
+*/
+
 
 const addProductSchema = zod.object({
     name: zod.string(),
@@ -30,4 +33,4 @@ const validateAddProductForm = (req: Request, res: Response, next: NextFunction)
     }
 };
 
-export { upload, validateAddProductForm };
+export { validateAddProductForm };

@@ -10,7 +10,7 @@ import { imagesRouter } from "./routes/imagesRouter";
 import { userRouter } from "./routes/userRouter";
 import { commentRouter } from "./routes/commentRouter";
 import { adminRouter } from './routes/adminRouter';
-import { upload } from "./middleware/adminMiddleware/productMiddleware";
+//import { upload } from "./middleware/adminMiddleware/productMiddleware";
 
 dotenv.config()
 
@@ -29,9 +29,9 @@ app.use('/comments/', express.json(), commentRouter);
 app.use('/admin/', express.json(), adminRouter);
 
 // upload image
-app.post('/upload', upload, (req, res) => {
-    res.json({ file: req.file });
-});
+//app.post('/upload', upload, (req, res) => {
+  //  res.json({ file: req.file });
+//});
 
 app.listen(port, () => {
     console.log(`Server running on port http://localhost:${port}`);
