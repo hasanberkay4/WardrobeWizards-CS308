@@ -136,7 +136,7 @@ const updateProductRating = async (req: Request, res: Response) => {
 // get all deliveries
 const getAllDeliveries = async (req: Request, res: Response) => {
   try {
-    const deliveries = await Delivery.find();
+    const deliveries = await Delivery.find({},{ pdf : 0 }).sort({ date: -1 });
     res.json(deliveries);
     //res.status(200).json({status: "Successfully fetched products"})
   } catch (error) {
@@ -149,7 +149,7 @@ const getAllDeliveries = async (req: Request, res: Response) => {
 const getDeliveriesByUserId = async (req: Request, res: Response) => {
   try {
     const user_id = req.params.user_id;
-    const deliveries = await Delivery.find({ customerId: user_id }).sort({
+    const deliveries = await Delivery.find({ customerId: user_id }, { pdf : 0 }).sort({
       date: -1,
     });
 
@@ -258,6 +258,16 @@ const updateDeliveryProductStatus = async (req: Request, res: Response) => {
       console.log('Product not found in the delivery');
       return;
     }
+
+    if(newStatus === "refunded"){
+      const decrementedPrices = productToUpdate.price*productToUpdate.quantity
+      let updatedPrice = delivery.totalPrice - decrementedPrices
+      updatedPrice=   updatedPrice < 0 ? 0: updatedPrice;
+      delivery.totalPrice = updatedPrice;
+  
+
+    }
+
 
     // Update the product's status
     productToUpdate.status = newStatus;

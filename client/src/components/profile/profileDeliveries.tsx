@@ -43,7 +43,7 @@ const ProfileDeliveries = ({
 }: DeliveryProps) => {
   const [deliveries, setDeliveries] = useState(initialDeliveries);
 
-  const handleCancelDelivery = async (deliveryId: string, products: any, oldStatus: string) => {
+  const handleCancelDelivery = async (deliveryId: string, products: any, oldStatus: string, totalPrice:number) => {
     try {
       // change the status of delivery to cancelled
       const response = await axios.post(
@@ -51,7 +51,9 @@ const ProfileDeliveries = ({
         {
           deliveryId: deliveryId,
           status: "cancelled",
-          oldStatus: oldStatus
+          oldStatus: oldStatus,
+          
+
         }
       );
 
@@ -71,6 +73,13 @@ const ProfileDeliveries = ({
             stock: product.quantity,
             isIncrease: true,
           });
+        });
+
+         // add expense
+         await axios.post(`http://localhost:5001/transaction/add`, {
+          amount: totalPrice,
+          type: "expense",
+
         });
       }
     } catch (err) {
@@ -244,7 +253,7 @@ const ProfileDeliveries = ({
               {delivery.status === "processing" && (
                 <button
                   onClick={() =>
-                    handleCancelDelivery(delivery._id, delivery.products, delivery.status)
+                    handleCancelDelivery(delivery._id, delivery.products, delivery.status, delivery.totalPrice)
                   }
                   className="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                 >
