@@ -1,34 +1,64 @@
 // ProductManagerFeatureCart.module.scss
 
 .cartItem {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  background-color: white;
+  transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .content {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    border: 1px solid #ccc;
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 5px;
+    gap: 5px;
 
-    .content {
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-
-        p {
-            margin: 0;
-            line-height: 1.5;
-        }
-
-        .deliveryProduct {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-top: 10px;
-            border-radius: 5px;
-
-            p {
-                margin: 0;
-                line-height: 1.5;
-            }
-        }
+    p {
+      margin: 0;
+      line-height: 1.5;
     }
+
+    a {
+      color: blue;
+      text-decoration: none;
+
+      &:hover {
+        color: purple;
+      }
+    }
+
+    .deliveryProduct {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+
+      p {
+        margin: 0;
+        line-height: 1.5;
+      }
+
+      .pdfButton {
+        padding: 8px 16px;
+        background-color: #008CBA; // blue color
+        border: none;
+        border-radius: 5px;
+        font-size: 14px;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+  
+        &:hover {
+          background-color: #007B8A; // dark blue color
+        }
+      }
+    }
+  }
 }

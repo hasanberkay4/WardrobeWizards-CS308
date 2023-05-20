@@ -3,6 +3,7 @@ import { ProductManagerLayout } from "../../../../components/admin/product-manag
 import { AdminLayout } from "../../../../components/admin/shared/AdminLayout"
 import styles from '../../../../styles/ProductManagerDeliveryPage.module.scss'
 import { useState } from "react"
+import React from "react"
 
 export type ProductManagerDeliveryPageProps = {
     delivery_info: {
@@ -59,41 +60,94 @@ const ProductManagerDeliveryPage = ({ delivery_info }: ProductManagerDeliveryPag
             <AdminLayout>
                 <ProductManagerLayout>
                     <div className={styles.deliveryItem}>
-                        <p>{delivery_info._id}</p>
-                        <p>{delivery_info.deliveryAddress}</p>
-                        <p>{delivery_info.customerId}</p>
-                        <p>{delivery_info.quantity}</p>
-                        <p>{delivery_info.totalPrice}</p>
-                        <p>{status}</p>
-                        <div>
-                            {/* dropdown for changing delivery status of a product */}
-                            <select value={status} onChange={handleSelectChange}>
-                                <option value="pending">pending</option>
-                                <option value="delivered">delivered</option>
-                                <option value="cancelled">cancelled</option>
-                            </select>
-                        </div>
-                        <p>{delivery_info.date}</p>
-                        {delivery_info.products.map((product: any) => {
-                            return (
-                                <div className={styles.product} key={product._id}>
-                                    <p>{product._id}</p>
-                                    <p>{product.productId}</p>
-                                    <p>{product.name}</p>
-                                    <p>{product.price}</p>
-                                    <p>{product.description}</p>
-                                    <p>{product.quantity}</p>
-                                </div>
-                            )
-                        })}
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th>Delivery ID:</th>
+                                    <td>{delivery_info._id}</td>
+                                </tr>
+                                <tr>
+                                    <th>Delivery Address:</th>
+                                    <td>{delivery_info.deliveryAddress}</td>
+                                </tr>
+                                <tr>
+                                    <th>Customer ID:</th>
+                                    <td>{delivery_info.customerId}</td>
+                                </tr>
+                                <tr>
+                                    <th>Quantity:</th>
+                                    <td>{delivery_info.quantity}</td>
+                                </tr>
+                                <tr>
+                                    <th>Total Price:</th>
+                                    <td>{delivery_info.totalPrice}</td>
+                                </tr>
+                                <tr>
+                                    <th>Status:</th>
+                                    <td>
+                                        <div className={styles.statusContainer}>
+                                            <p>{status}</p>
+                                            <select value={status} onChange={handleSelectChange}>
+                                                <option value="pending">pending</option>
+                                                <option value="delivered">delivered</option>
+                                                <option value="cancelled">cancelled</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                </tr>
 
-                        <p>{delivery_info.__v}</p>
-                        <p>{delivery_info.pdfUrl}</p>
+                                <tr>
+                                    <th>Date:</th>
+                                    <td>{delivery_info.date}</td>
+                                </tr>
+                                {delivery_info.products.map((product: any) => {
+                                    return (
+                                        <React.Fragment key={product._id}>
+                                            <tr>
+                                                <th>Product ID:</th>
+                                                <td>{product.productId}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Name:</th>
+                                                <td>{product.name}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Price:</th>
+                                                <td>{product.price}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Description:</th>
+                                                <td>{product.description}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Quantity:</th>
+                                                <td>{product.quantity}</td>
+                                            </tr>
+                                        </React.Fragment>
+                                    );
+                                })}
+                                <tr>
+                                    <th>Version:</th>
+                                    <td>{delivery_info.__v}</td>
+                                </tr>
+                                <tr>
+                                    <th>PDF URL:</th>
+                                    <td>
+                                        <div className={styles.viewInvoiceContainer}>
+                                            <a href={delivery_info.pdfUrl} target="_blank" rel="noopener noreferrer" className={styles.viewInvoiceButton}>
+                                                View Invoice
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
                     </div>
                 </ProductManagerLayout>
             </AdminLayout>
         </div>
-    )
+    );
 }
 
 export const getServerSideProps: GetServerSideProps<ProductManagerDeliveryPageProps> = async (context) => {
