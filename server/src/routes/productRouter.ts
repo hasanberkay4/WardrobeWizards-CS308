@@ -12,6 +12,9 @@ productRouter.get('/', productController.getProducts)
 // product by id
 productRouter.get('/id/:productid', productController.getProductsById);
 
+// update stock
+productRouter.post('/update-stock', productController.updateProductStock);
+
 
 // --- categories ---
 
@@ -38,6 +41,12 @@ productRouter.get('/delivery', productController.getAllDeliveries);
 
 // get all delivieries by user id
 productRouter.get('/delivery/:user_id', productController.getDeliveriesByUserId);
+
+// update delivery status
+productRouter.post('/delivery/update-status', productController.updateDeliveryStatus);
+
+// update product status in delivery
+productRouter.post('/delivery/product/update-status', productController.updateDeliveryProductStatus);
 
 // handle ratings
 productRouter.put('/id/:productid', productController.updateProductRating);

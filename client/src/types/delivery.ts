@@ -5,6 +5,7 @@ export type DeliveryProduct = {
     price: number;
     description: string;
     quantity: number;
+    status: string;
 
 }
 
