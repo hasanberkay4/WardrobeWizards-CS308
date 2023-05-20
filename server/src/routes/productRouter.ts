@@ -51,8 +51,17 @@ productRouter.post('/delivery/product/update-status', productController.updateDe
 // handle ratings
 productRouter.put('/id/:productid', productController.updateProductRating);
 
+// get user's wishes
+productRouter.get('/get-user-wishes/:userid', wishController.getUserWishes);
+
+// check user-specific wish
+productRouter.post('/check-user-wishes', wishController.checkUserWish);
+
 // add wish
 productRouter.put('/add-wish', wishController.addWish);
+
+// remove wish
+productRouter.delete('/remove-wish', wishController.removeWish);
 
 
 // --- yagiz - filter ---
