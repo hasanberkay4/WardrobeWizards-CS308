@@ -138,14 +138,16 @@ const adminUpdateProductController = async (req: Request, res: Response) => {
     try {
         const product = await Product.findById(req.params.id);
         if (product) {
-            product.stock_quantity = req.body.stock_quantity;
+            const new_stock_quantity = parseInt(req.body.stock_quantity);
+            product.stock_quantity = new_stock_quantity;
+            console.log("product updated:" + product.stock_quantity);
+            const updatedProduct = await product.updateOne(product)
             res.status(200).json({ status: "success", product: product })
-        }
-        else {
+        } else {
             return res.status(400).json({ message: "Product not found" });
         }
-    }
-    catch (err) {
+    } catch (err) {
+        console.log("ahoy error");
         return res.status(400).json({ errors: err });
     }
 }
