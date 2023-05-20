@@ -31,6 +31,7 @@ const SalesManagerProducts = ({ product_data }: ProductContent) => {
         <p>Name : {product_data.name}</p>
         <p>Initial Price: {product_data.initial_price}TL</p>
         <p>Category(s) : {product_data.category_ids}</p>
+       
         <img
           src={product_data.image}
           alt={product_data.image}
@@ -55,6 +56,7 @@ const SalesManagerProducts = ({ product_data }: ProductContent) => {
               router.push(
                 `/admin/sales-manager/set-price/${product_data._id}?initialPrice=${product_data.initial_price}`
               )
+              
             }
           >
             Set Price
@@ -68,7 +70,7 @@ const SalesManagerProducts = ({ product_data }: ProductContent) => {
             }}
             onClick={() =>
               router.push(
-                `/admin/sales-manager/set-discount/${product_data._id}`
+                `/admin/sales-manager/set-discount/${product_data._id}?initialPrice=${product_data.initial_price}`
               )
             }
           >

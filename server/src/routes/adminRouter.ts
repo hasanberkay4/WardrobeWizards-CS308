@@ -18,6 +18,8 @@ adminRouter.get('/products/:id', adminController.adminGetProductController);
 adminRouter.post('/products', [validateAddProductForm], adminController.adminCreateProductController);
 adminRouter.put('/products/:id', adminController.adminUpdateProductController);
 adminRouter.delete('/products/:id', adminController.adminDeleteProductController);
+adminRouter.put('/sales-manager/products/:id', adminController.adminUpdateProductPriceController);
+adminRouter.put('/sales-manager/products/:id/discount', adminController.adminUpdateProductDiscountController);
 
 // admin deliveries
 adminRouter.get('/deliveries', adminController.adminGetDeliveriesController);
