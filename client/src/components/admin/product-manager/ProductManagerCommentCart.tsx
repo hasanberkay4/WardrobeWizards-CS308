@@ -1,43 +1,50 @@
-import { useState } from 'react'
-import styles from '../../../styles/ProductManagerFeatureCart.module.scss'
-import Link from 'next/link'
-
+import styles from '../../../styles/ProductManagerFeatureCart.module.scss';
+import Link from 'next/link';
 
 type CommentContent = {
     comment_data: {
-        _id: string,
-        customerId: string,
-        productId: string,
-        date: string,
-        approved: boolean,
-        rating: number,
-        __v: number
-    }
-}
-
+        _id: string;
+        customerId: string;
+        productId: string;
+        date: string;
+        approved: boolean;
+        rating: number;
+        __v: number;
+    };
+};
 
 const ProductManagerCommentCart = ({ comment_data }: CommentContent) => {
-
-
-
     return (
         <div className={styles.cartItem}>
-            CommentItem:
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Customer ID:</th>
+                        <td>{comment_data.customerId}</td>
+                    </tr>
+                    <tr>
+                        <th>Product ID:</th>
+                        <td>{comment_data.productId}</td>
+                    </tr>
+                    <tr>
+                        <th>Date:</th>
+                        <td>{comment_data.date}</td>
+                    </tr>
+                    <tr>
+                        <th>Status:</th>
+                        <td>{comment_data.approved ? 'Approved' : 'Not approved'}</td>
+                    </tr>
+                    <tr>
+                        <th>Rating:</th>
+                        <td>{comment_data.rating}</td>
+                    </tr>
+                </tbody>
+            </table>
             <Link href={'/admin/product-manager/comments/' + comment_data._id}>
-                <div className={styles.content}>
-                    <p>{comment_data.customerId}</p>
-                    <p>{comment_data.productId}</p>
-                    <p>{comment_data.date}</p>
-                    {comment_data.approved
-                        ? <p>Approved</p>
-                        : <p>Not approved</p>
-                    }
-                    <p>{comment_data.rating}</p>
-                </div>
-
+                <p className={styles.link}>View Comment</p>
             </Link>
         </div>
-    )
-}
+    );
+};
 
-export { ProductManagerCommentCart }
+export { ProductManagerCommentCart };

@@ -1,28 +1,62 @@
+// SpecificDeliveryPage.module.scss
+
 .deliveryItem {
     display: flex;
     flex-direction: column;
-    background-color: #fff8dc;
+    background-color: #f8f8f8;
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 15px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-
+  
     p {
-        margin: 5px 0;
-        font-size: 16px;
-        color: #333;
+      margin: 5px 0;
+      font-size: 16px;
+      color: #333;
     }
-
+  
     div.product {
-        border: 1px solid #ddd;
-        padding: 10px;
-        border-radius: 5px;
-        margin: 10px 0;
+      border: 1px solid #ddd;
+      padding: 10px;
+      border-radius: 5px;
+      margin: 10px 0;
+    }
+  
+    select {
+      margin-top: 10px;
+      padding: 5px;
+      font-size: 14px;
     }
 
-    select {
-        margin-top: 10px;
-        padding: 5px;
-        font-size: 14px;
+    .statusContainer {
+        display: flex;
+        align-items: center;
+
+        p {
+            margin: 0;
+            margin-right: 10px;
+        }
+      }
+
+    .viewInvoiceContainer {
+      display: flex;
+      align-items: center;
     }
-}
+  
+    .viewInvoiceButton {
+      padding: 8px 16px;
+      background-color: #008CBA; // blue color
+      border: none;
+      border-radius: 5px;
+      font-size: 14px;
+      color: white;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+  
+      &:hover {
+        background-color: #007B8A; // dark blue color
+      }
+    }
+  }
+  

@@ -22,9 +22,9 @@ const ProductManagerProductsPage = ({ product_array }: ProductManagerProductsPag
             <AdminLayout>
                 <ProductManagerLayout>
                     {/* add product */}
-                    <div>
+                    <div className="mb-4">
                         <Link href={'/admin/product-manager/products/add-product/'}>
-                            <button>
+                            <button className="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded">
                                 Add Product
                             </button>
                         </Link>

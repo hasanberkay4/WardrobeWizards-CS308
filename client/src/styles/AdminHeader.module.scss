@@ -1,53 +1,66 @@
+// AdminHeader.module.scss
+
 .admin-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #333;
+  color: #fff;
+  font-family: sans-serif;
+
+  a {
+    text-decoration: none;
     color: #fff;
-    font-family: sans-serif;
-  
-    a {
-      text-decoration: none;
-      color: #fff;
+  }
+
+  .admin-header__logo {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    &__container {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      overflow: hidden;
     }
-  
-    .admin-header__logo {
-      display: flex;
-      align-items: center;
-      cursor: pointer;
+
+    &__image {
+      object-fit: cover;
     }
-  
-    .admin-header__account {
+  }
+
+  .admin-header__account {
+    display: flex;
+    align-items: center;
+
+    &__info {
       display: flex;
-      align-items: center;
-  
-      &__info {
-        display: flex;
-        flex-direction: column;
-        margin-right: 20px;
-  
-        span {
-          margin-bottom: 5px;
-        }
+      flex-direction: column;
+      margin-right: 20px;
+
+      &__username,
+      &__title {
+        margin-bottom: 5px;
       }
-  
-      &__actions {
-        button {
-          padding: 8px 16px;
-          background-color: #f44336;
-          border: none;
-          border-radius: 5px;
-          font-size: 14px;
-          color: #fff;
-          cursor: pointer;
-          transition: background-color 0.3s ease;
-  
-          &:hover {
-            background-color: #d32f2f;
-          }
+    }
+
+    &__actions {
+      button.admin-header__account__actions__logout {
+        padding: 8px 16px;
+        background-color: #f44336;
+        border: none;
+        border-radius: 5px;
+        font-size: 14px;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: #d32f2f;
         }
       }
     }
   }
-  
+}

@@ -45,28 +45,41 @@ const ProductManagerCommentPage = ({ comment_info }: ProductManagerCommentPagePr
             <AdminLayout>
                 <ProductManagerLayout>
                     <div className={styles.cartItem}>
-                        CommentItem:
-                        <Link href={'/admin/product-manager/comments/' + comment_info._id}>
-                            <div className={styles.content}>
-                                <p>{comment_info.customerId}</p>
-                                <p>{comment_info.productId}</p>
-                                <p>{comment_info.date}</p>
-                                {isApproved
-                                    ? <p>Approved</p>
-                                    : <p>Not approved</p>
-                                }
-                                <button onClick={toggleApproval}>
-                                    {isApproved ? 'Disapprove' : 'Approve'}
-                                </button>
-                                <p>{comment_info.rating}</p>
-                            </div>
-
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th>Customer ID:</th>
+                                    <td>{comment_info.customerId}</td>
+                                </tr>
+                                <tr>
+                                    <th>Product ID:</th>
+                                    <td>{comment_info.productId}</td>
+                                </tr>
+                                <tr>
+                                    <th>Date:</th>
+                                    <td>{comment_info.date}</td>
+                                </tr>
+                                <tr>
+                                    <th>Status:</th>
+                                    <td>{isApproved ? 'Approved' : 'Not approved'}</td>
+                                </tr>
+                                <tr>
+                                    <th>Rating:</th>
+                                    <td>{comment_info.rating}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button onClick={toggleApproval}>
+                            {isApproved ? 'Disapprove' : 'Approve'}
+                        </button>
+                        <Link href={'/admin/product-manager/comments/'}>
+                            <p className={styles.link}>Back to Comments</p>
                         </Link>
                     </div>
                 </ProductManagerLayout>
             </AdminLayout>
         </div>
-    )
+    );
 }
 
 export const getServerSideProps: GetServerSideProps<ProductManagerCommentPageProps> = async (context) => {
