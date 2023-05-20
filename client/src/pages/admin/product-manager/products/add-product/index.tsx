@@ -7,6 +7,7 @@ const AddProductPage = () => {
     const [initial_price, setInitialPrice] = useState(0);
     const [category_ids, setCategoryIds] = useState("");
     const [stock_quantity, setStockQuantity] = useState(0);
+    const [expense, setExpense] = useState(0);
     const [imageName, setImageName] = useState("");
     const [imageFile, setImageFile] = useState<File | null>(null);
 
@@ -33,15 +34,32 @@ const AddProductPage = () => {
                 "initial_price": initial_price,
                 "category_ids": [category_ids],
                 "stock_quantity": stock_quantity,
+                "expense": expense,
                 "image_name": imageName,
                 "image_file": imageFile
             })
         });
+
         const rJson = await r.json();
         if (r.ok) {
             console.log(rJson);
         } else {
             console.error("Error adding product", rJson);
+        }
+
+        // expense endpoint
+        const expenseResponse = await fetch("http://localhost:5001/transaction/add", {
+            method: "POST",
+            body: JSON.stringify({
+                "amount": expense,
+                "type": "expense",
+            })
+        });
+        const expenseResponseJson = await expenseResponse.json();
+        if (expenseResponse.ok) {
+            console.log(expenseResponseJson);
+        } else {
+            console.error("Error adding expense", expenseResponseJson);
         }
 
         // upload file to server
@@ -50,6 +68,7 @@ const AddProductPage = () => {
             body: formData
         });
 
+        // alert dialog
         if (response.ok) {
             const responseJson = await response.json();
             console.log(responseJson);
@@ -83,6 +102,9 @@ const AddProductPage = () => {
 
                 <label className={styles.label} htmlFor="stock">Stock Quantity</label>
                 <input className={styles.input} type="number" id="stock" value={stock_quantity} onChange={e => setStockQuantity(e.target.valueAsNumber)} />
+
+                <label className={styles.label} htmlFor="expense">Expense</label>
+                <input className={styles.input} type="number" id="expense" value={expense} onChange={e => setExpense(e.target.valueAsNumber)} />
 
                 <label className={styles.label} htmlFor="imageName">Image Name</label>
                 <input className={styles.input} type="text" id="imageName" value={imageName} onChange={e => setImageName(e.target.value)} />

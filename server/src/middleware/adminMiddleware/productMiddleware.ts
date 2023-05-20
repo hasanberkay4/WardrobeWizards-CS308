@@ -17,6 +17,7 @@ const addProductSchema = zod.object({
     stock_quantity: zod.number(),
     initial_price: zod.number(),
     category_ids: zod.array(zod.string()),
+    expense: zod.number(),
     image_name: zod.string(),
     image_file: zod.any() || zod.undefined()
 });

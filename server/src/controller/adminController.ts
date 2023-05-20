@@ -108,7 +108,7 @@ const adminGetProductController = async (req: Request, res: Response) => {
 
 const adminCreateProductController = async (req: Request, res: Response) => {
     try {
-        const { name, description, stock_quantity, initial_price, category_ids, image_name } = req.body;
+        const { name, description, stock_quantity, initial_price, category_ids, image_name, expense } = req.body;
         const product = new Product({
             name: name,
             description: description,
@@ -116,6 +116,7 @@ const adminCreateProductController = async (req: Request, res: Response) => {
             initial_price: initial_price,
             category_ids: category_ids,
             image: image_name,
+            expense: expense,
 
             // filler
             delivery_info: "intransit",
@@ -140,7 +141,6 @@ const adminUpdateProductController = async (req: Request, res: Response) => {
         if (product) {
             const new_stock_quantity = parseInt(req.body.stock_quantity);
             product.stock_quantity = new_stock_quantity;
-            console.log("product updated:" + product.stock_quantity);
             const updatedProduct = await product.updateOne(product)
             res.status(200).json({ status: "success", product: product })
         } else {
