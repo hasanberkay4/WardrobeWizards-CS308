@@ -1,3 +1,11 @@
+export type WishProduct = {
+    _id: string;
+    name: string;
+    description: string;
+    image: string;
+    stock_quantity: number;
+}
+
 export type Product = {
     _id: string
     name: string;

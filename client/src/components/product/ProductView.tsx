@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { Product } from "../../types/productType";
 import Image from "next/image";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Store } from "../../context/Store";
 import { ActionKind, CartItem } from "../../types/shoppingCart";
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
@@ -41,6 +41,31 @@ export default function ProductView({ product }: Props) {
         quantity: 1
     }
 
+    const [isInWishlist, setIsInWishlist] = useState(false);
+
+    const checkWishlist = async () => {
+      try {
+        const token = Cookies.get('token');
+        const { user_id } = jwt_decode(token!) as { user_id: string };
+        const response = await axios.post('http://localhost:5001/products/check-user-wishes', {
+            product: product._id,
+            customer: user_id
+        });
+
+  
+        if (response.status === 200) {
+          const { status } = response.data;
+          setIsInWishlist(status === 'Product already in wishlist');
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    useEffect(() => {
+      checkWishlist();
+    }, []);
+
     const addToCartHandler = () => {
 
         const existItem = state.cart.cartItems.find((x) => x.slug === product._id);
@@ -57,21 +82,32 @@ export default function ProductView({ product }: Props) {
 
     const addWishHandler = async () => {
         try {
-          const token = Cookies.get('token');
-          const { user_id } = jwt_decode(token!) as { user_id: string };
+            const token = Cookies.get('token');
+            const { user_id } = jwt_decode(token!) as { user_id: string };
       
-          const response = await axios.put('http://localhost:5001/products/add-wish', {
-            product: product._id,
-            customer: user_id
-          });
-      
-          if (response.status === 200) {
-            alert('Product successfully added to wishlist');
+            if (isInWishlist) {
+              // Remove from wishlist
+              await axios.delete('http://localhost:5001/products/remove-wish', {
+                data: {
+                  product: product._id,
+                  customer: user_id
+                }
+              });
+              setIsInWishlist(false);
+              alert('Product removed from wishlist');
+            } else {
+              // Add to wishlist
+              await axios.put('http://localhost:5001/products/add-wish', {
+                product: product._id,
+                customer: user_id
+              });
+              setIsInWishlist(true);
+              alert('Product successfully added to wishlist');
+            }
+          } catch (error) {
+            alert(error);
           }
-        } catch (error) {
-          alert(error);
-        }
-      };
+    };
 
     const updateCartHandler = (item: CartItem, qty: string) => {
         const quantity = Number(qty);
@@ -152,13 +188,13 @@ export default function ProductView({ product }: Props) {
                             
                             {/* Add to wishlist */}
                             <form className="mt-4">
-                                    <button
+                                <button
                                     onClick={addWishHandler}
                                     type="button"
-                                    className={`flex w-full items-center justify-center rounded-md border border-transparent px-8 py-3 text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 bg-indigo-600 hover:bg-indigo-700`}
-                                    >
-                                    Add to wishlist
-                                    </button>
+                                    className={`flex w-full items-center justify-center rounded-md border border-transparent px-8 py-3 text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${isInWishlist ? 'bg-gray-600 hover:bg-gray-700' : 'bg-indigo-600 hover:bg-indigo-700'}`}
+                                >
+                                    {isInWishlist ? 'Remove from wishlist' : 'Add to wishlist'}
+                                </button>
                             </form>
                         </div>
                     </div>
