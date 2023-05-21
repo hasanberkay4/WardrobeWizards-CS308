@@ -4,22 +4,13 @@ import { AdminLayout } from "../../../../components/admin/shared/AdminLayout"
 import { useState } from "react"
 import Link from "next/link"
 import styles from '../../../../styles/ProductManagerCommentPage.module.scss'
+import { CommentType, CommentTypeSchema } from "../../../../types/adminTypes/commentType"
 
-export type ProductManagerCommentPageProps = {
-    comment_info: {
-        _id: string,
-        customerId: string,
-        productId: string,
-        date: string,
-        approved: boolean,
-        rating: number,
-        __v: number
-    }
+type Props = {
+    comment_info: CommentType;
 }
 
-const features = ['deliveries', 'products', 'comments'];
-const ProductManagerCommentPage = ({ comment_info }: ProductManagerCommentPageProps) => {
-
+const ProductManagerCommentPage = ({ comment_info }: Props) => {
 
     const [isApproved, setIsApproved] = useState(comment_info.approved);
 
@@ -67,6 +58,10 @@ const ProductManagerCommentPage = ({ comment_info }: ProductManagerCommentPagePr
                                     <th>Rating:</th>
                                     <td>{comment_info.rating}</td>
                                 </tr>
+                                <tr>
+                                    <th>Comment Content:</th>
+                                    <td>{comment_info.description}</td>
+                                </tr>
                             </tbody>
                         </table>
                         <button onClick={toggleApproval}>
@@ -82,20 +77,37 @@ const ProductManagerCommentPage = ({ comment_info }: ProductManagerCommentPagePr
     );
 }
 
-export const getServerSideProps: GetServerSideProps<ProductManagerCommentPageProps> = async (context) => {
-    const id = context.params?.id ?? '';
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    try {
 
-    const response = await fetch(`http://localhost:5001/admin/comments/${id}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
+        // get id from url
+        const id = context.params?.id ?? '';
+
+        // get comment info
+        const response = await fetch(`http://localhost:5001/admin/comments/${id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        // convert response to json
+        const comment_response = await response.json();
+
+        // make sure comment_response is of type CommentType
+        const comment = CommentTypeSchema.parse(comment_response.comment);
+
+        // make date readable
+        comment.date = new Date(comment.date).toLocaleDateString();
+
+        return {
+            props: { comment_info: comment }
         }
-    });
-    const comment_info = await response.json();
-
-    return {
-        props: {
-            comment_info: comment_info.comment,
+    }
+    catch (error) {
+        console.error(error);
+        return {
+            props: { comment_info: {} }
         }
     }
 }

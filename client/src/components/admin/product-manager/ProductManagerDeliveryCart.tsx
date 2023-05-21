@@ -1,30 +1,13 @@
 import React from 'react';
 import styles from '../../../styles/ProductManagerFeatureCart.module.scss';
 import Link from 'next/link';
+import { DeliveryType } from '../../../types/adminTypes/deliveryType';
 
-type DeliveryContent = {
-    delivery_data: {
-        _id: string;
-        deliveryAddress: string;
-        customerId: string;
-        quantity: number;
-        totalPrice: number;
-        status: string;
-        date: string;
-        products: Array<{
-            productId: string;
-            name: string;
-            price: number;
-            description: string;
-            quantity: number;
-            _id: string;
-        }>;
-        __v: number;
-        pdfUrl: string;
-    };
+type Props = {
+    delivery_data: DeliveryType;
 };
 
-const ProductManagerDeliveryCart = ({ delivery_data }: DeliveryContent) => {
+const ProductManagerDeliveryCart = ({ delivery_data }: Props) => {
     const handlePdfButtonClick = () => {
         window.open(delivery_data.pdfUrl, '_blank');
     };

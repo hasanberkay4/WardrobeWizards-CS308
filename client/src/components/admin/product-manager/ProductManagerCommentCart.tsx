@@ -1,19 +1,12 @@
 import styles from '../../../styles/ProductManagerFeatureCart.module.scss';
 import Link from 'next/link';
+import { CommentType } from '../../../types/adminTypes/commentType';
 
-type CommentContent = {
-    comment_data: {
-        _id: string;
-        customerId: string;
-        productId: string;
-        date: string;
-        approved: boolean;
-        rating: number;
-        __v: number;
-    };
+type Props = {
+    comment_data: CommentType;
 };
 
-const ProductManagerCommentCart = ({ comment_data }: CommentContent) => {
+const ProductManagerCommentCart = ({ comment_data }: Props) => {
     return (
         <div className={styles.cartItem}>
             <table>
@@ -37,6 +30,10 @@ const ProductManagerCommentCart = ({ comment_data }: CommentContent) => {
                     <tr>
                         <th>Rating:</th>
                         <td>{comment_data.rating}</td>
+                    </tr>
+                    <tr>
+                        <th>Comment Content:</th>
+                        <td>{comment_data.description}</td>
                     </tr>
                 </tbody>
             </table>

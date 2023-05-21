@@ -1,7 +1,9 @@
 import { AdminLayout } from "../../../components/admin/shared/AdminLayout";
 import { ProductManagerLayout } from "../../../components/admin/product-manager/ProductManagerLayout";
 
+
 const ProductManagerPage = () => {
+
     return (
         <AdminLayout>
             <ProductManagerLayout>
@@ -9,9 +11,8 @@ const ProductManagerPage = () => {
             </ProductManagerLayout>
         </AdminLayout>
     )
-
-
 }
+
 
 
 
