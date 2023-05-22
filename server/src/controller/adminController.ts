@@ -202,7 +202,7 @@ const adminUpdateProductDiscountController = async (req: Request, res: Response)
   
       if (discountRate === 0) {
         // If the discount rate is 0, remove the discount from the database
-        await Product.updateOne({ _id: productId }, { $unset: { discountRate: 0 } });
+        await Product.updateOne({ _id: productId }, { $set: { discountRate: 0 } });
         await Discount.deleteOne({ productId: productId });
         console.log("Discount removed");
         return res.status(200).json({ status: "success", discount: null });
