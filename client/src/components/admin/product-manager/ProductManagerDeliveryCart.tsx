@@ -41,12 +41,12 @@ const ProductManagerDeliveryCart = ({ delivery_data }: Props) => {
                             <th>Date:</th>
                             <td>{delivery_data.date}</td>
                         </tr>
-                        {delivery_data.products.map((product: any) => {
+                        {delivery_data.products.map((product) => {
                             return (
                                 <React.Fragment key={product._id}>
                                     <tr>
                                         <th>Product ID:</th>
-                                        <td>{product.productId}</td>
+                                        <td>{product._id}</td>
                                     </tr>
                                     <tr>
                                         <th>Name:</th>
@@ -54,7 +54,7 @@ const ProductManagerDeliveryCart = ({ delivery_data }: Props) => {
                                     </tr>
                                     <tr>
                                         <th>Price:</th>
-                                        <td>{product.price}</td>
+                                        <td>{product.initial_price}</td>
                                     </tr>
                                     <tr>
                                         <th>Description:</th>
@@ -62,7 +62,7 @@ const ProductManagerDeliveryCart = ({ delivery_data }: Props) => {
                                     </tr>
                                     <tr>
                                         <th>Quantity:</th>
-                                        <td>{product.quantity}</td>
+                                        <td>{product.stock_quantity}</td>
                                     </tr>
                                 </React.Fragment>
                             );

@@ -1,121 +1,115 @@
-import { useState } from "react"
-import { useRouter } from "next/router";
-import styles from '../../../../../styles/AddProductPage.module.scss'
+import { AddProductForm } from "../../../../../components/admin/product-manager/AddProductForm";
+import { CategoryArrayType, CategoryArrayTypeSchema } from "../../../../../types/adminTypes/categoryType";
+import { ColorArrayType, ColorArrayTypeSchema } from "../../../../../types/adminTypes/colorType";
+import { ModelArrayType, ModelArrayTypeSchema } from "../../../../../types/adminTypes/modelType";
 
-const AddProductPage = () => {
-    const [name, setName] = useState("");
-    const [initial_price, setInitialPrice] = useState(0);
-    const [category_ids, setCategoryIds] = useState("");
-    const [stock_quantity, setStockQuantity] = useState(0);
-    const [expense, setExpense] = useState(0);
-    const [imageName, setImageName] = useState("");
-    const [imageFile, setImageFile] = useState<File | null>(null);
+type Props = {
+    all_category_slugs: CategoryArrayType;
+    all_colors: ColorArrayType;
+    all_models: ModelArrayType;
+}
 
-    const router = useRouter();
+const AddProductPage = ({ all_category_slugs, all_colors, all_models }: Props) => {
 
-    const handleSubmit = async (event: React.FormEvent) => {
-        event.preventDefault();
-
-        // add imageFile to formData
-        const formData = new FormData();
-        if (imageFile) {
-            formData.append('image_file', imageFile);
+    // convert slug arrays to select option arrays
+    const category_options = all_category_slugs.map((category_slug) => {
+        return {
+            value: category_slug.name,
+            label: category_slug.slug
         }
+    });
 
-        // validate form
-        const r = await fetch('http://localhost:5001/admin/products', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                "name": name,
-                "description": "description",
-                "initial_price": initial_price,
-                "category_ids": [category_ids],
-                "stock_quantity": stock_quantity,
-                "expense": expense,
-                "image_name": imageName,
-                "image_file": imageFile
-            })
-        });
-
-        const rJson = await r.json();
-        if (r.ok) {
-            console.log(rJson);
-        } else {
-            console.error("Error adding product", rJson);
+    const color_options = all_colors.map((color) => {
+        return {
+            value: color.name,
+            label: color.slug
         }
+    });
 
-        // expense endpoint
-        const expenseResponse = await fetch("http://localhost:5001/transaction/add", {
-            method: "POST",
-            body: JSON.stringify({
-                "amount": expense,
-                "type": "expense",
-            })
-        });
-        const expenseResponseJson = await expenseResponse.json();
-        if (expenseResponse.ok) {
-            console.log(expenseResponseJson);
-        } else {
-            console.error("Error adding expense", expenseResponseJson);
+    const model_options = all_models.map((model) => {
+        return {
+            value: model.name,
+            label: model.slug
         }
-
-        // upload file to server
-        const response = await fetch(`http://localhost:5001/upload`, {
-            method: 'POST',
-            body: formData
-        });
-
-        // alert dialog
-        if (response.ok) {
-            const responseJson = await response.json();
-            console.log(responseJson);
-            alert("Product added successfully!")
-            router.push('/admin/product-manager/products');
-        } else {
-            // handle error
-            console.error("Error adding product", await response.text());
-        }
-
-    };
-
-    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target.files && event.target.files[0]) {
-            setImageFile(event.target.files[0]);
-        }
-    };
+    });
 
     return (
-        <div className={styles.container}>
-            <h1>Add Product Page</h1>
-            <form className={styles.form} onSubmit={handleSubmit} encType="multipart/form-data">
-                <label className={styles.label} htmlFor="name">Name</label>
-                <input className={styles.input} type="text" id="name" value={name} onChange={e => setName(e.target.value)} />
-
-                <label className={styles.label} htmlFor="price">Initial Price</label>
-                <input className={styles.input} type="number" id="price" value={initial_price} onChange={e => setInitialPrice(e.target.valueAsNumber)} />
-
-                <label className={styles.label} htmlFor="categories">Category IDs (comma-separated)</label>
-                <input className={styles.input} type="text" id="categories" value={category_ids} onChange={e => setCategoryIds(e.target.value)} />
-
-                <label className={styles.label} htmlFor="stock">Stock Quantity</label>
-                <input className={styles.input} type="number" id="stock" value={stock_quantity} onChange={e => setStockQuantity(e.target.valueAsNumber)} />
-
-                <label className={styles.label} htmlFor="expense">Expense</label>
-                <input className={styles.input} type="number" id="expense" value={expense} onChange={e => setExpense(e.target.valueAsNumber)} />
-
-                <label className={styles.label} htmlFor="imageName">Image Name</label>
-                <input className={styles.input} type="text" id="imageName" value={imageName} onChange={e => setImageName(e.target.value)} />
-
-                <label className={styles.label} htmlFor="imageFile">Product Image</label>
-                <input className={styles.input} type="file" name="image_file" id="imageFile" onChange={handleFileChange} />
-
-                <button className={styles.button} type="submit">Add Product</button>
-            </form>
+        <div>
+            <AddProductForm
+                category_options={category_options}
+                color_options={color_options}
+                model_options={model_options}
+            />
         </div>
-    );
+    )
+}
+
+export const getServerSideProps = async () => {
+    let all_category_slugs = [] as CategoryArrayType;
+    let all_colors = [] as ColorArrayType;
+    let all_models = [] as ModelArrayType;
+
+    try {
+        // get all category slugs
+        const category_slugs_response = await fetch('http://localhost:5001/products/categories', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        // get all colors
+        const colors_response = await fetch('http://localhost:5001/products/colors', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        // get all models
+        const models_response = await fetch('http://localhost:5001/products/models', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        // check response validity and set all_category_slugs
+        if (category_slugs_response.ok) {
+            const category_slugs_response_json = await category_slugs_response.json();
+            all_category_slugs = CategoryArrayTypeSchema.parse(category_slugs_response_json.category_slugs);
+        }
+
+        // check response validity and set all_colors
+        if (colors_response.ok) {
+            const colors_response_json = await colors_response.json();
+            all_colors = ColorArrayTypeSchema.parse(colors_response_json.colors);
+        }
+
+        // check response validity and set all_models
+        if (models_response.ok) {
+            const models_response_json = await models_response.json();
+            all_models = ModelArrayTypeSchema.parse(models_response_json.models);
+        }
+
+        return {
+            props: {
+                all_category_slugs: all_category_slugs,
+                all_colors: all_colors,
+                all_models: all_models
+            }
+        }
+    }
+    catch (e) {
+        return {
+            props: {
+                all_category_slugs: all_category_slugs,
+                all_colors: all_colors,
+                all_models: all_models
+            }
+        }
+
+    }
 }
 
 export default AddProductPage;

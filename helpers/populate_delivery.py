@@ -20,6 +20,7 @@ default_product = {
     "rating": 0,
     "number_of_voters": 0,
     "warrant_status": False,
+    "discountRate": 0,
 }
 
 # Iterate over each item in the list

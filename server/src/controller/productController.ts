@@ -2,6 +2,8 @@ import { Request, Response, NextFunction } from "express";
 import Product from "../models/product";
 import Category from "../models/category";
 import Delivery, { IDelivery } from "../models/order";
+import Color from "../models/color";
+import Model from "../models/model";
 import { sendInvoiceEmail } from "../middleware/pdfGenerator";
 
 // all products
@@ -136,7 +138,7 @@ const updateProductRating = async (req: Request, res: Response) => {
 // get all deliveries
 const getAllDeliveries = async (req: Request, res: Response) => {
   try {
-    const deliveries = await Delivery.find({},{ pdf : 0 }).sort({ date: -1 });
+    const deliveries = await Delivery.find({}, { pdf: 0 }).sort({ date: -1 });
     res.json(deliveries);
     //res.status(200).json({status: "Successfully fetched products"})
   } catch (error) {
@@ -149,7 +151,7 @@ const getAllDeliveries = async (req: Request, res: Response) => {
 const getDeliveriesByUserId = async (req: Request, res: Response) => {
   try {
     const user_id = req.params.user_id;
-    const deliveries = await Delivery.find({ customerId: user_id }, { pdf : 0 }).sort({
+    const deliveries = await Delivery.find({ customerId: user_id }, { pdf: 0 }).sort({
       date: -1,
     });
 
@@ -189,6 +191,31 @@ const getAllCategories = async (req: Request, res: Response) => {
   }
 };
 
+// get category ids by slug
+const getCategoryIdsBySlug = async (req: Request, res: Response) => {
+  try {
+    const slugs = req.body.category_slugs as string[];
+
+    let category_ids = [] as { slug: string; id: string }[];
+
+    // find id of each category slug
+    slugs.forEach(async (slug) => {
+      const category = await Category.findOne({ slug: slug });
+      if (category) {
+        category_ids.push({ slug: slug, id: category._id.toString() });
+      } else {
+        category_ids.push({ slug: slug, id: "" });
+      }
+    });
+
+    res.status(200).json(category_ids);
+
+  } catch (error) {
+    res.status(404).json({ message: "Category not found" });
+  }
+
+}
+
 // update Delivery Status
 const updateDeliveryStatus = async (req: Request, res: Response) => {
   const newStatus = req.body.status;
@@ -197,28 +224,28 @@ const updateDeliveryStatus = async (req: Request, res: Response) => {
 
   try {
     // Update the delivery with new status
-    if(newStatus==="cancelled"){
+    if (newStatus === "cancelled") {
 
-      if(oldStatus=== "processing"){
+      if (oldStatus === "processing") {
 
         await Delivery.findByIdAndUpdate(deliveryId, {
           status: newStatus,
           totalPrice: 0,
-          
+
         });
 
-      }else{
+      } else {
         throw new Error("To cancel delivery, its status must be processing");
       }
-      
 
 
-    }else{
-    await Delivery.findByIdAndUpdate(deliveryId, {
-      status: newStatus,
-    });
 
-  }
+    } else {
+      await Delivery.findByIdAndUpdate(deliveryId, {
+        status: newStatus,
+      });
+
+    }
 
     res.status(200).json({ message: "Delivery status updated successfully" });
   } catch (error) {
@@ -259,12 +286,12 @@ const updateDeliveryProductStatus = async (req: Request, res: Response) => {
       return;
     }
 
-    if(newStatus === "refunded"){
-      const decrementedPrices = productToUpdate.price*productToUpdate.quantity
+    if (newStatus === "refunded") {
+      const decrementedPrices = productToUpdate.price * productToUpdate.quantity
       let updatedPrice = delivery.totalPrice - decrementedPrices
-      updatedPrice=   updatedPrice < 0 ? 0: updatedPrice;
+      updatedPrice = updatedPrice < 0 ? 0 : updatedPrice;
       delivery.totalPrice = updatedPrice;
-  
+
 
     }
 
@@ -277,7 +304,7 @@ const updateDeliveryProductStatus = async (req: Request, res: Response) => {
 
     // Updated delivery with the product's status updated
     console.log('Product status updated:', updatedDelivery);
-    res.status(200).json({ message: "Delivery product status successfully", updatedDelivery:updatedDelivery });
+    res.status(200).json({ message: "Delivery product status successfully", updatedDelivery: updatedDelivery });
   } catch (err) {
     // Handle the error
     console.error(err);
@@ -322,14 +349,48 @@ const updateProductStock = async (req: Request, res: Response) => {
 
     // Log and return the updated product
     console.log("Updated product: ", updatedProduct);
-    
-   
-    res.status(200).json({ message: "Product stock updated successfully", updatedProduct:updatedProduct });
+
+
+    res.status(200).json({ message: "Product stock updated successfully", updatedProduct: updatedProduct });
   } catch (error) {
     console.error("Error updating product stock:", error);
     res.status(500).json({ message: "Error updating product stock" });
   }
 };
+
+
+
+// get all colors
+const getColors = async (req: Request, res: Response) => {
+  try {
+    const colors = await Color.find();
+    res.status(200).json(colors);
+  } catch (error) {
+    res.status(404).json({ message: "Colors not found" });
+  }
+}
+
+// get all models
+const getModels = async (req: Request, res: Response) => {
+  try {
+    const models = await Model.find();
+    res.status(200).json(models);
+  } catch (error) {
+    res.status(404).json({ message: "Models not found" });
+  }
+}
+
+const getCategories = async (req: Request, res: Response) => {
+  try {
+    const categories = await Category.find();
+    res.status(200).json(categories);
+  } catch (error) {
+    res.status(404).json({ message: "Categories not found" });
+  }
+}
+
+
+
 
 export default {
   getProducts,
@@ -342,8 +403,11 @@ export default {
   getAllDeliveries,
   getDeliveriesByUserId,
   getProductsByCategoryFilter,
-  getAllCategories,
+  getAllCategories, getCategoryIdsBySlug,
   updateDeliveryStatus,
   updateDeliveryProductStatus,
   updateProductStock,
+  getColors,
+  getModels,
+  getCategories,
 };

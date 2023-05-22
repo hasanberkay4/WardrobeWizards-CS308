@@ -5,6 +5,7 @@ import Deliveries from "../models/order";
 import Comments from "../models/comment";
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken";
+import { addProductSchema } from "../middleware/adminMiddleware/productMiddleware";
 
 const adminSignInController = async (req: Request, res: Response) => {
     try {
@@ -108,24 +109,13 @@ const adminGetProductController = async (req: Request, res: Response) => {
 
 const adminCreateProductController = async (req: Request, res: Response) => {
     try {
-        const { name, description, stock_quantity, initial_price, category_ids, image_name, expense } = req.body;
-        const product = new Product({
-            name: name,
-            description: description,
-            stock_quantity: stock_quantity,
-            initial_price: initial_price,
-            category_ids: category_ids,
-            image: image_name,
-            expense: expense,
+        const productFormData = addProductSchema.parse(req.body);
 
-            // filler
-            delivery_info: "intransit",
-            model: "model",
+
+
+        const product = new Product({
+            ...productFormData,
             number: 0,
-            number_of_voters: 0,
-            rating: 0,
-            popularity: 0,
-            warrant_status: true,
         });
 
         const addedProduct = await product.save();
@@ -302,5 +292,5 @@ export default {
     adminSignInController, adminSignUpController,
     adminGetProductsController, adminGetProductController, adminCreateProductController, adminUpdateProductController, adminDeleteProductController,
     adminGetDeliveriesController, adminGetDeliveryController, adminGetDeliveryByUserIdController, adminUpdateDeliveryController,
-    adminGetCommentsController, adminGetCommentController, adminUpdateCommentController,adminUpdateProductPriceController,adminUpdateProductDiscountController,
+    adminGetCommentsController, adminGetCommentController, adminUpdateCommentController, adminUpdateProductPriceController, adminUpdateProductDiscountController,
 }  

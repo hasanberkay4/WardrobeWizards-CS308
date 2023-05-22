@@ -1,14 +1,9 @@
 import Link from 'next/link';
 import styles from '../../../styles/ProductManagerFeatureCart.module.scss';
+import { ProductType } from '../../../types/adminTypes/productType';
 
 type ProductContent = {
-    product_data: {
-        _id: string;
-        name: string;
-        initial_price: number;
-        category_ids: Array<string>;
-        stock_quantity: number;
-    };
+    product_data: ProductType
 };
 
 const ProductManagerProductCart = ({ product_data }: ProductContent) => {
@@ -32,6 +27,10 @@ const ProductManagerProductCart = ({ product_data }: ProductContent) => {
                         <tr>
                             <th>Stock Quantity:</th>
                             <td>{product_data.stock_quantity}</td>
+                        </tr>
+                        <tr>
+                            <th>Discount Rate:</th>
+                            <td>{product_data.discountRate}</td>
                         </tr>
                     </tbody>
                 </table>

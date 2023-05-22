@@ -9,12 +9,13 @@ const ProductTypeSchema = z.object({
     stock_quantity: z.number(),
     initial_price: z.number(),
     expense: z.number(),
-    image: z.string(),
     popularity: z.number(),
     category_ids: z.array(z.string()),
     rating: z.number(),
     number_of_voters: z.number(),
     warrant_status: z.boolean(),
+    discountRate: z.number(),
+    image: z.string(),
 });
 
 const ProductArrayTypeSchema = z.array(ProductTypeSchema);

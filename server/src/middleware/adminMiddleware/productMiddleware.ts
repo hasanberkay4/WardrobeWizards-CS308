@@ -16,21 +16,14 @@ const upload = multer({ storage: storage }).single('image_file');
 const addProductSchema = zod.object({
     name: zod.string(),
     description: zod.string(),
+    model: zod.string(),
+    color: zod.string(),
     stock_quantity: zod.number(),
     initial_price: zod.number(),
-    category_ids: zod.array(zod.string()),
     expense: zod.number(),
-    image_name: zod.string(),
-    image_file: zod.any() || zod.undefined()
+    category_slugs: zod.array(zod.string()),
+    warranty_status: zod.boolean(),
 });
 
-const validateAddProductForm = (req: Request, res: Response, next: NextFunction) => {
-    try {
-        addProductSchema.parse(req.body);
-        next();
-    } catch (validationError) {
-        return res.status(400).send({ message: 'Invalid add product form data.', validationError });
-    }
-};
 
-export { validateAddProductForm, upload };
+export { upload, addProductSchema };
