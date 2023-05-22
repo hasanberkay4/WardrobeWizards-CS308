@@ -1,34 +1,33 @@
-/* eslint-disable @next/next/no-img-element */
-import { useContext, useState } from 'react'
-import { Bars3Icon, ShoppingBagIcon, BellIcon } from '@heroicons/react/24/outline'
-
+import React, { useContext, useState } from 'react';
+import { Bars3Icon, ShoppingBagIcon, BellIcon } from '@heroicons/react/24/outline';
 
 // scripts
-import { handleSearchSubmit } from '../../../scripts/products/search'
+import { handleSearchSubmit } from '../../../scripts/products/search';
 
 // components
-import SearchBar from './SearchBar'
-import AuthIcon from './AuthIcon'
+import SearchBar from './SearchBar';
+import AuthIcon from './AuthIcon';
 // import CartIcon from './CartIcon'
-import MobileMenu from './MobileMenu'
-import Logo from './Logo'
-import Flyout from './Flyout'
-import NotificationsWindow from './NotificationWindow'
-import { Store } from '../../../context/Store'
-import { CartItem } from '../../../types/shoppingCart'
-import Link from 'next/link'
-import { useStore } from '../../../context/Store'
-import Cookies from "js-cookie"
-
-
+import MobileMenu from './MobileMenu';
+import Logo from './Logo';
+import Flyout from './Flyout';
+import NotificationsWindow from './NotificationWindow';
+import { Store } from '../../../context/Store';
+import { CartItem } from '../../../types/shoppingCart';
+import Link from 'next/link';
+import { useStore } from '../../../context/Store';
+import Cookies from 'js-cookie';
+import { useAuth } from '../../../context/Auth';
 
 interface SearchBarProps {
-  products: any
+  products: any;
 }
 
 export default function NavBar() {
   const [open, setOpen] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
+
+  const { token } = useAuth(); // Add this line to get the token
 
   return (
     <div className="bg-white">
@@ -59,20 +58,23 @@ export default function NavBar() {
               <div className="ml-auto flex items-center">
                 <AuthIcon />
 
-                <div className="ml-4 flow-root lg:ml-6 relative">
-                  <button
-                    onClick={() => setShowNotifications(!showNotifications)}
-                    className="p-2 text-gray-400 group-hover:text-gray-500"
-                    aria-label="Open notifications"
-                  >
-                    <BellIcon className="h-6 w-6" aria-hidden="true" />
-                    {showNotifications && (
-                      <span className="absolute top-0 right-0 block w-2 h-2 bg-red-500 rounded-full"></span>
-                    )}
-                  </button>
+                {/* Conditionally render the notification icon */}
+                {token && (
+                  <div className="ml-4 flow-root lg:ml-6 relative">
+                    <button
+                      onClick={() => setShowNotifications(!showNotifications)}
+                      className="p-2 text-gray-400 group-hover:text-gray-500"
+                      aria-label="Open notifications"
+                    >
+                      <BellIcon className="h-6 w-6" aria-hidden="true" />
+                      {showNotifications && (
+                        <span className="absolute top-0 right-0 block w-2 h-2 bg-red-500 rounded-full"></span>
+                      )}
+                    </button>
 
-                  {showNotifications && <NotificationsWindow />}
-                </div>
+                    {showNotifications && <NotificationsWindow />}
+                  </div>
+                )}
 
                 {/* Cart SORUN BURDA */}
                 <div className="ml-4 flow-root lg:ml-6">

@@ -1,6 +1,7 @@
 import { Router } from "express";
 import productController from "../controller/productController"
 import wishController from "../controller/wishController";
+import notificationController from "../controller/notificationController";
 
 const productRouter = Router();
 
@@ -73,6 +74,10 @@ productRouter.put('/add-wish', wishController.addWish);
 
 // remove wish
 productRouter.delete('/remove-wish', wishController.removeWish);
+
+
+// --- notifications ---
+productRouter.get('/get-user-notifies/:userid', notificationController.getUserNotifications);
 
 
 // --- yagiz - filter ---
