@@ -24,7 +24,8 @@ productRouter.get('/all-categories/ids', productController.getCategoryIdsBySlug)
 // --- categories ---
 
 // all products by category
-productRouter.get('/categories/', productController.getCategoryIdsBySlug);
+//productRouter.get('/categories/', productController.getCategoryIdsBySlug); // SORUNLU API ENDPOINT?????
+productRouter.get('/categories', productController.getAllCategories); // ESKI CALISAN API ENDPOINT
 productRouter.get('/categories/:slug', productController.getCategorySpecificProducts);
 
 
@@ -57,6 +58,9 @@ productRouter.post('/delivery/product/update-status', productController.updateDe
 
 // handle ratings
 productRouter.put('/id/:productid', productController.updateProductRating);
+
+
+// --- wishes ---
 
 // get user's wishes
 productRouter.get('/get-user-wishes/:userid', wishController.getUserWishes);
