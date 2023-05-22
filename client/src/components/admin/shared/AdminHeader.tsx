@@ -1,10 +1,17 @@
 import { useAdminAuth } from "../../../context/AdminAuth";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "../../../styles/AdminHeader.module.scss";
 
 const AdminHeader = () => {
-    const { token, username, title, setAdminAuthCookie, removeAdminAuthCookie } = useAdminAuth();
+    const { username, title, removeAdminAuthCookie } = useAdminAuth();
+    const router = useRouter();
+
+    const handleLogout = () => {
+        removeAdminAuthCookie();
+        router.push("/admin");
+    };
 
     return (
         <div className={styles["admin-header"]}>
@@ -21,7 +28,7 @@ const AdminHeader = () => {
                     <span className={styles["admin-header__account__info__title"]}>Title: {title}</span>
                 </div>
                 <div className={styles["admin-header__account__actions"]}>
-                    <button className={styles["admin-header__account__actions__logout"]} onClick={() => removeAdminAuthCookie()}>Logout</button>
+                    <button className={styles["admin-header__account__actions__logout"]} onClick={handleLogout}>Logout</button>
                 </div>
             </div>
         </div>

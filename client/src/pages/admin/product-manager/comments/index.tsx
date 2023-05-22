@@ -2,28 +2,20 @@ import { GetServerSideProps } from "next"
 import { ProductManagerLayout } from "../../../../components/admin/product-manager/ProductManagerLayout"
 import { ProductManagerCommentCart } from "../../../../components/admin/product-manager/ProductManagerCommentCart"
 import { AdminLayout } from "../../../../components/admin/shared/AdminLayout"
+import { CommentArrayType, CommentArrayTypeSchema } from "../../../../types/adminTypes/commentType"
 
-type ProductManagerCommentsPageProps = {
-    comment_array: Array<{
-        _id: string,
-        customerId: string,
-        productId: string,
-        date: string,
-        approved: boolean,
-        rating: number,
-        __v: number
-    }>
+
+type Props = {
+    comment_array: CommentArrayType;
 }
 
-
-const features = ['deliveries', 'products', 'comments'];
-const ProductManagerProductsPage = ({ comment_array }: ProductManagerCommentsPageProps) => {
+const ProductManagerProductsPage = ({ comment_array }: Props) => {
 
     return (
         <div>
             <AdminLayout>
                 <ProductManagerLayout>
-                    {comment_array.map((data: any) => {
+                    {comment_array.map((data) => {
                         return (
                             <div key={data._id}>
                                 <ProductManagerCommentCart comment_data={data} />
@@ -36,20 +28,44 @@ const ProductManagerProductsPage = ({ comment_array }: ProductManagerCommentsPag
     )
 }
 
-export const getServerSideProps: GetServerSideProps<ProductManagerCommentsPageProps> = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
 
-    const response = await fetch(`http://localhost:5001/admin/comments`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    });
-    const comment_array = await response.json();
+    try {
+        // fetch comments data
+        const response = await fetch(`http://localhost:5001/admin/comments`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
 
-    return {
-        props: {
-            comment_array: comment_array.comments,
-        }
+        // convert to json
+        const comment_response = await response.json();
+
+        // make sure comments are of type CommentArrayType
+        const comment_array = CommentArrayTypeSchema.parse(comment_response.comments);
+
+        // sort by date
+        comment_array.sort((a, b) => {
+            return new Date(b.date).getTime() - new Date(a.date).getTime();
+        });
+
+        // make comment dates readable
+        comment_array.forEach((comment: any) => {
+            const date = new Date(comment.date);
+            comment.date = date.toDateString();
+        });
+
+        // 
+        return {
+            props: { comment_array: comment_array }
+        };
+
+    }
+
+    catch (err) {
+        console.log(err);
+        return { props: { comment_array: [] } };
     }
 }
 

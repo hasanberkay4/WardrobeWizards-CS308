@@ -4,23 +4,21 @@ import { ProductManagerProductCart } from "../../../../components/admin/product-
 import { AdminLayout } from "../../../../components/admin/shared/AdminLayout"
 import Link from "next/link"
 
-type ProductManagerProductsPageProps = {
-    product_array: Array<{
-        _id: string,
-        name: string,
-        initial_price: number,
-        category_ids: Array<string>
-    }>
+import { ProductArrayType, ProductArrayTypeSchema } from "../../../../types/adminTypes/productType"
+
+type Props = {
+    product_array: ProductArrayType
 }
 
 
-const features = ['deliveries', 'products', 'comments'];
-const ProductManagerProductsPage = ({ product_array }: ProductManagerProductsPageProps) => {
+
+const ProductManagerProductsPage = ({ product_array }: Props) => {
 
     return (
         <div>
             <AdminLayout>
                 <ProductManagerLayout>
+
                     {/* add product */}
                     <div className="mb-4">
                         <Link href={'/admin/product-manager/products/add-product/'}>
@@ -29,6 +27,8 @@ const ProductManagerProductsPage = ({ product_array }: ProductManagerProductsPag
                             </button>
                         </Link>
                     </div>
+
+                    { /* products */}
                     {product_array.map((data: any) => {
                         return (
                             <div key={data._id}>
@@ -42,19 +42,35 @@ const ProductManagerProductsPage = ({ product_array }: ProductManagerProductsPag
     )
 }
 
-export const getServerSideProps: GetServerSideProps<ProductManagerProductsPageProps> = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
+    try {
+        // get all products
+        const response = await fetch(`http://localhost:5001/admin/products`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
 
-    const response = await fetch(`http://localhost:5001/admin/products`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
+        // convert response to json
+        const product_response = await response.json();
+
+        // make sure response is of type ProductArrayType
+        const product_array = ProductArrayTypeSchema.parse(product_response.products);
+
+        // sort products by initial price
+        product_array.sort((a, b) => {
+            return a.initial_price - b.initial_price;
+        });
+
+        return {
+            props: { product_array: product_array }
         }
-    });
-    const product_array = await response.json();
-
-    return {
-        props: {
-            product_array: product_array.products,
+    }
+    catch (error) {
+        console.log(error);
+        return {
+            props: { product_array: [] }
         }
     }
 }

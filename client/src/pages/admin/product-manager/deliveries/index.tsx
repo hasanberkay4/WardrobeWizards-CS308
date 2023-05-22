@@ -2,32 +2,14 @@ import { GetServerSideProps } from "next"
 import { ProductManagerLayout } from "../../../../components/admin/product-manager/ProductManagerLayout"
 import { ProductManagerDeliveryCart } from "../../../../components/admin/product-manager/ProductManagerDeliveryCart"
 import { AdminLayout } from "../../../../components/admin/shared/AdminLayout"
+import { DeliveryArrayTypeSchema, DeliveryArrayType } from "../../../../types/adminTypes/deliveryType"
 
-type ProductManagerDeliveriesPageProps = {
-    delivery_array: Array<{
-        _id: string,
-        deliveryAddress: string,
-        customerId: string,
-        quantity: number,
-        totalPrice: number,
-        status: string,
-        date: string,
-        products: Array<{
-            productId: string,
-            name: string,
-            price: number,
-            description: string,
-            quantity: number,
-            _id: string
-        }>
-        __v: number,
-        pdfUrl: string
-    }>
+type Props = {
+    delivery_array: DeliveryArrayType
 }
 
 
-const features = ['deliveries', 'products', 'comments'];
-const ProductManagerProductsPage = ({ delivery_array }: ProductManagerDeliveriesPageProps) => {
+const ProductManagerProductsPage = ({ delivery_array }: Props) => {
 
     return (
         <div>
@@ -46,19 +28,37 @@ const ProductManagerProductsPage = ({ delivery_array }: ProductManagerDeliveries
     )
 }
 
-export const getServerSideProps: GetServerSideProps<ProductManagerDeliveriesPageProps> = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
+    try {
+        // fetch delivery data 
+        const response = await fetch(`http://localhost:5001/admin/deliveries`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
 
-    const response = await fetch(`http://localhost:5001/admin/deliveries`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
+        // convert delivery data to json
+        const delivery_response = await response.json();
+
+        // make sure delivery data is of type DeliveryArrayType
+        const delivery_array = DeliveryArrayTypeSchema.parse(delivery_response.deliveries);
+
+        // sort delivery data by date
+        delivery_array.sort((a, b) => {
+            return new Date(b.date).getTime() - new Date(a.date).getTime();
+        });
+
+        return {
+            props: { delivery_array: delivery_array }
         }
-    });
-    const delivery_array = await response.json();
-
-    return {
-        props: {
-            delivery_array: delivery_array.deliveries,
+    }
+    catch (err) {
+        console.log(err)
+        return {
+            props: {
+                delivery_array: [],
+            }
         }
     }
 }

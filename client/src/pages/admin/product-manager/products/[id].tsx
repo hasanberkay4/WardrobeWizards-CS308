@@ -4,18 +4,13 @@ import { AdminLayout } from "../../../../components/admin/shared/AdminLayout"
 import styles from '../../../../styles/ProductManagerProductPage.module.scss'
 import { useState } from "react"
 import { useRouter } from "next/router"
+import { ProductType, ProductTypeSchema } from '../../../../types/adminTypes/productType'
 
-export type ProductManagerProductPageProps = {
-    product_info: {
-        _id: string,
-        name: string,
-        initial_price: number,
-        category_ids: Array<string>,
-        stock_quantity: number,
-    }
+type Props = {
+    product_info: ProductType
 }
 
-const ProductManagerProductsPage = ({ product_info }: ProductManagerProductPageProps) => {
+const ProductManagerProductsPage = ({ product_info }: Props) => {
 
     const [stock, setStock] = useState<number>(product_info.stock_quantity);
     const [currentStock, setCurrentStock] = useState<number>(product_info.stock_quantity);
@@ -95,20 +90,37 @@ const ProductManagerProductsPage = ({ product_info }: ProductManagerProductPageP
     )
 }
 
-export const getServerSideProps: GetServerSideProps<ProductManagerProductPageProps> = async (context) => {
-    const id = context.params?.id ?? '';
+export const getServerSideProps: GetServerSideProps = async (context) => {
 
-    const response = await fetch(`http://localhost:5001/admin/products/${id}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
+    try {
+        // get product id from url
+        const id = context.params?.id ?? '';
+
+        // fetch product info
+        const response = await fetch(`http://localhost:5001/admin/products/${id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        // convert response to json
+        const product_response = await response.json();
+
+        // make sure response is of type ProductType
+        const product = ProductTypeSchema.parse(product_response.product);
+
+        return {
+            props: { product_info: product }
         }
-    });
-    const product_info = await response.json();
+    }
 
-    return {
-        props: {
-            product_info: product_info.product,
+    catch (err) {
+        console.log(err)
+        return {
+            props: {
+                product_info: {},
+            }
         }
     }
 }
