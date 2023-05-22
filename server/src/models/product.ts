@@ -15,6 +15,7 @@ export interface IProduct {
     warrant_status: boolean;
     delivery_info: string;
     expense: number;
+    discountRate: number;
 }
 
 const productSchema = new Schema<IProduct>({
@@ -37,7 +38,8 @@ const productSchema = new Schema<IProduct>({
     number_of_voters: { type: Number, required: true },
     warrant_status: { type: Boolean, required: false, default: false },
     delivery_info: { type: String, required: false },
-    expense: { type: Number, required: true }
+    expense: { type: Number, required: true },
+    discountRate: { type: Number, required: false, default: 0 },
 });
 
 interface ProductModel extends Model<IProduct> {

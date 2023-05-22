@@ -20,6 +20,8 @@ export type Product = {
     popularity: number;
     rating: number;
     number_of_voters: number;
+    onSale: boolean;
+    discountRate: number;
 };
 
 

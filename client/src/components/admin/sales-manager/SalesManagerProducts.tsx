@@ -9,6 +9,7 @@ type ProductContent = {
     name: string;
     initial_price: number;
     image: any;
+    discountRate: number;
     category_ids: Array<string>;
   };
 };
@@ -28,6 +29,13 @@ const SalesManagerProducts = ({ product_data }: ProductContent) => {
           justifyContent: "center",
         }}
       >
+        <p
+          className={`text-sm font-medium ${
+            product_data.discountRate > 0 ? "text-red-500" : "text-gray-900"
+          }`}
+        >
+        {product_data.discountRate > 0 ? ("Discount is applied") : null}
+          </p>
         <p>Name : {product_data.name}</p>
         <p>Initial Price: {product_data.initial_price}TL</p>
         <p>Category(s) : {product_data.category_ids}</p>

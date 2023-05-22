@@ -8,19 +8,20 @@ const SetDiscountPage = () => {
     const [discountPercentage, setDiscountPercentage] = useState<number>(0);
     const [currentPrice, setCurrentPrice] = useState<number>(parseInt(initialPrice as string));
   
-    const togglePrice = async (discountPercentage: number) => {
-      const newPrice = currentPrice - currentPrice * (discountPercentage / 100);
+    const setDiscount = async (discountPercentage: number) => {
+     // const newPrice = currentPrice - currentPrice * (discountPercentage / 100);
   
       const response = await fetch(`http://localhost:5001/admin/sales-manager/products/${id}/discount`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ newPrice }),
+        body: JSON.stringify({ discountPercentage , id }),
       });
   
       if (response.ok) {
-        setCurrentPrice(newPrice);
+        alert("Discount set successfully");
+        console.log("Discount set successfully");
       } else {
         console.error("Error updating product price");
       }
@@ -28,7 +29,7 @@ const SetDiscountPage = () => {
   
     const handleSubmit = (event: React.FormEvent) => {
       event.preventDefault();
-      togglePrice(discountPercentage);
+      setDiscount(discountPercentage);
     };
   
     return (

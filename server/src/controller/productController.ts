@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import Product from "../models/product";
 import Category from "../models/category";
+import Discount from "../models/discount";
 import Delivery, { IDelivery } from "../models/order";
 import Color from "../models/color";
 import Model from "../models/model";
@@ -21,10 +22,16 @@ const getProducts = async (req: Request, res: Response) => {
 // product by id
 const getProductsById = async (req: Request, res: Response) => {
   const productid = req.params.productid;
-
+  //console.log("heyoo");
   try {
     const product = await Product.findById(productid);
-
+    const discount = await Discount.findOne({productId:productid});
+    if (product && discount) {
+      console.log("Discount found");
+      product.discountRate = discount.discountRate;
+      await product.updateOne(product)
+      console.log(product.discountRate);
+    }
     res.json(product);
   } catch (error) {
     console.error(error);
