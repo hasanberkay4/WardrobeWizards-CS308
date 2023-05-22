@@ -2,9 +2,12 @@ import { Request, Response } from "express"
 import Admin from "../models/admin"
 import Product from "../models/product";
 import Deliveries from "../models/order";
+import Discount from '../models/discount';
 import Comments from "../models/comment";
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken";
+
+
 
 const adminSignInController = async (req: Request, res: Response) => {
     try {
@@ -191,25 +194,43 @@ const adminUpdateProductPriceController = async (req: Request, res: Response) =>
 }
 const adminUpdateProductDiscountController = async (req: Request, res: Response) => {
     try {
-        console.log("Received request to update product price");
-        console.log("Request body:", req.body);
-        const product = await Product.findById(req.params.id);
-        if (product) {
-            console.log("updated price:", req.body);
-            const newPrice = parseInt(req.body.newPrice);
-            product.initial_price = newPrice;
-            const updatedProduct = await product.updateOne(product)
-            console.log("new price:", product.initial_price);
-            res.status(200).json({ status: "success", product: updatedProduct })
-        }
-        else {
-            return res.status(400).json({ message: "Product not found" });
-        }
+      console.log("Received request to set product discount");
+      console.log("Request body:", req.body);
+  
+      const productId = req.params.id;
+      const discountRate = parseInt(req.body.discountPercentage);
+  
+      if (discountRate === 0) {
+        // If the discount rate is 0, remove the discount from the database
+        await Product.updateOne({ _id: productId }, { $unset: { discountRate: 0 } });
+        await Discount.deleteOne({ productId: productId });
+        console.log("Discount removed");
+        return res.status(200).json({ status: "success", discount: null });
+      }
+  
+      let discount = await Discount.findOne({ productId: productId });
+      if (discount) {
+        // If a discount already exists, update it
+        discount.discountRate = discountRate;
+        discount.date = new Date(); // Update the date to the current date
+      } else {
+        // If no discount exists, create a new one
+        discount = new Discount({ productId, discountRate });
+        await Product.updateOne({ _id: productId }, { $set: { discountRate: discountRate } });
+
+      }
+      
+      console.log("Discount:", discount);
+      await discount.save(); // Save the discount (either updated or new)
+  
+      console.log("Updated/created discount:", discount);
+      res.status(200).json({ status: "success", discount });
+    } catch (err) {
+      console.error(err);
+      return res.status(400).json({ errors: err });
     }
-    catch (err) {
-        return res.status(400).json({ errors: err });
-    }
-}
+  };
+  
 
 // admin deliveries
 const adminGetDeliveriesController = async (req: Request, res: Response) => {
