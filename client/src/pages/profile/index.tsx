@@ -42,7 +42,6 @@ export const getServerSideProps: GetServerSideProps<ProfileHomeProps> = async (c
         },
     });
     const profileInfo = await user.json()
-    console.log("profileInfo", profileInfo);
 
     return {
         props: {

@@ -24,11 +24,9 @@ export default function ProductsListPage({ productList }: ProductListProps) {
         if (router.query.q) {
             const searchTerm = decodeURIComponent(router.query.q as string);
             const searchedProducts = await handleSearchSubmit(searchTerm);
-            //console.log("searchedProducts", searchedProducts);
             if (searchedProducts) {
                 setClientSideProductList(searchedProducts);
             }
-            //console.log("hello world");
         }
     };
     useEffect(() => { fetchData(); }, [router.query.q]);

@@ -92,8 +92,6 @@ const CheckoutPage = () => {
           'Authorization': `Bearer ${authToken}`
         }
       });
-      // json invoiceResponse
-      console.log("invoiceResponse", invoiceResponse.data);
 
       router.push(`/checkout/order_success?q=${invoiceResponse.data}`);
 

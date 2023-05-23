@@ -66,7 +66,6 @@ export default function Signin() {
 
         // set auth cookie
         setAuthCookie(data.token);
-        console.log("console:", data);
 
         // show success message
         alert(data.message);

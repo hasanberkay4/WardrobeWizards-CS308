@@ -53,8 +53,6 @@ export const getServerSideProps: GetServerSideProps<WishedProductsProps> = async
 
     const wishedProducts = await response.json();
 
-    console.log(wishedProducts);
-
     return {
         props: {
             wishedProducts,

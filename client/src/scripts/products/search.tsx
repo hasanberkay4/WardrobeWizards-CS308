@@ -13,7 +13,6 @@ const handleSearchSubmit = async (searchTerm: string) => {
             throw new Error("Error submitting search");
         }
         const data = await response.json();
-        console.log(data);
 
         if (data) {
             data.map((product: Product) => {

@@ -22,15 +22,12 @@ const getProducts = async (req: Request, res: Response) => {
 // product by id
 const getProductsById = async (req: Request, res: Response) => {
   const productid = req.params.productid;
-  //console.log("heyoo");
   try {
     const product = await Product.findById(productid);
     const discount = await Discount.findOne({productId:productid});
     if (product && discount) {
-      console.log("Discount found");
       product.discountRate = discount.discountRate;
       await product.updateOne(product)
-      console.log(product.discountRate);
     }
     res.json(product);
   } catch (error) {
@@ -177,10 +174,8 @@ const getProductsByCategoryFilter = async (req: Request, res: Response) => {
   try {
     const { category } = req.query;
     const categoryObj = await Category.findOne({ slug: category });
-    // console.log("category filter:", categoryObj)
 
     const filteredProducts = await Product.find({ category_ids: categoryObj });
-    // console.log("filtered products:", filteredProducts);
 
     res.json(filteredProducts);
   } catch (error) {
@@ -277,8 +272,6 @@ const updateDeliveryProductStatus = async (req: Request, res: Response) => {
     const delivery = await Delivery.findById(deliveryId);
 
     if (!delivery) {
-      // Delivery not found
-      console.log('Delivery not found');
       return;
     }
 

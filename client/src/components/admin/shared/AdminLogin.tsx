@@ -43,7 +43,6 @@ const AdminLogin = () => {
                 return;
             }
             const loginResponseJson = await loginResponse.json();
-            console.log(loginResponseJson);
             alert(loginResponseJson.status);
 
             // set adminAuthContext cookie

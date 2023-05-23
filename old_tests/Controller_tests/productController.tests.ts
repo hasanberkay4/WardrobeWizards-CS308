@@ -43,7 +43,7 @@ const getCategorySpecificProducts = async (req: Request, res: Response) => {
     console.log("category:", category);
 
     const products = await Product.find({ category_ids: category._id });
-    console.log("products", products);
+    
 
     res.json(products);
   } catch (error) {
