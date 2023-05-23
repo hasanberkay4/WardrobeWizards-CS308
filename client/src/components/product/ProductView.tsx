@@ -47,7 +47,7 @@ export default function ProductView({ product }: Props) {
   ? product.initial_price - product.initial_price * (product.discountRate / 100)
   : product.initial_price;
 
-  const [isInWishlist, setIsInWishlist] = useState(false);
+  const [isInWishlist, setIsInWishlist] = useState<boolean | null>(null);
 
   const checkWishlist = async () => {
     try {
@@ -219,19 +219,37 @@ export default function ProductView({ product }: Props) {
               </form>
 
               {/* Add to wishlist */}
-              <form className="mt-4">
-                <button
-                  onClick={addWishHandler}
-                  type="button"
-                  className={`flex w-full items-center justify-center rounded-md border border-transparent px-8 py-3 text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${
-                    isInWishlist
-                      ? "bg-gray-600 hover:bg-gray-700"
-                      : "bg-indigo-600 hover:bg-indigo-700"
-                  }`}
-                >
-                  {isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
-                </button>
-              </form>
+              {isInWishlist !== null && !isInWishlist && (
+                <form className="mt-4">
+                  <button
+                    onClick={addWishHandler}
+                    type="button"
+                    className={`flex w-full items-center justify-center rounded-md border border-transparent px-8 py-3 text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${
+                      isInWishlist
+                        ? "bg-gray-600 hover:bg-gray-700"
+                        : "bg-indigo-600 hover:bg-indigo-700"
+                    }`}
+                  >
+                    Add to wishlist
+                  </button>
+                </form>
+              )}
+              
+              {isInWishlist !== null && isInWishlist && (
+                <form className="mt-4">
+                  <button
+                    onClick={addWishHandler}
+                    type="button"
+                    className={`flex w-full items-center justify-center rounded-md border border-transparent px-8 py-3 text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${
+                      isInWishlist
+                        ? "bg-gray-600 hover:bg-gray-700"
+                        : "bg-indigo-600 hover:bg-indigo-700"
+                    }`}
+                  >
+                    Remove from wishlist
+                  </button>
+                </form>
+              )}
             </div>
           </div>
         </div>
