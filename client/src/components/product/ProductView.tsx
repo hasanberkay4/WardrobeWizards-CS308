@@ -40,7 +40,12 @@ export default function ProductView({ product }: Props) {
     countInStock: product.stock_quantity,
     description: product.description,
     quantity: 1,
+    discountRate: product.discountRate,
   };
+
+  const discountedPrice = product.discountRate
+  ? product.initial_price - product.initial_price * (product.discountRate / 100)
+  : product.initial_price;
 
   const [isInWishlist, setIsInWishlist] = useState(false);
 
@@ -70,20 +75,28 @@ export default function ProductView({ product }: Props) {
   }, []);
 
   const addToCartHandler = () => {
-    const existItem = state.cart.cartItems.find((x) => x.slug === product._id);
-    const quantity = existItem ? existItem.quantity + 1 : 1;
+  const existItem = state.cart.cartItems.find((x) => x.slug === product._id);
+  const quantity = existItem ? existItem.quantity + 1 : 1;
 
-    if (product.stock_quantity < quantity) {
-      alert("Sorry. Product is out of stock");
-      return;
-    }
+  if (product.stock_quantity < quantity) {
+    alert("Sorry. Product is out of stock");
+    return;
+  }
 
-    dispatch({
-      type: ActionKind.CART_ADD_ITEM,
-      payload: { ...itemFromProduct, quantity },
-    });
-    alert("Product added to cart");
+  const cartItem: CartItem = {
+    ...itemFromProduct,
+    quantity,
+    price: product.discountRate
+      ? discountedPrice // Apply discounted price
+      : itemFromProduct.price, // Use original price
   };
+
+  dispatch({
+    type: ActionKind.CART_ADD_ITEM,
+    payload: cartItem,
+  });
+  alert("Product added to cart");
+};
 
   const addWishHandler = async () => {
     try {
@@ -113,15 +126,6 @@ export default function ProductView({ product }: Props) {
       alert(error);
     }
   };
-
-  const updateCartHandler = (item: CartItem, qty: string) => {
-    const quantity = Number(qty);
-    dispatch({
-      type: ActionKind.CART_ADD_ITEM,
-      payload: { ...item, quantity },
-    });
-  };
-  const discountedPrice = product.discountRate ? product.initial_price - product.initial_price * (product.discountRate / 100) : product.initial_price;
 
   return (
     <div className="bg-white">
