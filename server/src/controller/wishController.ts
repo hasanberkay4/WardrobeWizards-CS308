@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express"
 import Wish from "../models/wish";
 import Product from "../models/product";
+import Notification from "../models/notification";
 
 // fetch user-specific wishes
 const getUserWishes = async (req: Request, res: Response) => {
@@ -67,7 +68,10 @@ const removeWish = async (req: Request, res: Response) => {
     const existingWish = await Wish.findOneAndDelete({ product, customer });
 
     if (existingWish) {
-      res.status(200).json({ status: 'Wish removed successfully' });
+      // Delete the corresponding notification object
+      await Notification.findOneAndDelete({ product, customer });
+
+      res.status(200).json({ status: 'Wish and notification removed successfully' });
     } else {
       res.status(404).json({ status: 'Wish not found' });
     }
