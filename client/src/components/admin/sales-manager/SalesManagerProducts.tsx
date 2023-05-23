@@ -17,9 +17,38 @@ type ProductContent = {
 const SalesManagerProducts = ({ product_data }: ProductContent) => {
   const router = useRouter();
 
+  const isDiscounted = product_data.discountRate > 0;
+
+  const handleSetPrice = () => {
+    router.push(
+      `/admin/sales-manager/set-price/${product_data._id}?initialPrice=${product_data.initial_price}`
+    );
+  };
+
+  const handleSetDiscount = () => {
+    router.push(
+      `/admin/sales-manager/set-discount/${product_data._id}?initialPrice=${product_data.initial_price}`
+    );
+  };
+
+  const handleRemoveDiscount = async () => {
+    try {
+      const response = await fetch(`http://localhost:5001/admin/sales-manager/remove-discount/${product_data._id}`, {
+        method: 'PUT'
+      });
+
+      if (response.ok) {
+        alert('Discount removed');
+      } else {
+        console.error('Failed to remove discount');
+      }
+    } catch (error) {
+      console.error('An error occurred', error);
+    }
+  };
+
   return (
     <div className={styles.cartItem}>
-
       <div
         className={styles.content}
         style={{
@@ -29,10 +58,10 @@ const SalesManagerProducts = ({ product_data }: ProductContent) => {
           justifyContent: "center",
         }}
       >
-        {product_data.discountRate > 0 && (
-          <p className="text-sm font-medium text-red-500">Discount is applied</p>
+        {isDiscounted && (
+          <p className="font-medium text-blue-500">Discount is already applied</p>
         )}
-        {product_data.discountRate > 0 && (
+        {isDiscounted && (
           <p>Discount Rate: {product_data.discountRate}%</p>
         )}
         <p>Name: {product_data.name}</p>
@@ -59,29 +88,35 @@ const SalesManagerProducts = ({ product_data }: ProductContent) => {
               width: "20%",
               borderRadius: "6px",
             }}
-            onClick={() =>
-              router.push(
-                `/admin/sales-manager/set-price/${product_data._id}?initialPrice=${product_data.initial_price}`
-              )
-            }
+            onClick={handleSetPrice}
           >
             Set Price
           </button>
-          <button
-            style={{
-              backgroundColor: "rgb(84 77 77)",
-              color: "#fff",
-              width: "20%",
-              borderRadius: "6px",
-            }}
-            onClick={() =>
-              router.push(
-                `/admin/sales-manager/set-discount/${product_data._id}?initialPrice=${product_data.initial_price}`
-              )
-            }
-          >
-            Set Discount
-          </button>
+          {isDiscounted ? (
+            <button
+              style={{
+                backgroundColor: "rgb(84 77 77)",
+                color: "#fff",
+                width: "20%",
+                borderRadius: "6px",
+              }}
+              onClick={handleRemoveDiscount}
+            >
+              Remove Discount
+            </button>
+          ) : (
+            <button
+              style={{
+                backgroundColor: "rgb(84 77 77)",
+                color: "#fff",
+                width: "20%",
+                borderRadius: "6px",
+              }}
+              onClick={handleSetDiscount}
+            >
+              Set Discount
+            </button>
+          )}
         </div>
       </div>
     </div>

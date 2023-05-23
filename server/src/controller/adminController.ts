@@ -184,7 +184,7 @@ const adminUpdateProductPriceController = async (req: Request, res: Response) =>
         return res.status(400).json({ errors: err });
     }
 }
-const adminUpdateProductDiscountController = async (req: Request, res: Response) => {
+const adminProductDiscountController = async (req: Request, res: Response) => {
     try {  
       const productId = req.params.id;
 
@@ -231,7 +231,8 @@ const adminUpdateProductDiscountController = async (req: Request, res: Response)
         const notification = new Notification({
             customer: wish.customer,
             content: content,
-            createdAt: Date.now()
+            createdAt: Date.now(),
+            product: productId
         });
         
         try {
@@ -246,6 +247,23 @@ const adminUpdateProductDiscountController = async (req: Request, res: Response)
     console.error(err);
     return res.status(400).json({ errors: err });
     }
+  }; 
+
+  const adminRemoveDiscountController = async (req: Request, res: Response) => {
+    try {
+        const productId = req.params.id;
+    
+        await Product.updateOne({ _id: productId }, { $set: { discountRate: 0 } });
+        await Discount.deleteOne({ productId: productId });
+    
+        await Notification.deleteMany({ product: productId });
+        console.log("Notifications deleted");
+    
+        return res.status(200).json({ status: "success", discount: null });
+      } catch (err) {
+        console.error(err);
+        return res.status(400).json({ errors: err });
+      }
   }; 
 
 // admin deliveries
@@ -339,5 +357,5 @@ export default {
     adminSignInController, adminSignUpController,
     adminGetProductsController, adminGetProductController, adminCreateProductController, adminUpdateProductController, adminDeleteProductController,
     adminGetDeliveriesController, adminGetDeliveryController, adminGetDeliveryByUserIdController, adminUpdateDeliveryController,
-    adminGetCommentsController, adminGetCommentController, adminUpdateCommentController, adminUpdateProductPriceController, adminUpdateProductDiscountController,
+    adminGetCommentsController, adminGetCommentController, adminUpdateCommentController, adminUpdateProductPriceController, adminProductDiscountController, adminRemoveDiscountController
 }  

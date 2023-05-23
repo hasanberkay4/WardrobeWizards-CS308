@@ -18,7 +18,8 @@ adminRouter.post('/products', adminController.adminCreateProductController);
 adminRouter.put('/products/:id', adminController.adminUpdateProductController);
 adminRouter.delete('/products/:id', adminController.adminDeleteProductController);
 adminRouter.put('/sales-manager/products/:id', adminController.adminUpdateProductPriceController);
-adminRouter.put('/sales-manager/products/:id/discount', adminController.adminUpdateProductDiscountController);
+adminRouter.put('/sales-manager/products/:id/discount', adminController.adminProductDiscountController);
+adminRouter.put('/sales-manager/remove-discount/:id', adminController.adminRemoveDiscountController);
 
 // admin deliveries
 adminRouter.get('/deliveries', adminController.adminGetDeliveriesController);
