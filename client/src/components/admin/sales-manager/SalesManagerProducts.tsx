@@ -19,7 +19,7 @@ const SalesManagerProducts = ({ product_data }: ProductContent) => {
 
   return (
     <div className={styles.cartItem}>
-      Product:
+
       <div
         className={styles.content}
         style={{
@@ -29,21 +29,20 @@ const SalesManagerProducts = ({ product_data }: ProductContent) => {
           justifyContent: "center",
         }}
       >
-        <p
-          className={`text-sm font-medium ${
-            product_data.discountRate > 0 ? "text-red-500" : "text-gray-900"
-          }`}
-        >
-        {product_data.discountRate > 0 ? ("Discount is applied") : null}
-          </p>
-        <p>Name : {product_data.name}</p>
+        {product_data.discountRate > 0 && (
+          <p className="text-sm font-medium text-red-500">Discount is applied</p>
+        )}
+        {product_data.discountRate > 0 && (
+          <p>Discount Rate: {product_data.discountRate}%</p>
+        )}
+        <p>Name: {product_data.name}</p>
         <p>Initial Price: {product_data.initial_price}TL</p>
-        <p>Category(s) : {product_data.category_ids}</p>
-       
+        <p>Category(s): {product_data.category_ids}</p>
+
         <img
           src={product_data.image}
           alt={product_data.image}
-          className="w-64 h-64 object-cover object-center "
+          className="w-64 h-64 object-cover object-center"
         />
         <div
           style={{
@@ -64,7 +63,6 @@ const SalesManagerProducts = ({ product_data }: ProductContent) => {
               router.push(
                 `/admin/sales-manager/set-price/${product_data._id}?initialPrice=${product_data.initial_price}`
               )
-              
             }
           >
             Set Price
