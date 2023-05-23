@@ -3,6 +3,8 @@ import Admin from "../models/admin"
 import Product from "../models/product";
 import Deliveries from "../models/order";
 import Discount from '../models/discount';
+import Wish from "../models/wish";
+import Notification from "../models/notification";
 import Comments from "../models/comment";
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken";
@@ -183,12 +185,14 @@ const adminUpdateProductPriceController = async (req: Request, res: Response) =>
     }
 }
 const adminUpdateProductDiscountController = async (req: Request, res: Response) => {
-    try {
-      console.log("Received request to set product discount");
-      console.log("Request body:", req.body);
-  
+    try {  
       const productId = req.params.id;
+
+      const productName = (await Product.findById(productId))?.name;
+
       const discountRate = parseInt(req.body.discountPercentage);
+
+      let discountUpdate = 0;
   
       if (discountRate === 0) {
         // If the discount rate is 0, remove the discount from the database
@@ -197,17 +201,22 @@ const adminUpdateProductDiscountController = async (req: Request, res: Response)
         console.log("Discount removed");
         return res.status(200).json({ status: "success", discount: null });
       }
+
+      let content;
   
       let discount = await Discount.findOne({ productId: productId });
       if (discount) {
         // If a discount already exists, update it
         discount.discountRate = discountRate;
         discount.date = new Date(); // Update the date to the current date
+
+        content = `The discount on the product "${productName}" in your wishlist has been updated.`
       } else {
         // If no discount exists, create a new one
         discount = new Discount({ productId, discountRate });
         await Product.updateOne({ _id: productId }, { $set: { discountRate: discountRate } });
 
+        content = `The price of the product "${productName}" in your wishlist has been discounted.`
       }
       
       console.log("Discount:", discount);
@@ -215,12 +224,29 @@ const adminUpdateProductDiscountController = async (req: Request, res: Response)
   
       console.log("Updated/created discount:", discount);
       res.status(200).json({ status: "success", discount });
+
+      const wishes = await Wish.find({ product: req.params.id }).select('customer');
+
+      for (const wish of wishes) {
+        const notification = new Notification({
+            customer: wish.customer,
+            content: content,
+            createdAt: Date.now()
+        });
+        
+        try {
+            await notification.save();
+        } catch (err) {
+            console.log(err);
+            return;
+        }
+      }
+      
     } catch (err) {
-      console.error(err);
-      return res.status(400).json({ errors: err });
+    console.error(err);
+    return res.status(400).json({ errors: err });
     }
-  };
-  
+  }; 
 
 // admin deliveries
 const adminGetDeliveriesController = async (req: Request, res: Response) => {

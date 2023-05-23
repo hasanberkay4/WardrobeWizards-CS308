@@ -1,6 +1,7 @@
 import { Router } from "express";
 import productController from "../controller/productController"
 import wishController from "../controller/wishController";
+import notificationController from "../controller/notificationController";
 
 const productRouter = Router();
 
@@ -24,7 +25,8 @@ productRouter.get('/all-categories/ids', productController.getCategoryIdsBySlug)
 // --- categories ---
 
 // all products by category
-productRouter.get('/categories/', productController.getCategoryIdsBySlug);
+//productRouter.get('/categories/', productController.getCategoryIdsBySlug); // SORUNLU API ENDPOINT?????
+productRouter.get('/categories', productController.getAllCategories); // ESKI CALISAN API ENDPOINT
 productRouter.get('/categories/:slug', productController.getCategorySpecificProducts);
 
 
@@ -58,6 +60,9 @@ productRouter.post('/delivery/product/update-status', productController.updateDe
 // handle ratings
 productRouter.put('/id/:productid', productController.updateProductRating);
 
+
+// --- wishes ---
+
 // get user's wishes
 productRouter.get('/get-user-wishes/:userid', wishController.getUserWishes);
 
@@ -69,6 +74,10 @@ productRouter.put('/add-wish', wishController.addWish);
 
 // remove wish
 productRouter.delete('/remove-wish', wishController.removeWish);
+
+
+// --- notifications ---
+productRouter.get('/get-user-notifies/:userid', notificationController.getUserNotifications);
 
 
 // --- yagiz - filter ---
