@@ -16,7 +16,7 @@ import { upload } from "./middleware/adminMiddleware/productMiddleware";
 dotenv.config()
 
 connectDb();
-const app = express()
+export const app = express()
 const port = process.env.PORT || 5000
 
 // middleware

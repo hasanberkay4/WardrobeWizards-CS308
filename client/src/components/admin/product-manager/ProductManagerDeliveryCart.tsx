@@ -2,14 +2,18 @@ import React from 'react';
 import styles from '../../../styles/ProductManagerFeatureCart.module.scss';
 import Link from 'next/link';
 import { DeliveryType } from '../../../types/adminTypes/deliveryType';
+import { useRouter } from 'next/router';
 
 type Props = {
     delivery_data: DeliveryType;
 };
 
 const ProductManagerDeliveryCart = ({ delivery_data }: Props) => {
+
+    const router = useRouter();
+
     const handlePdfButtonClick = () => {
-        window.open(delivery_data.pdfUrl, '_blank');
+        router.push(`http://localhost:5001/products/delivery/invoice/${delivery_data._id}`);
     };
 
     return (

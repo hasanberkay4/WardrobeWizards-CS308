@@ -2,7 +2,6 @@ import { useState } from "react"
 import { useRouter } from "next/router";
 import styles from '../../../styles/AddProductForm.module.scss'
 import Select from "react-select";
-import { AddProductType, addProductSchema } from "../../../types/adminTypes/addProductType";
 
 type Props = {
     category_options: { value: string, label: string }[];
@@ -17,8 +16,8 @@ const AddProductForm = ({ category_options, color_options, model_options }: Prop
     // product fields
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
-    const [model, setModel] = useState("");
-    const [color, setColor] = useState("");
+    const [model, setModel] = useState([]);
+    const [color, setColor] = useState([]);
     const [stock_quantity, setStockQuantity] = useState(0);
     const [initial_price, setInitialPrice] = useState(0);
     const [expense, setExpense] = useState(0);
