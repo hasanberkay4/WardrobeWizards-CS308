@@ -53,6 +53,12 @@ const AnalyticsPage = ({ transactions }: AnalyticsPageProps) => {
     };
     
     const processedData = processData(transactions);
+
+    const incomeData = processedData.find(item => item.name === "Income");
+    const expenseData = processedData.find(item => item.name === "Expense");
+    const netProfit = (incomeData?.value ?? 0) - (expenseData?.value ?? 0);
+
+
     
 
     return (
@@ -87,7 +93,10 @@ const AnalyticsPage = ({ transactions }: AnalyticsPageProps) => {
                 <div className="flex justify-center space-x-2">
                         <div className="w-1/2">
                         <BarChartComponent data={processedData} />
+                        <p className="text-center font-bold">Net Profit: {netProfit.toFixed(2)}</p>
                         </div>
+                        
+
                         <div className="w-3/5">
                         <Table data={sortedTransactions} />
                         </div>
