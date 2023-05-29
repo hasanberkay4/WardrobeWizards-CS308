@@ -93,7 +93,7 @@ const AnalyticsPage = ({ transactions }: AnalyticsPageProps) => {
                 <div className="flex justify-center space-x-2">
                         <div className="w-1/2">
                         <BarChartComponent data={processedData} />
-                        <p className="text-center font-bold">Net Profit: {netProfit.toFixed(2)}</p>
+                        <p className="text-center font-bold">Net Profit: ₺{netProfit.toFixed(2)}</p>
                         </div>
                         
 
