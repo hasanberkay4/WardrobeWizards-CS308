@@ -1,31 +1,36 @@
 import { useState } from "react"
 import { useRouter } from "next/router";
 import styles from '../../../styles/AddProductForm.module.scss'
-import Select from "react-select";
+import React, { ChangeEvent } from 'react';
+import Select, { ActionMeta } from 'react-select';
+
 
 type Props = {
-    category_options: { value: string, label: string }[];
-    color_options: { value: string, label: string }[];
-    model_options: { value: string, label: string }[];
+    category_options: {
+        _id: string,
+        name: string,
+        slug: string,
+    }[],
+}
+
+interface OptionType {
+    value: string;
+    label: string;
 }
 
 
-
-const AddProductForm = ({ category_options, color_options, model_options }: Props) => {
+const AddProductForm = ({ category_options }: Props) => {
 
     // product fields
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
-    const [model, setModel] = useState([]);
-    const [color, setColor] = useState([]);
     const [stock_quantity, setStockQuantity] = useState(0);
     const [initial_price, setInitialPrice] = useState(0);
     const [expense, setExpense] = useState(0);
-    const [category_slugs, setCategorySlugs] = useState([]);
-    const [warranty, setWarranty] = useState("");
+    const [selectedOptions, setSelectedOptions] = useState<readonly OptionType[]>([]);
+
 
     // image fields
-    const [imageName, setImageName] = useState("");
     const [imageFile, setImageFile] = useState<File | null>(null);
 
     // router
@@ -38,44 +43,55 @@ const AddProductForm = ({ category_options, color_options, model_options }: Prop
 
 
         // ---- add product ----
+
+        // create a json object to be sent to the server as the body of the request
+        const product_form_data = {
+            "name": name,
+            "description": description,
+            "stock_quantity": stock_quantity,
+            "initial_price": initial_price,
+            "expense": expense,
+            "category_slugs": selectedOptions.map(option => option.value),
+            "warranty_status": false,
+            "image": imageFile ? imageFile.name : null,
+        };
+
+        console.log("product: ", product_form_data);
+
         const product_form_response = await fetch('http://localhost:5001/admin/products', {
             method: 'POST',
-            body: JSON.stringify({
-                "name": name,
-                "description": description,
-                "model": model,
-                "color": color,
-                "stock_quantity": stock_quantity,
-                "initial_price": initial_price,
-                "expense": expense,
-                "warranty_status": warranty,
-            })
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(product_form_data),
         });
 
-        if (product_form_response.ok) {
-            alert("Product added successfully!")
+        if (!product_form_response.ok) {
+            alert("Error adding product");
+            return;
         }
 
 
         // ---- add expense transaction ----
+
+        console.log("expense: ", expense);
         const expense_response = await fetch("http://localhost:5001/transaction/add", {
             method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({
                 "amount": expense,
                 "type": "expense",
             })
         });
 
-        let expense_id = "";
-        if (expense_response.ok) {
-            const expenseResponseJson = await expense_response.json();
-            expense_id = expenseResponseJson.transaction_id as string;
+        if (!expense_response.ok) {
+            alert("Error adding expense!");
+            return;
         }
 
-
-
         // ---- add image file ----
-
 
         // add imageFile to formData
         const formData = new FormData();
@@ -88,14 +104,25 @@ const AddProductForm = ({ category_options, color_options, model_options }: Prop
             body: formData
         });
 
+
+        // ---- check responses ----
         // alert dialog
-        if (image_response.ok) {
+        if (product_form_response.ok && expense_response.ok && image_response.ok) {
             alert("Product added successfully!")
-            router.push('/admin/product-manager/products');
-        } else {
-            alert("Error adding image!")
+            router.push("/admin/product-manager/products");
         }
+
+
     };
+
+
+    const handleSelectChange = (selectedOptions: readonly OptionType[] | null, actionMeta: ActionMeta<OptionType>) => {
+        setSelectedOptions(selectedOptions || []);
+    }
+
+    // convert category_options to the format needed by react-select
+    const options: OptionType[] = category_options.map(category => ({ value: category.slug, label: category.name }));
+
 
 
     return (
@@ -111,39 +138,21 @@ const AddProductForm = ({ category_options, color_options, model_options }: Prop
                 <input className={styles.input} type="text" id="description" value={description} onChange={e => setDescription(e.target.value)} />
 
 
-                {/* select fields */}
-                <label className={styles.label} htmlFor="model">Model</label>
+                {/* select categories */}
+                <label htmlFor="categories">Categories</label>
                 <Select
-                    className={styles.input}
-                    value={model}
-                    options={model_options}
-                    onChange={setModel}
-                />
-                <label className={styles.label} htmlFor="color">Color</label>
-                <Select
-                    className={styles.input}
-                    options={color_options}
-                    value={color}
-                    onChange={setColor}
-                />
-                <label className={styles.label} htmlFor="warranty">Warranty Status</label>
-                <Select
-                    className={styles.input}
-                    options={[{ label: "Yes", options: [] }, { label: "No", options: [] }]}
-                    value={warranty}
-                    onChange={setWarranty}
-                />
-                <label className={styles.label} htmlFor="categories">Categories</label>
-                <Select
-                    className={styles.input}
                     isMulti
-                    options={category_options}
-                    value={category_slugs}
-                    onChange={setCategorySlugs}
+                    name="categories"
+                    options={options}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                    onChange={handleSelectChange}
+                    value={selectedOptions}
                 />
 
+
                 {/* numberic values */}
-                <label className={styles.label} htmlFor="price">Initial Price</label>
+                < label className={styles.label} htmlFor="price" > Initial Price</label>
                 <input className={styles.input} type="number" id="price" value={initial_price} onChange={e => setInitialPrice(e.target.valueAsNumber)} />
 
                 <label className={styles.label} htmlFor="stock">Stock Quantity</label>
@@ -153,9 +162,6 @@ const AddProductForm = ({ category_options, color_options, model_options }: Prop
                 <input className={styles.input} type="number" id="expense" value={expense} onChange={e => setExpense(e.target.valueAsNumber)} />
 
                 {/* image */}
-                <label className={styles.label} htmlFor="imageName">Image Name</label>
-                <input className={styles.input} type="text" id="imageName" value={imageName} onChange={e => setImageName(e.target.value)} />
-
                 <label className={styles.label} htmlFor="imageFile">Product Image</label>
                 <input className={styles.input} type="file" name="image_file" id="imageFile" onChange={e => {
                     if (e.target.files && e.target.files[0]) {
@@ -166,7 +172,7 @@ const AddProductForm = ({ category_options, color_options, model_options }: Prop
 
                 <button className={styles.button} type="submit">Add Product</button>
             </form>
-        </div>
+        </div >
     );
 
 

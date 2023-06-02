@@ -3,11 +3,9 @@ import { Schema, model, Model, Types } from 'mongoose';
 export interface IProduct {
     name: string;
     description: string;
-    model: string;
-    number: number;
     stock_quantity: number;
     initial_price: number;
-    category_ids: Types.ObjectId[];
+    category_ids: string[];
     image: string;
     popularity: number;
     rating: number;
@@ -21,13 +19,11 @@ export interface IProduct {
 const productSchema = new Schema<IProduct>({
     name: { type: String, required: true },
     description: { type: String, required: true },
-    model: { type: String, required: true },
-    number: { type: Number, required: true },
     stock_quantity: { type: Number, required: true },
     initial_price: { type: Number, required: true },
     category_ids: [
         {
-            type: Types.ObjectId,
+            type: String,
             required: true,
             ref: 'Category'
         }

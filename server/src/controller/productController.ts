@@ -3,8 +3,6 @@ import Product from "../models/product";
 import Category from "../models/category";
 import Discount from "../models/discount";
 import Delivery, { IDelivery } from "../models/order";
-import Color from "../models/color";
-import Model from "../models/model";
 import { sendInvoiceEmail } from "../middleware/pdfGenerator";
 
 // all products
@@ -24,7 +22,7 @@ const getProductsById = async (req: Request, res: Response) => {
   const productid = req.params.productid;
   try {
     const product = await Product.findById(productid);
-    const discount = await Discount.findOne({productId:productid});
+    const discount = await Discount.findOne({ productId: productid });
     if (product && discount) {
       product.discountRate = discount.discountRate;
       await product.updateOne(product)
@@ -175,7 +173,11 @@ const getProductsByCategoryFilter = async (req: Request, res: Response) => {
     const { category } = req.query;
     const categoryObj = await Category.findOne({ slug: category });
 
-    const filteredProducts = await Product.find({ category_ids: categoryObj });
+    if (!categoryObj) {
+      return res.status(404).json({ message: "Category not found" });
+    }
+
+    const filteredProducts = await Product.find({ category_ids: categoryObj.slug });
 
     res.json(filteredProducts);
   } catch (error) {
@@ -359,27 +361,6 @@ const updateProductStock = async (req: Request, res: Response) => {
 };
 
 
-
-// get all colors
-const getColors = async (req: Request, res: Response) => {
-  try {
-    const colors = await Color.find();
-    res.status(200).json(colors);
-  } catch (error) {
-    res.status(404).json({ message: "Colors not found" });
-  }
-}
-
-// get all models
-const getModels = async (req: Request, res: Response) => {
-  try {
-    const models = await Model.find();
-    res.status(200).json(models);
-  } catch (error) {
-    res.status(404).json({ message: "Models not found" });
-  }
-}
-
 const getCategories = async (req: Request, res: Response) => {
   try {
     const categories = await Category.find();
@@ -407,7 +388,5 @@ export default {
   updateDeliveryStatus,
   updateDeliveryProductStatus,
   updateProductStock,
-  getColors,
-  getModels,
   getCategories,
 };

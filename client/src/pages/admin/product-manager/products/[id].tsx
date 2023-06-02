@@ -4,10 +4,10 @@ import { AdminLayout } from "../../../../components/admin/shared/AdminLayout"
 import styles from '../../../../styles/ProductManagerProductPage.module.scss'
 import { useState } from "react"
 import { useRouter } from "next/router"
-import { ProductType, ProductTypeSchema } from '../../../../types/adminTypes/productType'
+import { Product } from '../../../../types/productType';
 
 type Props = {
-    product_info: ProductType
+    product_info: Product
 }
 
 const ProductManagerProductsPage = ({ product_info }: Props) => {
@@ -108,7 +108,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         const product_response = await response.json();
 
         // make sure response is of type ProductType
-        const product = ProductTypeSchema.parse(product_response.product);
+        const product = product_response.product as Product;
 
         return {
             props: { product_info: product }

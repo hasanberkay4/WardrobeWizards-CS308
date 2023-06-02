@@ -5,6 +5,7 @@ import Deliveries from "../models/order";
 import Discount from '../models/discount';
 import Wish from "../models/wish";
 import Notification from "../models/notification";
+import Category from "../models/category";
 import Comments from "../models/comment";
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken";
@@ -114,17 +115,44 @@ const adminGetProductController = async (req: Request, res: Response) => {
 
 const adminCreateProductController = async (req: Request, res: Response) => {
     try {
+        // get body data
+        console.log("Received request to add product");
+        console.log("Request body:", req.body);
+
         const productFormData = addProductSchema.parse(req.body);
 
-
-
         const product = new Product({
-            ...productFormData,
-            number: 0,
+            name: productFormData.name,
+            description: productFormData.description,
+            category_ids: productFormData.category_slugs,
+            initial_price: productFormData.initial_price,
+            stock_quantity: productFormData.stock_quantity,
+            warrant_status: productFormData.warranty_status,
+            expense: productFormData.expense,
+            image: "http://localhost:5001/images/" + productFormData.image,
+            delivery_info: "",
+            discountRate: 0,
+            number_of_voters: 0,
+            popularity: 0,
+            rating: 0,
         });
 
         const addedProduct = await product.save();
-        res.status(200).json({ status: "success", product: addedProduct });
+        return res.status(200).json({ status: "success", product: addedProduct });
+    } catch (err) {
+        console.log(err)
+        return res.status(400).json({ errors: err });
+    }
+};
+
+const adminCreateCategoryController = async (req: Request, res: Response) => {
+    try {
+        const category = new Category({
+            name: req.body.name,
+            slug: req.body.slug,
+        });
+        const addedCategory = await category.save();
+        return res.status(200).json({ status: "success", category: addedCategory });
     } catch (err) {
         return res.status(400).json({ errors: err });
     }
@@ -184,87 +212,88 @@ const adminUpdateProductPriceController = async (req: Request, res: Response) =>
         return res.status(400).json({ errors: err });
     }
 }
+
 const adminProductDiscountController = async (req: Request, res: Response) => {
-    try {  
-      const productId = req.params.id;
-
-      const productName = (await Product.findById(productId))?.name;
-
-      const discountRate = parseInt(req.body.discountPercentage);
-
-      let discountUpdate = 0;
-  
-      if (discountRate === 0) {
-        // If the discount rate is 0, remove the discount from the database
-        await Product.updateOne({ _id: productId }, { $set: { discountRate: 0 } });
-        await Discount.deleteOne({ productId: productId });
-        console.log("Discount removed");
-        return res.status(200).json({ status: "success", discount: null });
-      }
-
-      let content;
-  
-      let discount = await Discount.findOne({ productId: productId });
-      if (discount) {
-        // If a discount already exists, update it
-        discount.discountRate = discountRate;
-        discount.date = new Date(); // Update the date to the current date
-
-        content = `The discount on the product "${productName}" in your wishlist has been updated.`
-      } else {
-        // If no discount exists, create a new one
-        discount = new Discount({ productId, discountRate });
-        await Product.updateOne({ _id: productId }, { $set: { discountRate: discountRate } });
-
-        content = `The price of the product "${productName}" in your wishlist has been discounted.`
-      }
-      
-      console.log("Discount:", discount);
-      await discount.save(); // Save the discount (either updated or new)
-  
-      console.log("Updated/created discount:", discount);
-      res.status(200).json({ status: "success", discount });
-
-      const wishes = await Wish.find({ product: req.params.id }).select('customer');
-
-      for (const wish of wishes) {
-        const notification = new Notification({
-            customer: wish.customer,
-            content: content,
-            createdAt: Date.now(),
-            product: productId
-        });
-        
-        try {
-            await notification.save();
-        } catch (err) {
-            console.log(err);
-            return;
-        }
-      }
-      
-    } catch (err) {
-    console.error(err);
-    return res.status(400).json({ errors: err });
-    }
-  }; 
-
-  const adminRemoveDiscountController = async (req: Request, res: Response) => {
     try {
         const productId = req.params.id;
-    
-        await Product.updateOne({ _id: productId }, { $set: { discountRate: 0 } });
-        await Discount.deleteOne({ productId: productId });
-    
-        await Notification.deleteMany({ product: productId });
-        console.log("Notifications deleted");
-    
-        return res.status(200).json({ status: "success", discount: null });
-      } catch (err) {
+
+        const productName = (await Product.findById(productId))?.name;
+
+        const discountRate = parseInt(req.body.discountPercentage);
+
+        let discountUpdate = 0;
+
+        if (discountRate === 0) {
+            // If the discount rate is 0, remove the discount from the database
+            await Product.updateOne({ _id: productId }, { $set: { discountRate: 0 } });
+            await Discount.deleteOne({ productId: productId });
+            console.log("Discount removed");
+            return res.status(200).json({ status: "success", discount: null });
+        }
+
+        let content;
+
+        let discount = await Discount.findOne({ productId: productId });
+        if (discount) {
+            // If a discount already exists, update it
+            discount.discountRate = discountRate;
+            discount.date = new Date(); // Update the date to the current date
+
+            content = `The discount on the product "${productName}" in your wishlist has been updated.`
+        } else {
+            // If no discount exists, create a new one
+            discount = new Discount({ productId, discountRate });
+            await Product.updateOne({ _id: productId }, { $set: { discountRate: discountRate } });
+
+            content = `The price of the product "${productName}" in your wishlist has been discounted.`
+        }
+
+        console.log("Discount:", discount);
+        await discount.save(); // Save the discount (either updated or new)
+
+        console.log("Updated/created discount:", discount);
+        res.status(200).json({ status: "success", discount });
+
+        const wishes = await Wish.find({ product: req.params.id }).select('customer');
+
+        for (const wish of wishes) {
+            const notification = new Notification({
+                customer: wish.customer,
+                content: content,
+                createdAt: Date.now(),
+                product: productId
+            });
+
+            try {
+                await notification.save();
+            } catch (err) {
+                console.log(err);
+                return;
+            }
+        }
+
+    } catch (err) {
         console.error(err);
         return res.status(400).json({ errors: err });
-      }
-  }; 
+    }
+};
+
+const adminRemoveDiscountController = async (req: Request, res: Response) => {
+    try {
+        const productId = req.params.id;
+
+        await Product.updateOne({ _id: productId }, { $set: { discountRate: 0 } });
+        await Discount.deleteOne({ productId: productId });
+
+        await Notification.deleteMany({ product: productId });
+        console.log("Notifications deleted");
+
+        return res.status(200).json({ status: "success", discount: null });
+    } catch (err) {
+        console.error(err);
+        return res.status(400).json({ errors: err });
+    }
+};
 
 // admin deliveries
 const adminGetDeliveriesController = async (req: Request, res: Response) => {
@@ -357,5 +386,6 @@ export default {
     adminSignInController, adminSignUpController,
     adminGetProductsController, adminGetProductController, adminCreateProductController, adminUpdateProductController, adminDeleteProductController,
     adminGetDeliveriesController, adminGetDeliveryController, adminGetDeliveryByUserIdController, adminUpdateDeliveryController,
-    adminGetCommentsController, adminGetCommentController, adminUpdateCommentController, adminUpdateProductPriceController, adminProductDiscountController, adminRemoveDiscountController
+    adminGetCommentsController, adminGetCommentController, adminUpdateCommentController, adminUpdateProductPriceController, adminProductDiscountController, adminRemoveDiscountController,
+    adminCreateCategoryController
 }  

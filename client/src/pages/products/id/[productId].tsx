@@ -46,8 +46,8 @@ export const getServerSideProps: GetServerSideProps<ProductProps> = async (conte
 
     const product = await productResponse.json();
     const comments = await commentResponse.json();
-    const imageName = product.image;
-    product.image = `http://localhost:5001/images/${imageName}`
+    // const imageName = product.image;
+    // product.image = `http://localhost:5001/images/${imageName}`
 
     let commentItems: commentListItem[]
     commentItems = comments

@@ -50,10 +50,12 @@ export const getServerSideProps: GetServerSideProps<ProductListProps> = async (c
     });
     const productList = await result.json();
 
+    /*
     productList.map((product: Product) => {
         const productName = product.image;
         product.image = `http://localhost:5001/images/${productName}`
     });
+    */
 
     return {
         props: {

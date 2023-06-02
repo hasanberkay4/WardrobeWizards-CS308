@@ -1,0 +1,1573 @@
+[
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf11f"
+        },
+        "total_price": 2922,
+        "status": "cancelled",
+        "date": "2020-01-02",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf007"
+                },
+                "quantity": 5,
+                "status": "pending"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf094"
+                },
+                "quantity": 2,
+                "status": "pending"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf120"
+        },
+        "total_price": 6731,
+        "status": "cancelled",
+        "date": "2020-01-04",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddefef"
+                },
+                "quantity": 5,
+                "status": "delivered"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf019"
+                },
+                "quantity": 2,
+                "status": "pending"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf088"
+                },
+                "quantity": 3,
+                "status": "pending"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf129"
+        },
+        "total_price": 5691,
+        "status": "cancelled",
+        "date": "2020-01-02",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddef98"
+                },
+                "quantity": 2,
+                "status": "delivered"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf071"
+                },
+                "quantity": 5,
+                "status": "pending"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf014"
+                },
+                "quantity": 1,
+                "status": "delivered"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddefd3"
+                },
+                "quantity": 4,
+                "status": "pending"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf00f"
+                },
+                "quantity": 5,
+                "status": "cancelled"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf12a"
+        },
+        "total_price": 3700,
+        "status": "pending",
+        "date": "2020-01-03",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf08f"
+                },
+                "quantity": 4,
+                "status": "cancelled"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf040"
+                },
+                "quantity": 4,
+                "status": "cancelled"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf12c"
+        },
+        "total_price": 3895,
+        "status": "pending",
+        "date": "2020-01-04",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddefea"
+                },
+                "quantity": 2,
+                "status": "pending"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddefb8"
+                },
+                "quantity": 3,
+                "status": "pending"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf085"
+                },
+                "quantity": 1,
+                "status": "cancelled"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddefe5"
+                },
+                "quantity": 2,
+                "status": "pending"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf135"
+        },
+        "total_price": 6483,
+        "status": "pending",
+        "date": "2020-01-05",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddeff3"
+                },
+                "quantity": 3,
+                "status": "delivered"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddef73"
+                },
+                "quantity": 2,
+                "status": "cancelled"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddef78"
+                },
+                "quantity": 4,
+                "status": "cancelled"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddefbf"
+                },
+                "quantity": 1,
+                "status": "pending"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf13b"
+        },
+        "total_price": 4994,
+        "status": "delivered",
+        "date": "2020-01-05",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddef76"
+                },
+                "quantity": 5,
+                "status": "delivered"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf05e"
+                },
+                "quantity": 4,
+                "status": "pending"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddefe9"
+                },
+                "quantity": 4,
+                "status": "pending"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf13c"
+        },
+        "total_price": 5036,
+        "status": "delivered",
+        "date": "2020-01-05",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf05b"
+                },
+                "quantity": 4,
+                "status": "delivered"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddef68"
+                },
+                "quantity": 4,
+                "status": "delivered"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf144"
+        },
+        "total_price": 12972,
+        "status": "cancelled",
+        "date": "2020-01-04",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddef8c"
+                },
+                "quantity": 5,
+                "status": "pending"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf0b8"
+                },
+                "quantity": 4,
+                "status": "cancelled"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf07f"
+                },
+                "quantity": 3,
+                "status": "delivered"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf0ce"
+                },
+                "quantity": 5,
+                "status": "cancelled"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddef4e"
+                },
+                "quantity": 3,
+                "status": "cancelled"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf146"
+        },
+        "total_price": 2904,
+        "status": "delivered",
+        "date": "2020-01-02",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddef86"
+                },
+                "quantity": 3,
+                "status": "cancelled"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf149"
+        },
+        "total_price": 3336,
+        "status": "cancelled",
+        "date": "2020-01-05",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddef9b"
+                },
+                "quantity": 4,
+                "status": "pending"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf150"
+        },
+        "total_price": 4381,
+        "status": "cancelled",
+        "date": "2020-01-05",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf028"
+                },
+                "quantity": 5,
+                "status": "cancelled"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddefe9"
+                },
+                "quantity": 2,
+                "status": "pending"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf151"
+        },
+        "total_price": 5038,
+        "status": "cancelled",
+        "date": "2020-01-03",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf0ef"
+                },
+                "quantity": 1,
+                "status": "delivered"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddefa1"
+                },
+                "quantity": 2,
+                "status": "cancelled"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddef95"
+                },
+                "quantity": 4,
+                "status": "pending"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf154"
+        },
+        "total_price": 8724,
+        "status": "delivered",
+        "date": "2020-01-01",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf06c"
+                },
+                "quantity": 2,
+                "status": "delivered"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddefad"
+                },
+                "quantity": 5,
+                "status": "pending"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddef7a"
+                },
+                "quantity": 5,
+                "status": "cancelled"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf0d1"
+                },
+                "quantity": 3,
+                "status": "delivered"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf095"
+                },
+                "quantity": 4,
+                "status": "pending"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf155"
+        },
+        "total_price": 12214,
+        "status": "cancelled",
+        "date": "2020-01-01",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddef73"
+                },
+                "quantity": 3,
+                "status": "cancelled"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf0c1"
+                },
+                "quantity": 5,
+                "status": "cancelled"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddefa9"
+                },
+                "quantity": 4,
+                "status": "cancelled"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf0ac"
+                },
+                "quantity": 5,
+                "status": "pending"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf0d9"
+                },
+                "quantity": 4,
+                "status": "cancelled"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf156"
+        },
+        "total_price": 2450,
+        "status": "pending",
+        "date": "2020-01-03",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf0b2"
+                },
+                "quantity": 5,
+                "status": "delivered"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf158"
+        },
+        "total_price": 7472,
+        "status": "cancelled",
+        "date": "2020-01-01",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddeffc"
+                },
+                "quantity": 4,
+                "status": "pending"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf05d"
+                },
+                "quantity": 2,
+                "status": "delivered"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf091"
+                },
+                "quantity": 2,
+                "status": "pending"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddefb0"
+                },
+                "quantity": 3,
+                "status": "pending"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf050"
+                },
+                "quantity": 3,
+                "status": "pending"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf159"
+        },
+        "total_price": 6106,
+        "status": "pending",
+        "date": "2020-01-04",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf00d"
+                },
+                "quantity": 2,
+                "status": "cancelled"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf098"
+                },
+                "quantity": 4,
+                "status": "delivered"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf00d"
+                },
+                "quantity": 2,
+                "status": "cancelled"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf077"
+                },
+                "quantity": 3,
+                "status": "pending"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf15e"
+        },
+        "total_price": 3114,
+        "status": "cancelled",
+        "date": "2020-01-01",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf0d6"
+                },
+                "quantity": 2,
+                "status": "delivered"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf0fe"
+                },
+                "quantity": 4,
+                "status": "cancelled"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf0d6"
+                },
+                "quantity": 2,
+                "status": "delivered"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddeff4"
+                },
+                "quantity": 1,
+                "status": "cancelled"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf15f"
+        },
+        "total_price": 179,
+        "status": "delivered",
+        "date": "2020-01-01",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf03f"
+                },
+                "quantity": 1,
+                "status": "cancelled"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf16e"
+        },
+        "total_price": 306,
+        "status": "pending",
+        "date": "2020-01-02",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf0d5"
+                },
+                "quantity": 2,
+                "status": "cancelled"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf16f"
+        },
+        "total_price": 6366,
+        "status": "cancelled",
+        "date": "2020-01-04",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddef6c"
+                },
+                "quantity": 3,
+                "status": "cancelled"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf108"
+                },
+                "quantity": 5,
+                "status": "delivered"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf041"
+                },
+                "quantity": 4,
+                "status": "cancelled"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf174"
+        },
+        "total_price": 6092,
+        "status": "delivered",
+        "date": "2020-01-02",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddef9a"
+                },
+                "quantity": 1,
+                "status": "cancelled"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf080"
+                },
+                "quantity": 4,
+                "status": "cancelled"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf0df"
+                },
+                "quantity": 4,
+                "status": "cancelled"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf0e4"
+                },
+                "quantity": 3,
+                "status": "cancelled"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf17b"
+        },
+        "total_price": 5723,
+        "status": "delivered",
+        "date": "2020-01-04",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf069"
+                },
+                "quantity": 2,
+                "status": "pending"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf04e"
+                },
+                "quantity": 3,
+                "status": "delivered"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddef75"
+                },
+                "quantity": 4,
+                "status": "pending"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf17f"
+        },
+        "total_price": 7930,
+        "status": "cancelled",
+        "date": "2020-01-03",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf05d"
+                },
+                "quantity": 5,
+                "status": "cancelled"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf112"
+                },
+                "quantity": 4,
+                "status": "delivered"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddefcb"
+                },
+                "quantity": 2,
+                "status": "cancelled"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf106"
+                },
+                "quantity": 5,
+                "status": "cancelled"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf180"
+        },
+        "total_price": 2078,
+        "status": "pending",
+        "date": "2020-01-04",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf005"
+                },
+                "quantity": 1,
+                "status": "delivered"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf0ba"
+                },
+                "quantity": 3,
+                "status": "pending"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf181"
+        },
+        "total_price": 6621,
+        "status": "pending",
+        "date": "2020-01-05",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf025"
+                },
+                "quantity": 2,
+                "status": "cancelled"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf01a"
+                },
+                "quantity": 3,
+                "status": "pending"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddefc3"
+                },
+                "quantity": 3,
+                "status": "delivered"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddef86"
+                },
+                "quantity": 2,
+                "status": "delivered"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf187"
+        },
+        "total_price": 4644,
+        "status": "pending",
+        "date": "2020-01-01",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddef6c"
+                },
+                "quantity": 2,
+                "status": "pending"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf054"
+                },
+                "quantity": 4,
+                "status": "pending"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf18e"
+        },
+        "total_price": 8320,
+        "status": "cancelled",
+        "date": "2020-01-05",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddef7e"
+                },
+                "quantity": 3,
+                "status": "cancelled"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf0b8"
+                },
+                "quantity": 1,
+                "status": "delivered"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf088"
+                },
+                "quantity": 5,
+                "status": "cancelled"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf033"
+                },
+                "quantity": 5,
+                "status": "delivered"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddefb0"
+                },
+                "quantity": 3,
+                "status": "delivered"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf190"
+        },
+        "total_price": 4561,
+        "status": "delivered",
+        "date": "2020-01-01",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf0d1"
+                },
+                "quantity": 5,
+                "status": "pending"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddef6c"
+                },
+                "quantity": 2,
+                "status": "pending"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf199"
+        },
+        "total_price": 4430,
+        "status": "delivered",
+        "date": "2020-01-05",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf07b"
+                },
+                "quantity": 2,
+                "status": "delivered"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf0c8"
+                },
+                "quantity": 4,
+                "status": "pending"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf0a8"
+                },
+                "quantity": 2,
+                "status": "pending"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf1a0"
+        },
+        "total_price": 4380,
+        "status": "delivered",
+        "date": "2020-01-03",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf0ee"
+                },
+                "quantity": 2,
+                "status": "cancelled"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf042"
+                },
+                "quantity": 5,
+                "status": "pending"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf1a2"
+        },
+        "total_price": 4348,
+        "status": "cancelled",
+        "date": "2020-01-03",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf03b"
+                },
+                "quantity": 4,
+                "status": "pending"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddefc4"
+                },
+                "quantity": 2,
+                "status": "pending"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf0ff"
+                },
+                "quantity": 3,
+                "status": "delivered"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf1a3"
+        },
+        "total_price": 7733,
+        "status": "cancelled",
+        "date": "2020-01-05",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf065"
+                },
+                "quantity": 5,
+                "status": "pending"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddefb7"
+                },
+                "quantity": 5,
+                "status": "cancelled"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddef5b"
+                },
+                "quantity": 4,
+                "status": "cancelled"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf1a5"
+        },
+        "total_price": 8256,
+        "status": "cancelled",
+        "date": "2020-01-03",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddeff7"
+                },
+                "quantity": 4,
+                "status": "pending"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf063"
+                },
+                "quantity": 5,
+                "status": "delivered"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddefd9"
+                },
+                "quantity": 4,
+                "status": "pending"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddef56"
+                },
+                "quantity": 2,
+                "status": "cancelled"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddefaf"
+                },
+                "quantity": 2,
+                "status": "cancelled"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf1a6"
+        },
+        "total_price": 7075,
+        "status": "cancelled",
+        "date": "2020-01-02",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf006"
+                },
+                "quantity": 4,
+                "status": "cancelled"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf0b8"
+                },
+                "quantity": 4,
+                "status": "cancelled"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf0d5"
+                },
+                "quantity": 3,
+                "status": "delivered"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf033"
+                },
+                "quantity": 4,
+                "status": "delivered"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf0bb"
+                },
+                "quantity": 5,
+                "status": "cancelled"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf1ac"
+        },
+        "total_price": 4234,
+        "status": "pending",
+        "date": "2020-01-01",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddef75"
+                },
+                "quantity": 4,
+                "status": "delivered"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf083"
+                },
+                "quantity": 2,
+                "status": "cancelled"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf1b1"
+        },
+        "total_price": 1096,
+        "status": "delivered",
+        "date": "2020-01-04",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddef60"
+                },
+                "quantity": 4,
+                "status": "pending"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf1b3"
+        },
+        "total_price": 771,
+        "status": "pending",
+        "date": "2020-01-01",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf098"
+                },
+                "quantity": 1,
+                "status": "delivered"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf047"
+                },
+                "quantity": 4,
+                "status": "cancelled"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf1b4"
+        },
+        "total_price": 3742,
+        "status": "delivered",
+        "date": "2020-01-05",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddef60"
+                },
+                "quantity": 5,
+                "status": "cancelled"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf061"
+                },
+                "quantity": 2,
+                "status": "pending"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf031"
+                },
+                "quantity": 4,
+                "status": "cancelled"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf1b7"
+        },
+        "total_price": 4744,
+        "status": "delivered",
+        "date": "2020-01-02",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf065"
+                },
+                "quantity": 5,
+                "status": "delivered"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf118"
+                },
+                "quantity": 3,
+                "status": "pending"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf111"
+                },
+                "quantity": 1,
+                "status": "delivered"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf1b8"
+        },
+        "total_price": 4500,
+        "status": "delivered",
+        "date": "2020-01-04",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf038"
+                },
+                "quantity": 3,
+                "status": "pending"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf116"
+                },
+                "quantity": 2,
+                "status": "delivered"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf1bf"
+        },
+        "total_price": 11289,
+        "status": "delivered",
+        "date": "2020-01-04",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddef4e"
+                },
+                "quantity": 1,
+                "status": "cancelled"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf028"
+                },
+                "quantity": 5,
+                "status": "cancelled"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddefaa"
+                },
+                "quantity": 5,
+                "status": "delivered"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddefea"
+                },
+                "quantity": 2,
+                "status": "pending"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddef71"
+                },
+                "quantity": 4,
+                "status": "delivered"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf1c1"
+        },
+        "total_price": 179,
+        "status": "cancelled",
+        "date": "2020-01-04",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf03f"
+                },
+                "quantity": 1,
+                "status": "cancelled"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf1c2"
+        },
+        "total_price": 9379,
+        "status": "delivered",
+        "date": "2020-01-01",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf060"
+                },
+                "quantity": 1,
+                "status": "delivered"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddef9d"
+                },
+                "quantity": 5,
+                "status": "pending"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf067"
+                },
+                "quantity": 3,
+                "status": "pending"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf0e7"
+                },
+                "quantity": 4,
+                "status": "delivered"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf0cc"
+                },
+                "quantity": 4,
+                "status": "pending"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf1c8"
+        },
+        "total_price": 8527,
+        "status": "cancelled",
+        "date": "2020-01-02",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddefed"
+                },
+                "quantity": 5,
+                "status": "delivered"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddef54"
+                },
+                "quantity": 3,
+                "status": "pending"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddef94"
+                },
+                "quantity": 1,
+                "status": "pending"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf106"
+                },
+                "quantity": 4,
+                "status": "cancelled"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf00f"
+                },
+                "quantity": 5,
+                "status": "cancelled"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf1c9"
+        },
+        "total_price": 3265,
+        "status": "delivered",
+        "date": "2020-01-03",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddef6b"
+                },
+                "quantity": 5,
+                "status": "delivered"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf1ca"
+        },
+        "total_price": 930,
+        "status": "pending",
+        "date": "2020-01-04",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf101"
+                },
+                "quantity": 3,
+                "status": "pending"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf1cb"
+        },
+        "total_price": 2588,
+        "status": "pending",
+        "date": "2020-01-04",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf058"
+                },
+                "quantity": 2,
+                "status": "pending"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf00a"
+                },
+                "quantity": 1,
+                "status": "pending"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddeff6"
+                },
+                "quantity": 2,
+                "status": "cancelled"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddef83"
+                },
+                "quantity": 3,
+                "status": "cancelled"
+            }
+        ]
+    },
+    {
+        "customer_id": {
+            "$oid": "646fb6871ba92428dbddf1ce"
+        },
+        "total_price": 3159,
+        "status": "cancelled",
+        "date": "2020-01-02",
+        "products": [
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf054"
+                },
+                "quantity": 1,
+                "status": "cancelled"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddef64"
+                },
+                "quantity": 3,
+                "status": "pending"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddef70"
+                },
+                "quantity": 5,
+                "status": "cancelled"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf0c3"
+                },
+                "quantity": 2,
+                "status": "pending"
+            },
+            {
+                "product_id": {
+                    "$oid": "646fb36d1ba92428dbddf06b"
+                },
+                "quantity": 1,
+                "status": "delivered"
+            }
+        ]
+    }
+]

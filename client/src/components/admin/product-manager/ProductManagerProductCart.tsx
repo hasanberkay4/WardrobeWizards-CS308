@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import styles from '../../../styles/ProductManagerFeatureCart.module.scss';
-import { ProductType } from '../../../types/adminTypes/productType';
+import { Product } from '../../../types/productType';
 
 type ProductContent = {
-    product_data: ProductType
+    product_data: Product
 };
 
 const ProductManagerProductCart = ({ product_data }: ProductContent) => {
