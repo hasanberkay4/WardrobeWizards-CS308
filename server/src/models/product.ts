@@ -7,7 +7,7 @@ export interface IProduct {
     number: number;
     stock_quantity: number;
     initial_price: number;
-    category_ids: Types.ObjectId[];
+    category_ids: string[];
     image: string;
     popularity: number;
     rating: number;
@@ -27,7 +27,7 @@ const productSchema = new Schema<IProduct>({
     initial_price: { type: Number, required: true },
     category_ids: [
         {
-            type: Types.ObjectId,
+            type: String,
             required: true,
             ref: 'Category'
         }

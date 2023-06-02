@@ -24,7 +24,7 @@ const getProductsById = async (req: Request, res: Response) => {
   const productid = req.params.productid;
   try {
     const product = await Product.findById(productid);
-    const discount = await Discount.findOne({productId:productid});
+    const discount = await Discount.findOne({ productId: productid });
     if (product && discount) {
       product.discountRate = discount.discountRate;
       await product.updateOne(product)
@@ -175,7 +175,11 @@ const getProductsByCategoryFilter = async (req: Request, res: Response) => {
     const { category } = req.query;
     const categoryObj = await Category.findOne({ slug: category });
 
-    const filteredProducts = await Product.find({ category_ids: categoryObj });
+    if (!categoryObj) {
+      return res.status(404).json({ message: "Category not found" });
+    }
+
+    const filteredProducts = await Product.find({ category_ids: categoryObj.slug });
 
     res.json(filteredProducts);
   } catch (error) {
