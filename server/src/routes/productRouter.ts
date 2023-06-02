@@ -17,8 +17,6 @@ productRouter.get('/id/:productid', productController.getProductsById);
 productRouter.post('/update-stock', productController.updateProductStock);
 
 // product fields
-productRouter.get('/colors', productController.getColors);
-productRouter.get('/models', productController.getModels);
 productRouter.get('/all-categories', productController.getCategories);
 productRouter.get('/all-categories/ids', productController.getCategoryIdsBySlug);
 

@@ -12,11 +12,14 @@ adminRouter.post('/login', [isValidAdminSignInForm], adminController.adminSignIn
 adminRouter.post('/register', [isValidAdminSignUpForm], adminController.adminSignUpController);
 
 // admin products
+adminRouter.post('/products', adminController.adminCreateProductController);
+adminRouter.post('/products/add-category', adminController.adminCreateCategoryController);
 adminRouter.get('/products', adminController.adminGetProductsController);
 adminRouter.get('/products/:id', adminController.adminGetProductController);
-adminRouter.post('/products', adminController.adminCreateProductController);
 adminRouter.put('/products/:id', adminController.adminUpdateProductController);
 adminRouter.delete('/products/:id', adminController.adminDeleteProductController);
+
+// sales manager products
 adminRouter.put('/sales-manager/products/:id', adminController.adminUpdateProductPriceController);
 adminRouter.put('/sales-manager/products/:id/discount', adminController.adminProductDiscountController);
 adminRouter.put('/sales-manager/remove-discount/:id', adminController.adminRemoveDiscountController);

@@ -42,11 +42,20 @@ export const getServerSideProps: GetServerSideProps = async () => {
         const delivery_response = await response.json();
 
         // make sure delivery data is of type DeliveryArrayType
-        const delivery_array = DeliveryArrayTypeSchema.parse(delivery_response.deliveries);
+        // const delivery_array = DeliveryArrayTypeSchema.parse(delivery_response.deliveries);
+
+        const delivery_array = delivery_response.deliveries as DeliveryArrayType;
 
         // sort delivery data by date
         delivery_array.sort((a, b) => {
             return new Date(b.date).getTime() - new Date(a.date).getTime();
+        });
+
+        delivery_array.map((delivery: any) => {
+            delivery.date = new Date(delivery.date).toLocaleDateString();
+            // hour and minute
+            delivery.date += ' ' + new Date(delivery.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
         });
 
         return {

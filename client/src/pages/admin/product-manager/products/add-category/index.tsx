@@ -1,4 +1,4 @@
-import { AddProductForm } from "../../../../../components/admin/product-manager/AddProductForm";
+import { AddCategoryForm } from "../../../../../components/admin/product-manager/AddCategoryForm";
 
 type Props = {
     category_options: {
@@ -8,11 +8,11 @@ type Props = {
     }[],
 }
 
-const AddProductPage = ({ category_options }: Props) => {
+const AddCategoryPage = ({ category_options }: Props) => {
 
     return (
         <div>
-            <AddProductForm
+            <AddCategoryForm
                 category_options={category_options}
             />
         </div>
@@ -52,4 +52,4 @@ export const getServerSideProps = async () => {
     }
 }
 
-export default AddProductPage;
+export default AddCategoryPage;

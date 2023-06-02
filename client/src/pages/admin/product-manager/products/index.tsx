@@ -3,11 +3,10 @@ import { ProductManagerLayout } from "../../../../components/admin/product-manag
 import { ProductManagerProductCart } from "../../../../components/admin/product-manager/ProductManagerProductCart"
 import { AdminLayout } from "../../../../components/admin/shared/AdminLayout"
 import Link from "next/link"
-
-import { ProductArrayType, ProductArrayTypeSchema } from "../../../../types/adminTypes/productType"
+import { Product } from '../../../../types/productType';
 
 type Props = {
-    product_array: ProductArrayType
+    product_array: Product[]
 }
 
 
@@ -24,6 +23,15 @@ const ProductManagerProductsPage = ({ product_array }: Props) => {
                         <Link href={'/admin/product-manager/products/add-product/'}>
                             <button className="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded">
                                 Add Product
+                            </button>
+                        </Link>
+                    </div>
+
+                    {/* add category */}
+                    <div className="mb-4">
+                        <Link href={'/admin/product-manager/products/add-category/'}>
+                            <button className="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded">
+                                Add Category
                             </button>
                         </Link>
                     </div>
@@ -56,7 +64,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
         const product_response = await response.json();
 
         // make sure response is of type ProductArrayType
-        const product_array = ProductArrayTypeSchema.parse(product_response.products);
+        const product_array = product_response.products as Product[];
 
         // sort products by initial price
         product_array.sort((a, b) => {

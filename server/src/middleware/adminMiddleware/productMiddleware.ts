@@ -16,13 +16,12 @@ const upload = multer({ storage: storage }).single('image_file');
 const addProductSchema = zod.object({
     name: zod.string(),
     description: zod.string(),
-    model: zod.string(),
-    color: zod.string(),
     stock_quantity: zod.number(),
     initial_price: zod.number(),
     expense: zod.number(),
     category_slugs: zod.array(zod.string()),
     warranty_status: zod.boolean(),
+    image: zod.string(),
 });
 
 
