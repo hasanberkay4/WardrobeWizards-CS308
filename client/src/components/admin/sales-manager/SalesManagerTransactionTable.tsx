@@ -19,7 +19,7 @@ const Table: React.FC<TableProps> = ({ data }) => {
                 {data.map((transaction: Transaction) => (
                     <tr key={transaction._id}>
                         <td className="border px-4 py-2">{transaction.type}</td>
-                        <td className="border px-4 py-2">{transaction.amount}</td>
+                        <td className="border px-4 py-2">₺{transaction.amount}</td>
                         <td className="border px-4 py-2">{new Date(transaction.date).toDateString()}</td>
                     </tr>
                 ))}
