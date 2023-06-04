@@ -15,6 +15,88 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
+  .productCart {
+    display: flex;
+    width: 300px;
+    gap: 10px;
+  }
+
+  .tableStyle {
+    width: 100%;
+    border-collapse: collapse;
+
+    th {
+      text-align: left;
+      padding: 5px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    td {
+      padding: 5px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    
+  }
+
+  .deliveryCart {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    tr {
+      display: flex;
+      gap: 10px;
+    }
+
+    td {
+      padding: 5px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .deliveryProducts {
+      display: flex;
+      flex-direction: row; // change this line
+      gap: 5px;
+    
+      tr {
+        display: flex;
+        gap: 10px;
+      }
+    }
+
+    .pdfButton {
+      padding: 8px 16px;
+      background-color: #008CBA;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+  
+      &:hover {
+          background-color: #007B8A;
+      }
+    }
+  
+    .viewProductButton {
+        padding: 8px 16px;
+        background-color: #009688;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    
+        &:hover {
+            background-color: #00796b;
+        }
+    }
+  
+    
+  }
+
+
   .content {
     display: flex;
     flex-direction: column;

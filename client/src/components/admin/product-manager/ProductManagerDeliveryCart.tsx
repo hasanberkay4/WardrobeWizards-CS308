@@ -18,7 +18,7 @@ const ProductManagerDeliveryCart = ({ delivery_data }: Props) => {
 
     return (
         <div className={styles.cartItem}>
-            <Link key={delivery_data._id} href={'/admin/product-manager/deliveries/' + delivery_data._id}>
+            <div className={styles.deliveryCart}>
                 <table>
                     <tbody>
                         <tr>
@@ -45,32 +45,22 @@ const ProductManagerDeliveryCart = ({ delivery_data }: Props) => {
                             <th>Date:</th>
                             <td>{delivery_data.date}</td>
                         </tr>
+
+                        {/* products */}
+                        <th></th>
+                        <tr>
+                            <th>Name:</th>
+                        </tr>
                         {delivery_data.products.map((product) => {
                             return (
                                 <React.Fragment key={product._id}>
-                                    <tr>
-                                        <th>Product ID:</th>
-                                        <td>{product._id}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Name:</th>
+                                    <tr className={styles.deliveryProducts}>
                                         <td>{product.name}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Price:</th>
-                                        <td>{product.initial_price}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Description:</th>
-                                        <td>{product.description}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Quantity:</th>
-                                        <td>{product.stock_quantity}</td>
                                     </tr>
                                 </React.Fragment>
                             );
                         })}
+
                         <tr>
                             <th>PDF URL:</th>
                             <td>
@@ -81,8 +71,17 @@ const ProductManagerDeliveryCart = ({ delivery_data }: Props) => {
                         </tr>
                     </tbody>
                 </table>
-            </Link>
-        </div>
+                {/* go to specific product */}
+                <Link
+                    key={delivery_data._id}
+                    href={'/admin/product-manager/deliveries/' + delivery_data._id}
+                    className={styles.viewProductButton}
+                >
+                    View Product
+                </Link>
+
+            </div>
+        </div >
     );
 };
 

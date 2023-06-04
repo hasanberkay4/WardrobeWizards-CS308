@@ -2,7 +2,7 @@ import { GetServerSideProps } from "next"
 import { ProductManagerLayout } from "../../../../components/admin/product-manager/ProductManagerLayout"
 import { ProductManagerDeliveryCart } from "../../../../components/admin/product-manager/ProductManagerDeliveryCart"
 import { AdminLayout } from "../../../../components/admin/shared/AdminLayout"
-import { DeliveryArrayTypeSchema, DeliveryArrayType } from "../../../../types/adminTypes/deliveryType"
+import { DeliveryArrayType } from "../../../../types/adminTypes/deliveryType"
 
 type Props = {
     delivery_array: DeliveryArrayType

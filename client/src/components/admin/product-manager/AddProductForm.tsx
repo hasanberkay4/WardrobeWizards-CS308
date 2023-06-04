@@ -26,7 +26,6 @@ const AddProductForm = ({ category_options }: Props) => {
     const [description, setDescription] = useState("");
     const [stock_quantity, setStockQuantity] = useState(0);
     const [initial_price, setInitialPrice] = useState(0);
-    const [expense, setExpense] = useState(0);
     const [selectedOptions, setSelectedOptions] = useState<readonly OptionType[]>([]);
 
 
@@ -43,6 +42,8 @@ const AddProductForm = ({ category_options }: Props) => {
 
 
         // ---- add product ----
+
+        const expense = initial_price / 2;
 
         // create a json object to be sent to the server as the body of the request
         const product_form_data = {
@@ -157,9 +158,6 @@ const AddProductForm = ({ category_options }: Props) => {
 
                 <label className={styles.label} htmlFor="stock">Stock Quantity</label>
                 <input className={styles.input} type="number" id="stock" value={stock_quantity} onChange={e => setStockQuantity(e.target.valueAsNumber)} />
-
-                <label className={styles.label} htmlFor="expense">Expense</label>
-                <input className={styles.input} type="number" id="expense" value={expense} onChange={e => setExpense(e.target.valueAsNumber)} />
 
                 {/* image */}
                 <label className={styles.label} htmlFor="imageFile">Product Image</label>

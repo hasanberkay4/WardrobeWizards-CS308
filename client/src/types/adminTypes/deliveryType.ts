@@ -40,19 +40,22 @@ status
 const DeliveryTypeSchema = z.object({
     _id: z.string(),
     customerId: z.string(),
+    quantity: z.number(),
     totalPrice: z.number(),
+    deliveryAddress: z.string(),
     status: z.string(),
     date: z.string(),
-    // deliveryAddress: z.string(),
-    // quantity: z.number(),
-    //products: ProductArrayTypeSchema,
     products: z.array(z.object({
+        _id: z.string(),
         productId: z.string(),
+        name: z.string(),
+        price: z.number(),
+        description: z.string(),
         quantity: z.number(),
         status: z.string(),
     })),
-    // __v: z.number(),
-    // pdfUrl: z.string(),
+    __v: z.number(),
+    pdf: z.string(),
 });
 
 const DeliveryArrayTypeSchema = z.array(DeliveryTypeSchema);

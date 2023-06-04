@@ -29,7 +29,9 @@ export default function ProductsListPage({ productList }: ProductListProps) {
             }
         }
     };
-    useEffect(() => { fetchData(); }, [router.query.q]);
+
+    // image update fix
+    // useEffect(() => { fetchData(); }, [router.query.q]);
 
     return (
         <>
@@ -50,12 +52,7 @@ export const getServerSideProps: GetServerSideProps<ProductListProps> = async (c
     });
     const productList = await result.json();
 
-    /*
-    productList.map((product: Product) => {
-        const productName = product.image;
-        product.image = `http://localhost:5001/images/${productName}`
-    });
-    */
+
 
     return {
         props: {
