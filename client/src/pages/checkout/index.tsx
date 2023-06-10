@@ -98,6 +98,12 @@ const CheckoutPage = () => {
       { cartItems.map((item) => removeItemHandler(item)) }
 
 
+      await axios.post(`http://localhost:5001/transaction/add`, {
+        amount: subtotal,
+        type: "income",
+      });
+
+
     } catch (error) {
       console.error(error);
     }
