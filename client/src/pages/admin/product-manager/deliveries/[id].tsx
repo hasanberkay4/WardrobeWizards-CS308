@@ -5,6 +5,7 @@ import { AdminLayout } from "../../../../components/admin/shared/AdminLayout"
 import styles from '../../../../styles/ProductManagerDeliveryPage.module.scss'
 import { useState } from "react"
 import React from "react"
+import axios from "axios";
 
 type DeliveryProducts = {
     _id: string
@@ -56,8 +57,32 @@ const ProductManagerDeliveryPage = ({ delivery_info }: Props) => {
         }
     };
 
-    const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const handleSelectChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
         toggleStatus(event.target.value);
+        if(event.target.value=="cancelled"){
+            
+            // for each product in the delivery, decrease the stock count
+            delivery_info.products.forEach(async (product: any) => {
+                await axios.post(`http://localhost:5001/products/update-stock`, {
+                prodId: product.productId,
+                stock: product.quantity,
+                isIncrease: true,
+                });
+            });
+    
+            // add expense
+            await axios.post(`http://localhost:5001/transaction/add`, {
+                amount: delivery_info.totalPrice,
+                type: "expense",
+    
+            });
+            //add the canceled amount to the wallet
+    
+            await axios.post(`http://localhost:5001/users/user/${delivery_info.customerId}/wallet`, {
+                amount: delivery_info.totalPrice
+            });
+
+        }
     };
 
     return (
@@ -94,7 +119,7 @@ const ProductManagerDeliveryPage = ({ delivery_info }: Props) => {
                                             <div className={styles.statusContainer}>
                                                 <p>{status}</p>
                                                 <select value={status} onChange={handleSelectChange}>
-                                                    <option value="processing">pending</option>
+                                                    <option value="processing">processing</option>
                                                     <option value="delivered">delivered</option>
                                                     <option value="cancelled">cancelled</option>
                                                 </select>
