@@ -57,4 +57,29 @@ const updateUserById = async (req: Request, res: Response) => {
     }
 }
 
-export default { getUserById, updateUserById }
+
+
+const addToWallet = async (req: Request, res: Response) => {
+    const id = req.params.id;
+    const { amount } = req.body;
+
+    try {
+        const user = await User.findById(id);
+
+        if (user) {
+            user.wallet += amount;
+
+            const updatedUser = await user.save();
+            res.json({
+                wallet: updatedUser.wallet,
+            });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(404).json({ status: 'user doesnt exist' });
+    }
+}
+
+
+
+export default { getUserById, updateUserById,addToWallet }

@@ -5,7 +5,8 @@ interface IUser {
     name: string,
     surname: string,
     password: string,
-    address: string
+    address: string,
+    wallet: number
 }
 
 const userSchema = new Schema<IUser>({
@@ -13,7 +14,8 @@ const userSchema = new Schema<IUser>({
     name: { type: String, required: true },
     surname: { type: String, required: true },
     password: { type: String, required: true },
-    address: { type: String, required: false },
+    address: { type: String, required: false,default: "" },
+    wallet: { type: Number, required: true, default: 0 },
 });
 
 export default model<IUser>('User', userSchema);

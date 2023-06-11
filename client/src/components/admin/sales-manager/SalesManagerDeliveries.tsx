@@ -58,7 +58,8 @@ const SalesManagerDeliveries = ({
     decision: string,
     products: any,
     quantity: number,
-    prodPrice: number
+    prodPrice: number,
+    customerId: string
   ) => {
     try {
       // change the status of delivery to cancelled
@@ -74,21 +75,40 @@ const SalesManagerDeliveries = ({
       );
 
       if (response.status === 200 && decision === "accept") {
-        // increase stock
-        // for each product in the delivery, decrease the stock count
-
-        await axios.post(`http://localhost:5001/products/update-stock`, {
-          prodId: productId,
-          stock: quantity,
-          isIncrease: true,
-        });
-
-        // add expense
-        await axios.post(`http://localhost:5001/transaction/add`, {
-          amount: quantity*prodPrice,
-          type: "expense",
-        });
-      }
+        try {
+          const stockUpdateResponse = await axios.post(`http://localhost:5001/products/update-stock`, {
+            prodId: productId,
+            stock: quantity,
+            isIncrease: true,
+          });
+          console.log("Stock update response:", stockUpdateResponse.data);
+    
+          try {
+            const addExpenseResponse = await axios.post(`http://localhost:5001/transaction/add`, {
+              amount: quantity*prodPrice,
+              type: "expense",
+            });
+            console.log("Add expense response:", addExpenseResponse.data);
+    
+            try {
+              const walletUpdateResponse = await axios.post(`http://localhost:5001/users/user/${customerId}/wallet`, {
+                amount: quantity*prodPrice
+              });
+              console.log("Wallet update response:", walletUpdateResponse.data);
+    
+            } catch (walletErr) {
+              console.error("Failed to update wallet: ", walletErr);
+            }
+    
+          } catch (expenseErr) {
+            console.error("Failed to add expense: ", expenseErr);
+          }
+    
+        } catch (stockErr) {
+          console.error("Failed to update stock: ", stockErr);
+        }
+    }
+    
 
       if (response.status === 200) {
         setDeliveries(
@@ -172,7 +192,8 @@ const SalesManagerDeliveries = ({
                                 "accept",
                                 product,
                                 product.quantity,
-                                product.price
+                                product.price,
+                                delivery.customerId,    
                               )
                             }
                             className="ml-4 mt-2 px-2 py-1 text-sm text-green-600 font-bold bg-green-500 hover:bg-green-700 text-white rounded"
@@ -187,7 +208,8 @@ const SalesManagerDeliveries = ({
                                 "reject",
                                 product,
                                 product.quantity,
-                                product.price
+                                product.price,
+                                delivery.customerId 
                               )
                             }
                             className="ml-4 mt-2 px-2 py-1 text-sm text-red-600 font-bold bg-red-500 hover:bg-red-700 text-white rounded"

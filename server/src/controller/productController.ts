@@ -323,6 +323,10 @@ const updateProductStock = async (req: Request, res: Response) => {
   const productId = req.body.prodId;
   const isIncrease = req.body.isIncrease;
 
+  console.log(typeof changeValue); // will log the type of changeValue
+  console.log(typeof productId); // will log the type of productId
+  console.log(typeof isIncrease); // will log the type of isIncrease
+
   try {
     // Find the product first
     const product = await Product.findById(productId);
@@ -357,7 +361,8 @@ const updateProductStock = async (req: Request, res: Response) => {
   } catch (error) {
     console.error("Error updating product stock:", error);
     res.status(500).json({ message: "Error updating product stock" });
-  }
+}
+
 };
 
 

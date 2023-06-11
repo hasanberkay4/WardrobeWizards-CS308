@@ -9,6 +9,9 @@ userRouter.get('/user/:id', userController.getUserById);
 // update user info by id
 userRouter.put('/user/:id', userController.updateUserById);
 
-// [isValidUserToken]
+// add amount to user wallet by id
+userRouter.post('/user/:id/wallet', userController.addToWallet);
+
+
 
 export { userRouter }
