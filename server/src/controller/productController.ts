@@ -77,6 +77,7 @@ const getDelivery = async (req: Request, res: Response) => {
   }
 
   let newDelivery;
+  console.log("delivery", delivery);
   if (itemsOutOfStock.length === 0) {
     newDelivery = await Delivery.create(req.body.delivery);
 
@@ -361,7 +362,7 @@ const updateProductStock = async (req: Request, res: Response) => {
   } catch (error) {
     console.error("Error updating product stock:", error);
     res.status(500).json({ message: "Error updating product stock" });
-}
+  }
 
 };
 

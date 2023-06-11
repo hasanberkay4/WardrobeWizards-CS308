@@ -14,8 +14,6 @@ export default function ProductsListPage({ productList }: ProductListProps) {
 
     const [clientSideProductList, setClientSideProductList] = useState<Product[]>([]);
 
-    useEffect(() => { setClientSideProductList(productList) }, [productList]);
-
     // Add useRouter hook
     const router = useRouter();
 
@@ -30,8 +28,12 @@ export default function ProductsListPage({ productList }: ProductListProps) {
         }
     };
 
-    // image update fix
-    // useEffect(() => { fetchData(); }, [router.query.q]);
+    useEffect(() => {
+        setClientSideProductList(productList)
+    }, [productList]);
+
+
+    useEffect(() => { fetchData(); }, [router.query.q]);
 
     return (
         <>

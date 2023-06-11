@@ -13,7 +13,15 @@ const CheckoutPage = () => {
 
   const { state, dispatch } = useContext(Store);
   const { cart: { cartItems } } = state;
+
+  // not working - needs onChange
   const [paymentAddress, setPaymentAddress] = useState('');
+
+  const handlePaymentAddressChange = () => {
+
+  }
+
+
   useEffect(() => {
     const authToken = Cookies.get('token');
     const cart = Cookies.get('cart') || '{}';
@@ -77,7 +85,7 @@ const CheckoutPage = () => {
       status: 'processing',
       date: new Date().toISOString(),
       products,
-      address: paymentAddress
+      deliveryAddress: paymentAddress
     };
     const removeItemHandler = (item: CartItem) => {
       dispatch({ type: ActionKind.CART_REMOVE_ITEM, payload: item });
@@ -116,7 +124,16 @@ const CheckoutPage = () => {
         <form className="w-1/2 m-4 p-16 bg-white rounded shadow-xl" onSubmit={handlePaymentSubmit}>
           <div className="mt-4">
             <label className="block text-sm text-gray-600" htmlFor="payment_address">Payment Address</label>
-            <input className="w-full px-2 py-2 text-gray-700 bg-gray-200 rounded" id="payment_address" name="payment_address" type="text" placeholder="Payment Address" aria-label="Payment Address" required />
+            <input className="w-full px-2 py-2 text-gray-700 bg-gray-200 rounded"
+              id="payment_address"
+              name="payment_address"
+              type="text"
+              placeholder="Payment Address"
+              aria-label="Payment Address"
+              required
+              value={paymentAddress}
+              onChange={(e) => setPaymentAddress(e.target.value)}
+            />
           </div>
           <h3 className="text-lg font-semibold">Payment Information</h3>
 

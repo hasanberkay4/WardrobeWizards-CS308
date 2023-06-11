@@ -21,29 +21,29 @@ const options = {
 
 let color: string;
 
-function isPast30Days(date0:Date) {
-    const date2 = new Date();
-    const date1 = new Date(date0);
-    const utcDate2 = Date.UTC(date2.getFullYear(), date2.getMonth(), date2.getDate());
-    const utcDate1 = Date.UTC(date1.getFullYear(), date1.getMonth(), date1.getDate());
+function isPast30Days(date0: Date) {
+  const date2 = new Date();
+  const date1 = new Date(date0);
+  const utcDate2 = Date.UTC(date2.getFullYear(), date2.getMonth(), date2.getDate());
+  const utcDate1 = Date.UTC(date1.getFullYear(), date1.getMonth(), date1.getDate());
 
-  
-    // Calculate the difference in milliseconds
-    const differenceInMilliseconds = Math.abs(utcDate2 - utcDate1);
-  
-    // Convert the difference to days
-    const differenceInDays = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
 
-    const isPast30Days = differenceInDays > 30 ? false : true
-    return isPast30Days;
-  }
+  // Calculate the difference in milliseconds
+  const differenceInMilliseconds = Math.abs(utcDate2 - utcDate1);
+
+  // Convert the difference to days
+  const differenceInDays = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
+
+  const isPast30Days = differenceInDays > 30 ? false : true
+  return isPast30Days;
+}
 
 const ProfileDeliveries = ({
   deliveries: initialDeliveries,
 }: DeliveryProps) => {
   const [deliveries, setDeliveries] = useState(initialDeliveries);
 
-  const handleCancelDelivery = async (deliveryId: string, products: any, oldStatus: string, totalPrice:number, customerId:string) => {
+  const handleCancelDelivery = async (deliveryId: string, products: any, oldStatus: string, totalPrice: number, customerId: string) => {
     try {
       // change the status of delivery to cancelled
       const response = await axios.post(
@@ -52,7 +52,7 @@ const ProfileDeliveries = ({
           deliveryId: deliveryId,
           status: "cancelled",
           oldStatus: oldStatus,
-          
+
 
         }
       );
@@ -61,7 +61,7 @@ const ProfileDeliveries = ({
         setDeliveries(
           deliveries.map((delivery) =>
             delivery._id === deliveryId
-              ? { ...delivery, status: "cancelled" , totalPrice:0}
+              ? { ...delivery, status: "cancelled", totalPrice: 0 }
               : delivery
           )
         );
@@ -75,8 +75,8 @@ const ProfileDeliveries = ({
           });
         });
 
-         // add expense
-         await axios.post(`http://localhost:5001/transaction/add`, {
+        // add expense
+        await axios.post(`http://localhost:5001/transaction/add`, {
           amount: totalPrice,
           type: "expense",
 
@@ -86,7 +86,7 @@ const ProfileDeliveries = ({
         await axios.post(`http://localhost:5001/users/user/${customerId}/wallet`, {
           amount: totalPrice
         });
-        
+
 
 
       }
@@ -144,7 +144,7 @@ const ProfileDeliveries = ({
             className="hover:bg-gray-100 hover:shadow-lg w-full ml-5 mr-5 mb-5 flex flex-col bg-white border shadow-sm rounded-xl p-4 md:p-5 dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7]"
           >
             <h3 className="text-lg font-bold text-gray-800 dark:text-white">
-              {}
+              { }
             </h3>
             <p className="mt-1 text-xs font-medium uppercase text-gray-500 dark:text-gray-500">
               {new Date(delivery.date).toLocaleString("en-GB")}
@@ -155,10 +155,9 @@ const ProfileDeliveries = ({
                 <div className="flex items-center" key={product.productId}>
                   <a
                     href={`http://localhost:3000/products/id/${product.productId}`}
-                    className={`hover:font-bold mt-2 text-gray-800 dark:text-gray-400 ${
-                        product.status === "refunded" || delivery.status === "cancelled"
-                          ? "line-through"
-                          : ""
+                    className={`hover:font-bold mt-2 text-gray-800 dark:text-gray-400 ${product.status === "refunded" || delivery.status === "cancelled"
+                        ? "line-through"
+                        : ""
                       }`}
                   >
                     {"-" +
@@ -169,18 +168,18 @@ const ProfileDeliveries = ({
                       product.price +
                       " TL)"}
                   </a>
-                  {(delivery.status == "delivered" ) ? (
+                  {(delivery.status == "delivered") ? (
                     <div className="flex">
-                        {
-                            (delivery.status == "delivered" &&( product.status == ""|| product.status=="rejected-refund")) &&(                      <a
-                                className="inline-flex items-center gap-2 mt-3 text-sm font-medium text-blue-500 hover:text-blue-700"
-                                href={`http://localhost:3000/profile/rating/${product.productId}`}
-                              >
-                                <FaCommentAlt className="w-5 ml-2 h-auto text-orange-300 hover:text-orange-500 transition-colors duration-300" />
-                              </a>)
+                      {
+                        (delivery.status == "delivered" && (product.status == "" || product.status == "rejected-refund")) && (<a
+                          className="inline-flex items-center gap-2 mt-3 text-sm font-medium text-blue-500 hover:text-blue-700"
+                          href={`http://localhost:3000/profile/rating/${product.productId}`}
+                        >
+                          <FaCommentAlt className="w-5 ml-2 h-auto text-orange-300 hover:text-orange-500 transition-colors duration-300" />
+                        </a>)
 
 
-                        }
+                      }
 
                       {(product.status === "" && isPast30Days(delivery.date)) ? (
                         <button
@@ -223,45 +222,45 @@ const ProfileDeliveries = ({
                   delivery.status == "delivered"
                     ? "text-green-600"
                     : "")} ${(color =
-                  delivery.status == "intransit"
-                    ? "text-orange-600"
-                    : "")} ${(color =
-                  delivery.status == "processing" ? "text-red-600" : "")}`}
+                      delivery.status == "intransit"
+                        ? "text-orange-600"
+                        : "")} ${(color =
+                          delivery.status == "processing" ? "text-red-600" : "")}`}
               >
                 {"Status: " + delivery.status}
               </p>
             </div>
 
             <div className="flex gap-4">
-         
-                <a
-                  className="inline-flex items-center gap-2 mt-3 text-sm font-medium text-blue-500 hover:text-blue-700"
-                  href={`http://localhost:5001/products/delivery/invoice/${delivery._id}`}
+
+              <a
+                className="inline-flex items-center gap-2 mt-3 text-sm font-medium text-blue-500 hover:text-blue-700"
+                href={`http://localhost:5001/products/delivery/invoice/${delivery._id}`}
+              >
+                Invoice Link
+                <svg
+                  className="w-2.5 h-auto"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  Invoice Link
-                  <svg
-                    className="w-2.5 h-auto"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M5 1L10.6869 7.16086C10.8637 7.35239 10.8637 7.64761 10.6869 7.83914L5 14"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                </a>
-           
+                  <path
+                    d="M5 1L10.6869 7.16086C10.8637 7.35239 10.8637 7.64761 10.6869 7.83914L5 14"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </a>
+
 
               {/* Cancel delivery button */}
               {delivery.status === "processing" && (
                 <button
                   onClick={() =>
-                    handleCancelDelivery(delivery._id, delivery.products, delivery.status, delivery.totalPrice,delivery.customerId)
+                    handleCancelDelivery(delivery._id, delivery.products, delivery.status, delivery.totalPrice, delivery.customerId)
                   }
                   className="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                 >

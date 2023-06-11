@@ -172,6 +172,7 @@ export default function Signup() {
                                             </div>
                                             <p className="hidden text-xs text-red-600 mt-2" id="confirm-password-error">Passwords must match</p>
                                         </div>
+
                                         <div className="flex items-center">
                                             <div className="flex">
                                                 <input id="remember-me" name="remember-me" type="checkbox" className="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500" />
