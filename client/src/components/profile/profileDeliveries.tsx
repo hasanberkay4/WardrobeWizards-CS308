@@ -43,7 +43,7 @@ const ProfileDeliveries = ({
 }: DeliveryProps) => {
   const [deliveries, setDeliveries] = useState(initialDeliveries);
 
-  const handleCancelDelivery = async (deliveryId: string, products: any, oldStatus: string, totalPrice:number) => {
+  const handleCancelDelivery = async (deliveryId: string, products: any, oldStatus: string, totalPrice:number, customerId:string) => {
     try {
       // change the status of delivery to cancelled
       const response = await axios.post(
@@ -81,6 +81,14 @@ const ProfileDeliveries = ({
           type: "expense",
 
         });
+        //add the canceled amount to the wallet
+
+        await axios.post(`http://localhost:5001/users/user/${customerId}/wallet`, {
+          amount: totalPrice
+        });
+        
+
+
       }
     } catch (err) {
       console.error("Failed to cancel delivery: ", err);
@@ -253,7 +261,7 @@ const ProfileDeliveries = ({
               {delivery.status === "processing" && (
                 <button
                   onClick={() =>
-                    handleCancelDelivery(delivery._id, delivery.products, delivery.status, delivery.totalPrice)
+                    handleCancelDelivery(delivery._id, delivery.products, delivery.status, delivery.totalPrice,delivery.customerId)
                   }
                   className="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                 >
