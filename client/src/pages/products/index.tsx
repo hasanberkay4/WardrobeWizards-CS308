@@ -17,23 +17,23 @@ export default function ProductsListPage({ productList }: ProductListProps) {
     // Add useRouter hook
     const router = useRouter();
 
-    // Add useEffect hook to update filteredProducts state when searchResults change
-    const fetchData = async () => {
-        if (router.query.q) {
-            const searchTerm = decodeURIComponent(router.query.q as string);
-            const searchedProducts = await handleSearchSubmit(searchTerm);
-            if (searchedProducts) {
-                setClientSideProductList(searchedProducts);
-            }
-        }
-    };
-
     useEffect(() => {
-        setClientSideProductList(productList)
-    }, [productList]);
+
+        if (router.query.q) {
+
+            const searchTerm = decodeURIComponent(router.query.q as string);
+            const searchedProducts = handleSearchSubmit(searchTerm).then((res) => {
+                if (res) {
+                    setClientSideProductList(res);
+                }
+            });
+
+        } else {
+            setClientSideProductList(productList)
+        }
+    }, [productList, router.query.q]);
 
 
-    useEffect(() => { fetchData(); }, [router.query.q]);
 
     return (
         <>

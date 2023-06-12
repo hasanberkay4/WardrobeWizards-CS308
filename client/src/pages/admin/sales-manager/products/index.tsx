@@ -44,11 +44,11 @@ export const getServerSideProps: GetServerSideProps<SalesManagerProductsPageProp
         }
     });
     const product_array = await response.json();
-  
+
     product_array.products = product_array.products.map((product: Product) => {
         const productName = product.image;
-        product.image =  `http://localhost:5001/images/${productName}`; // replace this with your default image path
-        
+        // product.image =  `http://localhost:5001/images/${productName}`; // replace this with your default image path
+
         return product;
     });
 

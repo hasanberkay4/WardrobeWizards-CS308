@@ -1,0 +1,1411 @@
+[
+    {
+        "name": "Bag 1",
+        "description": "This is a Sophisticated Bag 1",
+        "initial_price": 367,
+        "stock_quantity": 96,
+        "popularity": 12,
+        "rating": 1.7,
+        "number_of_ratings": 7,
+        "warranty_status": true,
+        "expense": 257,
+        "discountRate": 48,
+        "image": "http://localhost:5001/images/bag-1.jpg",
+        "category_ids": [
+            "bag",
+            "dress",
+            "purple"
+        ],
+        "number_of_voters": 19
+    },
+    {
+        "name": "Jacket Basic 3",
+        "description": "This is a Beautiful Jacket Basic 3",
+        "initial_price": 656,
+        "stock_quantity": 78,
+        "popularity": 52,
+        "rating": 2.96,
+        "number_of_ratings": 382,
+        "warranty_status": false,
+        "expense": 459,
+        "discountRate": 20,
+        "image": "http://localhost:5001/images/jacket-basic-3.jpg",
+        "category_ids": [
+            "gray"
+        ],
+        "number_of_voters": 13
+    },
+    {
+        "name": "Short Casual 2",
+        "description": "This is a Durable Short Casual 2",
+        "initial_price": 161,
+        "stock_quantity": 165,
+        "popularity": 42,
+        "rating": 1.94,
+        "number_of_ratings": 217,
+        "warranty_status": false,
+        "expense": 113,
+        "discountRate": 18,
+        "image": "http://localhost:5001/images/short-casual-2.jpg",
+        "category_ids": [
+            "red",
+            "coat",
+            "shorts"
+        ],
+        "number_of_voters": 28
+    },
+    {
+        "name": "Tank2",
+        "description": "This is a Elegant Tank2",
+        "initial_price": 543,
+        "stock_quantity": 36,
+        "popularity": 45,
+        "rating": 1.97,
+        "number_of_ratings": 382,
+        "warranty_status": false,
+        "expense": 380,
+        "discountRate": 38,
+        "image": "http://localhost:5001/images/tank2.jpg",
+        "category_ids": [
+            "green"
+        ],
+        "number_of_voters": 15
+    },
+    {
+        "name": "Tshirt Creative 2",
+        "description": "This is a Durable Tshirt Creative 2",
+        "initial_price": 166,
+        "stock_quantity": 148,
+        "popularity": 55,
+        "rating": 1.97,
+        "number_of_ratings": 352,
+        "warranty_status": false,
+        "expense": 116,
+        "discountRate": 13,
+        "image": "http://localhost:5001/images/tshirt-creative-2.jpg",
+        "category_ids": [
+            "pants",
+            "s",
+            "hoodie"
+        ],
+        "number_of_voters": 49
+    },
+    {
+        "name": "Bag 2",
+        "description": "This is a Chic Bag 2",
+        "initial_price": 892,
+        "stock_quantity": 42,
+        "popularity": 84,
+        "rating": 3.05,
+        "number_of_ratings": 300,
+        "warranty_status": true,
+        "expense": 624,
+        "discountRate": 4,
+        "image": "http://localhost:5001/images/bag-2.jpg",
+        "category_ids": [
+            "blue"
+        ],
+        "number_of_voters": 48
+    },
+    {
+        "name": "Jacket Basic 4",
+        "description": "This is a Stylish Jacket Basic 4",
+        "initial_price": 962,
+        "stock_quantity": 76,
+        "popularity": 39,
+        "rating": 4.81,
+        "number_of_ratings": 71,
+        "warranty_status": false,
+        "expense": 673,
+        "discountRate": 24,
+        "image": "http://localhost:5001/images/jacket-basic-4.jpg",
+        "category_ids": [
+            "s"
+        ],
+        "number_of_voters": 39
+    },
+    {
+        "name": "Short Casual 3",
+        "description": "This is a Chic Short Casual 3",
+        "initial_price": 742,
+        "stock_quantity": 123,
+        "popularity": 27,
+        "rating": 3.1,
+        "number_of_ratings": 464,
+        "warranty_status": true,
+        "expense": 519,
+        "discountRate": 33,
+        "image": "http://localhost:5001/images/short-casual-3.jpg.jpg",
+        "category_ids": [
+            "coat",
+            "purple"
+        ],
+        "number_of_voters": 50
+    },
+    {
+        "name": "Tshirt Basic Black",
+        "description": "This is a Elegant Tshirt Basic Black",
+        "initial_price": 561,
+        "stock_quantity": 187,
+        "popularity": 61,
+        "rating": 4.49,
+        "number_of_ratings": 456,
+        "warranty_status": true,
+        "expense": 393,
+        "discountRate": 9,
+        "image": "http://localhost:5001/images/tshirt-basic-black.jpg",
+        "category_ids": [
+            "gray"
+        ],
+        "number_of_voters": 7
+    },
+    {
+        "name": "Tshirt Creative 20",
+        "description": "This is a Chic Tshirt Creative 20",
+        "initial_price": 132,
+        "stock_quantity": 123,
+        "popularity": 45,
+        "rating": 2.69,
+        "number_of_ratings": 26,
+        "warranty_status": false,
+        "expense": 92,
+        "discountRate": 31,
+        "image": "http://localhost:5001/images/tshirt-creative-20.jpg",
+        "category_ids": [
+            "pink"
+        ],
+        "number_of_voters": 2
+    },
+    {
+        "name": "Bag 3",
+        "description": "This is a Casual Bag 3",
+        "initial_price": 217,
+        "stock_quantity": 81,
+        "popularity": 96,
+        "rating": 4.72,
+        "number_of_ratings": 282,
+        "warranty_status": true,
+        "expense": 152,
+        "discountRate": 33,
+        "image": "http://localhost:5001/images/bag-3.jpg",
+        "category_ids": [
+            "coat"
+        ],
+        "number_of_voters": 10
+    },
+    {
+        "name": "Jacket Basic 5",
+        "description": "This is a Versatile Jacket Basic 5",
+        "initial_price": 376,
+        "stock_quantity": 113,
+        "popularity": 61,
+        "rating": 4.55,
+        "number_of_ratings": 135,
+        "warranty_status": true,
+        "expense": 263,
+        "discountRate": 42,
+        "image": "http://localhost:5001/images/jacket-basic-5.jpg",
+        "category_ids": [
+            "jacket",
+            "black"
+        ],
+        "number_of_voters": 38
+    },
+    {
+        "name": "Sweatshirt Basic 1",
+        "description": "This is a Stylish Sweatshirt Basic 1",
+        "initial_price": 978,
+        "stock_quantity": 152,
+        "popularity": 95,
+        "rating": 3.86,
+        "number_of_ratings": 68,
+        "warranty_status": true,
+        "expense": 685,
+        "discountRate": 10,
+        "image": "http://localhost:5001/images/sweatshirt-basic-1.jpg",
+        "category_ids": [
+            "orange",
+            "pants",
+            "xxl"
+        ],
+        "number_of_voters": 47
+    },
+    {
+        "name": "Tshirt Basic Mint",
+        "description": "This is a Elegant Tshirt Basic Mint",
+        "initial_price": 764,
+        "stock_quantity": 135,
+        "popularity": 18,
+        "rating": 3.21,
+        "number_of_ratings": 393,
+        "warranty_status": false,
+        "expense": 535,
+        "discountRate": 6,
+        "image": "http://localhost:5001/images/tshirt-basic-mint.jpg",
+        "category_ids": [
+            "pants",
+            "bag"
+        ],
+        "number_of_voters": 11
+    },
+    {
+        "name": "Tshirt Creative 3",
+        "description": "This is a Trendy Tshirt Creative 3",
+        "initial_price": 260,
+        "stock_quantity": 163,
+        "popularity": 97,
+        "rating": 1.48,
+        "number_of_ratings": 216,
+        "warranty_status": false,
+        "expense": 182,
+        "discountRate": 7,
+        "image": "http://localhost:5001/images/tshirt-creative-3.jpg",
+        "category_ids": [
+            "l",
+            "purple",
+            "yellow"
+        ],
+        "number_of_voters": 26
+    },
+    {
+        "name": "Bag 4",
+        "description": "This is a Elegant Bag 4",
+        "initial_price": 280,
+        "stock_quantity": 121,
+        "popularity": 6,
+        "rating": 4.83,
+        "number_of_ratings": 79,
+        "warranty_status": false,
+        "expense": 196,
+        "discountRate": 8,
+        "image": "http://localhost:5001/images/bag-4.jpg",
+        "category_ids": [
+            "l",
+            "orange",
+            "coat"
+        ],
+        "number_of_voters": 42
+    },
+    {
+        "name": "Jacket Basic 6",
+        "description": "This is a Elegant Jacket Basic 6",
+        "initial_price": 687,
+        "stock_quantity": 57,
+        "popularity": 45,
+        "rating": 1.7,
+        "number_of_ratings": 53,
+        "warranty_status": false,
+        "expense": 481,
+        "discountRate": 25,
+        "image": "http://localhost:5001/images/jacket-basic-6.jpg",
+        "category_ids": [
+            "green",
+            "shorts"
+        ],
+        "number_of_voters": 14
+    },
+    {
+        "name": "Sweatshirt Basic 10",
+        "description": "This is a Durable Sweatshirt Basic 10",
+        "initial_price": 984,
+        "stock_quantity": 188,
+        "popularity": 50,
+        "rating": 4.47,
+        "number_of_ratings": 348,
+        "warranty_status": false,
+        "expense": 689,
+        "discountRate": 19,
+        "image": "http://localhost:5001/images/sweatshirt-basic-10.jpg",
+        "category_ids": [
+            "skirt",
+            "jacket"
+        ],
+        "number_of_voters": 18
+    },
+    {
+        "name": "Tshirt Basic Red",
+        "description": "This is a Comfortable Tshirt Basic Red",
+        "initial_price": 180,
+        "stock_quantity": 98,
+        "popularity": 4,
+        "rating": 2.2,
+        "number_of_ratings": 386,
+        "warranty_status": true,
+        "expense": 126,
+        "discountRate": 46,
+        "image": "http://localhost:5001/images/tshirt-basic-red.jpg",
+        "category_ids": [
+            "s"
+        ],
+        "number_of_voters": 10
+    },
+    {
+        "name": "Tshirt Creative 4",
+        "description": "This is a Versatile Tshirt Creative 4",
+        "initial_price": 807,
+        "stock_quantity": 188,
+        "popularity": 86,
+        "rating": 1.48,
+        "number_of_ratings": 113,
+        "warranty_status": false,
+        "expense": 565,
+        "discountRate": 12,
+        "image": "http://localhost:5001/images/tshirt-creative-4.jpg",
+        "category_ids": [
+            "black",
+            "t-shirt",
+            "pants"
+        ],
+        "number_of_voters": 32
+    },
+    {
+        "name": "Bag 5",
+        "description": "This is a Trendy Bag 5",
+        "initial_price": 208,
+        "stock_quantity": 194,
+        "popularity": 73,
+        "rating": 2.79,
+        "number_of_ratings": 323,
+        "warranty_status": false,
+        "expense": 146,
+        "discountRate": 11,
+        "image": "http://localhost:5001/images/bag-5.jpg",
+        "category_ids": [
+            "blue"
+        ],
+        "number_of_voters": 43
+    },
+    {
+        "name": "Jacket Casual 1",
+        "description": "This is a Durable Jacket Casual 1",
+        "initial_price": 565,
+        "stock_quantity": 130,
+        "popularity": 76,
+        "rating": 2.81,
+        "number_of_ratings": 448,
+        "warranty_status": false,
+        "expense": 396,
+        "discountRate": 29,
+        "image": "http://localhost:5001/images/jacket-casual-1.jpg",
+        "category_ids": [
+            "jacket"
+        ],
+        "number_of_voters": 4
+    },
+    {
+        "name": "Sweatshirt Basic 2",
+        "description": "This is a Beautiful Sweatshirt Basic 2",
+        "initial_price": 767,
+        "stock_quantity": 125,
+        "popularity": 53,
+        "rating": 2.69,
+        "number_of_ratings": 470,
+        "warranty_status": true,
+        "expense": 537,
+        "discountRate": 1,
+        "image": "http://localhost:5001/images/sweatshirt-basic-2.jpg",
+        "category_ids": [
+            "xxl",
+            "black"
+        ],
+        "number_of_voters": 11
+    },
+    {
+        "name": "Tshirt Basic Storm",
+        "description": "This is a Versatile Tshirt Basic Storm",
+        "initial_price": 978,
+        "stock_quantity": 196,
+        "popularity": 23,
+        "rating": 2.32,
+        "number_of_ratings": 288,
+        "warranty_status": true,
+        "expense": 685,
+        "discountRate": 18,
+        "image": "http://localhost:5001/images/tshirt-basic-storm.jpg",
+        "category_ids": [
+            "dress"
+        ],
+        "number_of_voters": 41
+    },
+    {
+        "name": "Tshirt Creative 5",
+        "description": "This is a Casual Tshirt Creative 5",
+        "initial_price": 903,
+        "stock_quantity": 79,
+        "popularity": 73,
+        "rating": 2.46,
+        "number_of_ratings": 246,
+        "warranty_status": true,
+        "expense": 632,
+        "discountRate": 46,
+        "image": "http://localhost:5001/images/tshirt-creative-5.jpg",
+        "category_ids": [
+            "green",
+            "skirt"
+        ],
+        "number_of_voters": 40
+    },
+    {
+        "name": "Bag 6",
+        "description": "This is a Elegant Bag 6",
+        "initial_price": 753,
+        "stock_quantity": 155,
+        "popularity": 3,
+        "rating": 3.15,
+        "number_of_ratings": 187,
+        "warranty_status": true,
+        "expense": 527,
+        "discountRate": 26,
+        "image": "http://localhost:5001/images/bag-6.jpg",
+        "category_ids": [
+            "hoodie",
+            "red",
+            "shorts"
+        ],
+        "number_of_voters": 44
+    },
+    {
+        "name": "Jacket Casual 2",
+        "description": "This is a Chic Jacket Casual 2",
+        "initial_price": 829,
+        "stock_quantity": 152,
+        "popularity": 9,
+        "rating": 2.44,
+        "number_of_ratings": 451,
+        "warranty_status": true,
+        "expense": 580,
+        "discountRate": 12,
+        "image": "http://localhost:5001/images/jacket-casual-2.jpg",
+        "category_ids": [
+            "hoodie"
+        ],
+        "number_of_voters": 23
+    },
+    {
+        "name": "Sweatshirt Basic 3",
+        "description": "This is a Versatile Sweatshirt Basic 3",
+        "initial_price": 213,
+        "stock_quantity": 148,
+        "popularity": 30,
+        "rating": 1.92,
+        "number_of_ratings": 201,
+        "warranty_status": false,
+        "expense": 149,
+        "discountRate": 9,
+        "image": "http://localhost:5001/images/sweatshirt-basic-3.jpg",
+        "category_ids": [
+            "m"
+        ],
+        "number_of_voters": 31
+    },
+    {
+        "name": "Tshirt Creative 1",
+        "description": "This is a Beautiful Tshirt Creative 1",
+        "initial_price": 139,
+        "stock_quantity": 48,
+        "popularity": 92,
+        "rating": 4.79,
+        "number_of_ratings": 209,
+        "warranty_status": false,
+        "expense": 97,
+        "discountRate": 38,
+        "image": "http://localhost:5001/images/tshirt-creative-1.jpg",
+        "category_ids": [
+            "xl"
+        ],
+        "number_of_voters": 29
+    },
+    {
+        "name": "Tshirt Creative 6",
+        "description": "This is a Elegant Tshirt Creative 6",
+        "initial_price": 189,
+        "stock_quantity": 73,
+        "popularity": 1,
+        "rating": 4.77,
+        "number_of_ratings": 363,
+        "warranty_status": true,
+        "expense": 132,
+        "discountRate": 22,
+        "image": "http://localhost:5001/images/tshirt-creative-6.jpg",
+        "category_ids": [
+            "s"
+        ],
+        "number_of_voters": 6
+    },
+    {
+        "name": "Bag 7",
+        "description": "This is a Comfortable Bag 7",
+        "initial_price": 222,
+        "stock_quantity": 195,
+        "popularity": 25,
+        "rating": 1.03,
+        "number_of_ratings": 297,
+        "warranty_status": true,
+        "expense": 155,
+        "discountRate": 39,
+        "image": "http://localhost:5001/images/bag-7.jpg",
+        "category_ids": [
+            "xs",
+            "xxl"
+        ],
+        "number_of_voters": 16
+    },
+    {
+        "name": "Jacket Casual 3",
+        "description": "This is a Casual Jacket Casual 3",
+        "initial_price": 844,
+        "stock_quantity": 115,
+        "popularity": 67,
+        "rating": 3.6,
+        "number_of_ratings": 349,
+        "warranty_status": false,
+        "expense": 591,
+        "discountRate": 5,
+        "image": "http://localhost:5001/images/jacket-casual-3.jpg",
+        "category_ids": [
+            "hoodie",
+            "xxl"
+        ],
+        "number_of_voters": 38
+    },
+    {
+        "name": "Sweatshirt Basic 4",
+        "description": "This is a Comfortable Sweatshirt Basic 4",
+        "initial_price": 514,
+        "stock_quantity": 149,
+        "popularity": 99,
+        "rating": 4.7,
+        "number_of_ratings": 159,
+        "warranty_status": true,
+        "expense": 360,
+        "discountRate": 25,
+        "image": "http://localhost:5001/images/sweatshirt-basic-4.jpg",
+        "category_ids": [
+            "white",
+            "s"
+        ],
+        "number_of_voters": 35
+    },
+    {
+        "name": "Tshirt Creative 10",
+        "description": "This is a Durable Tshirt Creative 10",
+        "initial_price": 651,
+        "stock_quantity": 136,
+        "popularity": 70,
+        "rating": 4.14,
+        "number_of_ratings": 120,
+        "warranty_status": true,
+        "expense": 456,
+        "discountRate": 14,
+        "image": "http://localhost:5001/images/tshirt-creative-10.jpg",
+        "category_ids": [
+            "white"
+        ],
+        "number_of_voters": 2
+    },
+    {
+        "name": "Tshirt Creative 7",
+        "description": "This is a Stylish Tshirt Creative 7",
+        "initial_price": 594,
+        "stock_quantity": 41,
+        "popularity": 34,
+        "rating": 2.57,
+        "number_of_ratings": 132,
+        "warranty_status": true,
+        "expense": 416,
+        "discountRate": 28,
+        "image": "http://localhost:5001/images/tshirt-creative-7.jpg",
+        "category_ids": [
+            "pants"
+        ],
+        "number_of_voters": 50
+    },
+    {
+        "name": "Bag1",
+        "description": "This is a Chic Bag1",
+        "initial_price": 583,
+        "stock_quantity": 178,
+        "popularity": 10,
+        "rating": 2.03,
+        "number_of_ratings": 13,
+        "warranty_status": false,
+        "expense": 408,
+        "discountRate": 48,
+        "image": "http://localhost:5001/images/bag1.jpg",
+        "category_ids": [
+            "white"
+        ],
+        "number_of_voters": 14
+    },
+    {
+        "name": "Jacket1",
+        "description": "This is a Casual Jacket1",
+        "initial_price": 474,
+        "stock_quantity": 112,
+        "popularity": 56,
+        "rating": 2.22,
+        "number_of_ratings": 191,
+        "warranty_status": false,
+        "expense": 332,
+        "discountRate": 17,
+        "image": "http://localhost:5001/images/jacket1.jpg",
+        "category_ids": [
+            "skirt",
+            "l"
+        ],
+        "number_of_voters": 25
+    },
+    {
+        "name": "Sweatshirt Basic 5",
+        "description": "This is a Stylish Sweatshirt Basic 5",
+        "initial_price": 838,
+        "stock_quantity": 79,
+        "popularity": 45,
+        "rating": 4.41,
+        "number_of_ratings": 157,
+        "warranty_status": false,
+        "expense": 587,
+        "discountRate": 34,
+        "image": "http://localhost:5001/images/sweatshirt-basic-5.jpg",
+        "category_ids": [
+            "red",
+            "s",
+            "xs"
+        ],
+        "number_of_voters": 19
+    },
+    {
+        "name": "Tshirt Creative 11",
+        "description": "This is a Durable Tshirt Creative 11",
+        "initial_price": 716,
+        "stock_quantity": 115,
+        "popularity": 18,
+        "rating": 1.34,
+        "number_of_ratings": 186,
+        "warranty_status": true,
+        "expense": 501,
+        "discountRate": 35,
+        "image": "http://localhost:5001/images/tshirt-creative-11.jpg",
+        "category_ids": [
+            "xl",
+            "s",
+            "t-shirt"
+        ],
+        "number_of_voters": 7
+    },
+    {
+        "name": "Tshirt Creative 8",
+        "description": "This is a Versatile Tshirt Creative 8",
+        "initial_price": 871,
+        "stock_quantity": 91,
+        "popularity": 43,
+        "rating": 3.36,
+        "number_of_ratings": 285,
+        "warranty_status": false,
+        "expense": 610,
+        "discountRate": 46,
+        "image": "http://localhost:5001/images/tshirt-creative-8.jpg",
+        "category_ids": [
+            "green",
+            "xxl",
+            "shorts"
+        ],
+        "number_of_voters": 5
+    },
+    {
+        "name": "Bag2",
+        "description": "This is a Beautiful Bag2",
+        "initial_price": 562,
+        "stock_quantity": 124,
+        "popularity": 53,
+        "rating": 3.51,
+        "number_of_ratings": 350,
+        "warranty_status": true,
+        "expense": 393,
+        "discountRate": 30,
+        "image": "http://localhost:5001/images/bag2.jpg",
+        "category_ids": [
+            "bag",
+            "gray"
+        ],
+        "number_of_voters": 39
+    },
+    {
+        "name": "Jacket2",
+        "description": "This is a Stylish Jacket2",
+        "initial_price": 586,
+        "stock_quantity": 68,
+        "popularity": 93,
+        "rating": 3.17,
+        "number_of_ratings": 201,
+        "warranty_status": false,
+        "expense": 410,
+        "discountRate": 3,
+        "image": "http://localhost:5001/images/jacket2.jpg",
+        "category_ids": [
+            "shorts",
+            "xl"
+        ],
+        "number_of_voters": 22
+    },
+    {
+        "name": "Sweatshirt Basic 6",
+        "description": "This is a Elegant Sweatshirt Basic 6",
+        "initial_price": 583,
+        "stock_quantity": 185,
+        "popularity": 59,
+        "rating": 2.13,
+        "number_of_ratings": 5,
+        "warranty_status": false,
+        "expense": 408,
+        "discountRate": 11,
+        "image": "http://localhost:5001/images/sweatshirt-basic-6.jpg",
+        "category_ids": [
+            "xxl",
+            "bag",
+            "gray"
+        ],
+        "number_of_voters": 34
+    },
+    {
+        "name": "Tshirt Creative 12",
+        "description": "This is a Versatile Tshirt Creative 12",
+        "initial_price": 724,
+        "stock_quantity": 98,
+        "popularity": 75,
+        "rating": 1.98,
+        "number_of_ratings": 409,
+        "warranty_status": false,
+        "expense": 507,
+        "discountRate": 9,
+        "image": "http://localhost:5001/images/tshirt-creative-12.jpg",
+        "category_ids": [
+            "white"
+        ],
+        "number_of_voters": 14
+    },
+    {
+        "name": "Tshirt Creative 9",
+        "description": "This is a Elegant Tshirt Creative 9",
+        "initial_price": 144,
+        "stock_quantity": 177,
+        "popularity": 4,
+        "rating": 3.52,
+        "number_of_ratings": 408,
+        "warranty_status": false,
+        "expense": 101,
+        "discountRate": 46,
+        "image": "http://localhost:5001/images/tshirt-creative-9.jpg",
+        "category_ids": [
+            "s",
+            "skirt"
+        ],
+        "number_of_voters": 21
+    },
+    {
+        "name": "Bag3",
+        "description": "This is a Trendy Bag3",
+        "initial_price": 965,
+        "stock_quantity": 10,
+        "popularity": 17,
+        "rating": 4.02,
+        "number_of_ratings": 78,
+        "warranty_status": false,
+        "expense": 676,
+        "discountRate": 13,
+        "image": "http://localhost:5001/images/bag3.jpg",
+        "category_ids": [
+            "orange",
+            "pants",
+            "orange"
+        ],
+        "number_of_voters": 25
+    },
+    {
+        "name": "Pant1",
+        "description": "This is a Elegant Pant1",
+        "initial_price": 351,
+        "stock_quantity": 16,
+        "popularity": 3,
+        "rating": 3.07,
+        "number_of_ratings": 117,
+        "warranty_status": false,
+        "expense": 246,
+        "discountRate": 48,
+        "image": "http://localhost:5001/images/pant1.jpg",
+        "category_ids": [
+            "gray"
+        ],
+        "number_of_voters": 15
+    },
+    {
+        "name": "Sweatshirt Basic 7",
+        "description": "This is a Stylish Sweatshirt Basic 7",
+        "initial_price": 219,
+        "stock_quantity": 124,
+        "popularity": 3,
+        "rating": 2.63,
+        "number_of_ratings": 86,
+        "warranty_status": true,
+        "expense": 153,
+        "discountRate": 41,
+        "image": "http://localhost:5001/images/sweatshirt-basic-7.jpg",
+        "category_ids": [
+            "hoodie",
+            "jacket"
+        ],
+        "number_of_voters": 50
+    },
+    {
+        "name": "Tshirt Creative 13",
+        "description": "This is a Stylish Tshirt Creative 13",
+        "initial_price": 286,
+        "stock_quantity": 127,
+        "popularity": 36,
+        "rating": 3.98,
+        "number_of_ratings": 297,
+        "warranty_status": false,
+        "expense": 200,
+        "discountRate": 39,
+        "image": "http://localhost:5001/images/tshirt-creative-13.jpg",
+        "category_ids": [
+            "xxl",
+            "jacket",
+            "black"
+        ],
+        "number_of_voters": 44
+    },
+    {
+        "name": "Tshirt1",
+        "description": "This is a Beautiful Tshirt1",
+        "initial_price": 631,
+        "stock_quantity": 24,
+        "popularity": 85,
+        "rating": 2.15,
+        "number_of_ratings": 282,
+        "warranty_status": true,
+        "expense": 442,
+        "discountRate": 46,
+        "image": "http://localhost:5001/images/tshirt1.jpg",
+        "category_ids": [
+            "xl",
+            "blue",
+            "orange"
+        ],
+        "number_of_voters": 9
+    },
+    {
+        "name": "Bere1",
+        "description": "This is a Stylish Bere1",
+        "initial_price": 738,
+        "stock_quantity": 147,
+        "popularity": 92,
+        "rating": 1.21,
+        "number_of_ratings": 430,
+        "warranty_status": false,
+        "expense": 517,
+        "discountRate": 10,
+        "image": "http://localhost:5001/images/bere1.jpg",
+        "category_ids": [
+            "dress"
+        ],
+        "number_of_voters": 33
+    },
+    {
+        "name": "Short Basic 1",
+        "description": "This is a Casual Short Basic 1",
+        "initial_price": 807,
+        "stock_quantity": 166,
+        "popularity": 20,
+        "rating": 4.63,
+        "number_of_ratings": 61,
+        "warranty_status": true,
+        "expense": 565,
+        "discountRate": 3,
+        "image": "http://localhost:5001/images/short-basic-1.jpg",
+        "category_ids": [
+            "coat"
+        ],
+        "number_of_voters": 24
+    },
+    {
+        "name": "Sweatshirt Basic 8",
+        "description": "This is a Trendy Sweatshirt Basic 8",
+        "initial_price": 632,
+        "stock_quantity": 135,
+        "popularity": 5,
+        "rating": 4.85,
+        "number_of_ratings": 193,
+        "warranty_status": false,
+        "expense": 442,
+        "discountRate": 13,
+        "image": "http://localhost:5001/images/sweatshirt-basic-8.jpg",
+        "category_ids": [
+            "hoodie"
+        ],
+        "number_of_voters": 8
+    },
+    {
+        "name": "Tshirt Creative 14",
+        "description": "This is a Chic Tshirt Creative 14",
+        "initial_price": 557,
+        "stock_quantity": 69,
+        "popularity": 63,
+        "rating": 1.38,
+        "number_of_ratings": 411,
+        "warranty_status": false,
+        "expense": 390,
+        "discountRate": 42,
+        "image": "http://localhost:5001/images/tshirt-creative-14.jpg",
+        "category_ids": [
+            "t-shirt"
+        ],
+        "number_of_voters": 23
+    },
+    {
+        "name": "Tshirt2",
+        "description": "This is a Durable Tshirt2",
+        "initial_price": 289,
+        "stock_quantity": 172,
+        "popularity": 43,
+        "rating": 1.71,
+        "number_of_ratings": 480,
+        "warranty_status": false,
+        "expense": 202,
+        "discountRate": 1,
+        "image": "http://localhost:5001/images/tshirt2.jpg",
+        "category_ids": [
+            "shorts"
+        ],
+        "number_of_voters": 13
+    },
+    {
+        "name": "Bere2",
+        "description": "This is a Stylish Bere2",
+        "initial_price": 758,
+        "stock_quantity": 151,
+        "popularity": 86,
+        "rating": 4.93,
+        "number_of_ratings": 150,
+        "warranty_status": true,
+        "expense": 531,
+        "discountRate": 28,
+        "image": "http://localhost:5001/images/bere2.jpg",
+        "category_ids": [
+            "bag",
+            "l",
+            "blue"
+        ],
+        "number_of_voters": 17
+    },
+    {
+        "name": "Short Basic 2",
+        "description": "This is a Chic Short Basic 2",
+        "initial_price": 144,
+        "stock_quantity": 138,
+        "popularity": 61,
+        "rating": 2.11,
+        "number_of_ratings": 413,
+        "warranty_status": true,
+        "expense": 101,
+        "discountRate": 40,
+        "image": "http://localhost:5001/images/short-basic-2.jpg",
+        "category_ids": [
+            "l",
+            "l",
+            "black"
+        ],
+        "number_of_voters": 28
+    },
+    {
+        "name": "Sweatshirt Basic 9",
+        "description": "This is a Comfortable Sweatshirt Basic 9",
+        "initial_price": 178,
+        "stock_quantity": 60,
+        "popularity": 84,
+        "rating": 2.96,
+        "number_of_ratings": 489,
+        "warranty_status": false,
+        "expense": 125,
+        "discountRate": 2,
+        "image": "http://localhost:5001/images/sweatshirt-basic-9.jpg",
+        "category_ids": [
+            "dress",
+            "black"
+        ],
+        "number_of_voters": 32
+    },
+    {
+        "name": "Tshirt Creative 15",
+        "description": "This is a Elegant Tshirt Creative 15",
+        "initial_price": 983,
+        "stock_quantity": 166,
+        "popularity": 96,
+        "rating": 1.92,
+        "number_of_ratings": 491,
+        "warranty_status": true,
+        "expense": 688,
+        "discountRate": 46,
+        "image": "http://localhost:5001/images/tshirt-creative-15.jpg",
+        "category_ids": [
+            "red"
+        ],
+        "number_of_voters": 29
+    },
+    {
+        "name": "Tshirt3",
+        "description": "This is a Comfortable Tshirt3",
+        "initial_price": 517,
+        "stock_quantity": 124,
+        "popularity": 100,
+        "rating": 3.4,
+        "number_of_ratings": 333,
+        "warranty_status": false,
+        "expense": 362,
+        "discountRate": 38,
+        "image": "http://localhost:5001/images/tshirt3.jpg",
+        "category_ids": [
+            "yellow",
+            "skirt",
+            "xs"
+        ],
+        "number_of_voters": 6
+    },
+    {
+        "name": "Bere3",
+        "description": "This is a Durable Bere3",
+        "initial_price": 508,
+        "stock_quantity": 162,
+        "popularity": 65,
+        "rating": 1.26,
+        "number_of_ratings": 455,
+        "warranty_status": true,
+        "expense": 356,
+        "discountRate": 40,
+        "image": "http://localhost:5001/images/bere3.jpg",
+        "category_ids": [
+            "shorts",
+            "coat"
+        ],
+        "number_of_voters": 39
+    },
+    {
+        "name": "Short Basic 3",
+        "description": "This is a Stylish Short Basic 3",
+        "initial_price": 734,
+        "stock_quantity": 179,
+        "popularity": 61,
+        "rating": 1.66,
+        "number_of_ratings": 434,
+        "warranty_status": false,
+        "expense": 514,
+        "discountRate": 14,
+        "image": "http://localhost:5001/images/short-basic-3.jpg",
+        "category_ids": [
+            "red"
+        ],
+        "number_of_voters": 15
+    },
+    {
+        "name": "Sweatshirt1",
+        "description": "This is a Durable Sweatshirt1",
+        "initial_price": 663,
+        "stock_quantity": 168,
+        "popularity": 83,
+        "rating": 4.69,
+        "number_of_ratings": 209,
+        "warranty_status": false,
+        "expense": 464,
+        "discountRate": 46,
+        "image": "http://localhost:5001/images/sweatshirt1.jpg",
+        "category_ids": [
+            "red",
+            "white"
+        ],
+        "number_of_voters": 8
+    },
+    {
+        "name": "Tshirt Creative 16",
+        "description": "This is a Comfortable Tshirt Creative 16",
+        "initial_price": 592,
+        "stock_quantity": 144,
+        "popularity": 81,
+        "rating": 2.55,
+        "number_of_ratings": 145,
+        "warranty_status": false,
+        "expense": 414,
+        "discountRate": 14,
+        "image": "http://localhost:5001/images/tshirt-creative-16.jpg",
+        "category_ids": [
+            "black",
+            "bag",
+            "jacket"
+        ],
+        "number_of_voters": 28
+    },
+    {
+        "name": "Tshirt4",
+        "description": "This is a Comfortable Tshirt4",
+        "initial_price": 588,
+        "stock_quantity": 142,
+        "popularity": 86,
+        "rating": 1.85,
+        "number_of_ratings": 51,
+        "warranty_status": true,
+        "expense": 412,
+        "discountRate": 33,
+        "image": "http://localhost:5001/images/tshirt4.jpg",
+        "category_ids": [
+            "yellow",
+            "gray",
+            "t-shirt"
+        ],
+        "number_of_voters": 40
+    },
+    {
+        "name": "Images",
+        "description": "This is a Durable Images",
+        "initial_price": 293,
+        "stock_quantity": 110,
+        "popularity": 55,
+        "rating": 4.31,
+        "number_of_ratings": 7,
+        "warranty_status": false,
+        "expense": 205,
+        "discountRate": 36,
+        "image": "http://localhost:5001/images/images.png",
+        "category_ids": [
+            "t-shirt",
+            "purple",
+            "l"
+        ],
+        "number_of_voters": 47
+    },
+    {
+        "name": "Short Basic 4",
+        "description": "This is a Stylish Short Basic 4",
+        "initial_price": 474,
+        "stock_quantity": 98,
+        "popularity": 2,
+        "rating": 3.64,
+        "number_of_ratings": 297,
+        "warranty_status": false,
+        "expense": 332,
+        "discountRate": 40,
+        "image": "http://localhost:5001/images/short-basic-4.jpg",
+        "category_ids": [
+            "dress"
+        ],
+        "number_of_voters": 15
+    },
+    {
+        "name": "Sweatshirt2",
+        "description": "This is a Sophisticated Sweatshirt2",
+        "initial_price": 344,
+        "stock_quantity": 13,
+        "popularity": 84,
+        "rating": 3.05,
+        "number_of_ratings": 230,
+        "warranty_status": true,
+        "expense": 241,
+        "discountRate": 21,
+        "image": "http://localhost:5001/images/sweatshirt2.jpg",
+        "category_ids": [
+            "yellow"
+        ],
+        "number_of_voters": 11
+    },
+    {
+        "name": "Tshirt Creative 17",
+        "description": "This is a Elegant Tshirt Creative 17",
+        "initial_price": 533,
+        "stock_quantity": 93,
+        "popularity": 80,
+        "rating": 3.01,
+        "number_of_ratings": 224,
+        "warranty_status": true,
+        "expense": 373,
+        "discountRate": 2,
+        "image": "http://localhost:5001/images/tshirt-creative-17.jpg",
+        "category_ids": [
+            "pink"
+        ],
+        "number_of_voters": 35
+    },
+    {
+        "name": "Tshirt5",
+        "description": "This is a Trendy Tshirt5",
+        "initial_price": 571,
+        "stock_quantity": 125,
+        "popularity": 51,
+        "rating": 1.08,
+        "number_of_ratings": 189,
+        "warranty_status": true,
+        "expense": 400,
+        "discountRate": 25,
+        "image": "http://localhost:5001/images/tshirt5.jpg",
+        "category_ids": [
+            "gray",
+            "blue"
+        ],
+        "number_of_voters": 31
+    },
+    {
+        "name": "Jacket Basic 1",
+        "description": "This is a Comfortable Jacket Basic 1",
+        "initial_price": 580,
+        "stock_quantity": 20,
+        "popularity": 90,
+        "rating": 4.14,
+        "number_of_ratings": 215,
+        "warranty_status": true,
+        "expense": 406,
+        "discountRate": 7,
+        "image": "http://localhost:5001/images/jacket-basic-1.jpg",
+        "category_ids": [
+            "xs",
+            "jacket"
+        ],
+        "number_of_voters": 45
+    },
+    {
+        "name": "Short Basic 5",
+        "description": "This is a Versatile Short Basic 5",
+        "initial_price": 695,
+        "stock_quantity": 103,
+        "popularity": 76,
+        "rating": 2.2,
+        "number_of_ratings": 455,
+        "warranty_status": false,
+        "expense": 486,
+        "discountRate": 27,
+        "image": "http://localhost:5001/images/short-basic-5.jpg",
+        "category_ids": [
+            "s"
+        ],
+        "number_of_voters": 18
+    },
+    {
+        "name": "Sweatshirt3",
+        "description": "This is a Elegant Sweatshirt3",
+        "initial_price": 821,
+        "stock_quantity": 28,
+        "popularity": 3,
+        "rating": 4.15,
+        "number_of_ratings": 457,
+        "warranty_status": false,
+        "expense": 575,
+        "discountRate": 49,
+        "image": "http://localhost:5001/images/sweatshirt3.jpg",
+        "category_ids": [
+            "dress"
+        ],
+        "number_of_voters": 18
+    },
+    {
+        "name": "Tshirt Creative 18",
+        "description": "This is a Trendy Tshirt Creative 18",
+        "initial_price": 608,
+        "stock_quantity": 22,
+        "popularity": 63,
+        "rating": 2.03,
+        "number_of_ratings": 163,
+        "warranty_status": false,
+        "expense": 426,
+        "discountRate": 23,
+        "image": "http://localhost:5001/images/tshirt-creative-18.jpg",
+        "category_ids": [
+            "orange",
+            "hoodie",
+            "t-shirt"
+        ],
+        "number_of_voters": 5
+    },
+    {
+        "name": "Tshirt6",
+        "description": "This is a Trendy Tshirt6",
+        "initial_price": 718,
+        "stock_quantity": 171,
+        "popularity": 78,
+        "rating": 4.89,
+        "number_of_ratings": 407,
+        "warranty_status": true,
+        "expense": 503,
+        "discountRate": 39,
+        "image": "http://localhost:5001/images/tshirt6.jpg",
+        "category_ids": [
+            "coat"
+        ],
+        "number_of_voters": 32
+    },
+    {
+        "name": "Jacket Basic 2",
+        "description": "This is a Versatile Jacket Basic 2",
+        "initial_price": 403,
+        "stock_quantity": 70,
+        "popularity": 60,
+        "rating": 4.13,
+        "number_of_ratings": 47,
+        "warranty_status": true,
+        "expense": 282,
+        "discountRate": 14,
+        "image": "http://localhost:5001/images/jacket-basic-2.jpg",
+        "category_ids": [
+            "jacket",
+            "xxl"
+        ],
+        "number_of_voters": 8
+    },
+    {
+        "name": "Short Casual 1",
+        "description": "This is a Comfortable Short Casual 1",
+        "initial_price": 977,
+        "stock_quantity": 89,
+        "popularity": 33,
+        "rating": 3.16,
+        "number_of_ratings": 64,
+        "warranty_status": false,
+        "expense": 684,
+        "discountRate": 30,
+        "image": "http://localhost:5001/images/short-casual-1.jpg",
+        "category_ids": [
+            "s"
+        ],
+        "number_of_voters": 28
+    },
+    {
+        "name": "Tank1",
+        "description": "This is a Stylish Tank1",
+        "initial_price": 355,
+        "stock_quantity": 105,
+        "popularity": 94,
+        "rating": 2.53,
+        "number_of_ratings": 128,
+        "warranty_status": false,
+        "expense": 248,
+        "discountRate": 37,
+        "image": "http://localhost:5001/images/tank1.jpg",
+        "category_ids": [
+            "blue"
+        ],
+        "number_of_voters": 1
+    },
+    {
+        "name": "Tshirt Creative 19",
+        "description": "This is a Stylish Tshirt Creative 19",
+        "initial_price": 541,
+        "stock_quantity": 25,
+        "popularity": 83,
+        "rating": 2.51,
+        "number_of_ratings": 183,
+        "warranty_status": true,
+        "expense": 379,
+        "discountRate": 9,
+        "image": "http://localhost:5001/images/tshirt-creative-19.jpg",
+        "category_ids": [
+            "pants",
+            "hoodie"
+        ],
+        "number_of_voters": 36
+    }
+]

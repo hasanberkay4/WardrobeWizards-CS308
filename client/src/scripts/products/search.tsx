@@ -17,7 +17,7 @@ const handleSearchSubmit = async (searchTerm: string) => {
         if (data) {
             data.map((product: Product) => {
                 const productName = product.image;
-                product.image = `http://localhost:5001/images/${productName}`
+                // product.image = `http://localhost:5001/images/${productName}`
             });
             return (data as Array<Product>);
         } else {
