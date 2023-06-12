@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import styles from "../../../styles/ProductManagerFeatureCart.module.scss";
 import { Product } from "../../../types/productType";
@@ -24,8 +25,13 @@ type ProductContent = {
 const SalesManagerProducts = ({ product_data }: ProductContent) => {
   const router = useRouter();
 
-  const isDiscounted = product_data.discountRate > 0;
-  const [categoryNames, setCategoryNames] = useState<string[]>([]);
+  let isDiscounted = product_data.discountRate > 0;
+  const [removedDiscount, setRemovedDiscount] = useState(false);
+
+  let categoryNamesString = "";
+  const categoryNamesConcat = product_data.category_ids.map((categoryId) => {
+    categoryNamesString += categoryId + ", ";
+  });
 
   const handleSetPrice = () => {
     router.push(
@@ -50,6 +56,7 @@ const SalesManagerProducts = ({ product_data }: ProductContent) => {
 
       if (response.ok) {
         alert("Discount removed");
+        router.push("/admin/sales-manager/products");
       } else {
         console.error("Failed to remove discount");
       }
@@ -58,27 +65,11 @@ const SalesManagerProducts = ({ product_data }: ProductContent) => {
     }
   };
 
-  const fetchCategoryNames = async () => {
-    try {
-      const response = await fetch("http://localhost:5001/products/categories"); // Replace with your actual API endpoint to fetch categories
-      if (response.ok) {
-        const categories: ICategory[] = await response.json();
-        const categoryNames = product_data.category_ids.map((categoryId) => {
-          const category = categories.find((c) => c._id === categoryId);
-          return category ? category.name : "";
-        });
-        setCategoryNames(categoryNames);
-      } else {
-        console.error("Failed to fetch categories");
-      }
-    } catch (error) {
-      console.error("An error occurred", error);
-    }
-  };
+
 
   useEffect(() => {
-    fetchCategoryNames();
-  }, []);
+
+  }, [removedDiscount, isDiscounted]);
 
   return (
     <div className={styles.cartItem}>
@@ -97,12 +88,14 @@ const SalesManagerProducts = ({ product_data }: ProductContent) => {
         )}
         {isDiscounted && <p>Discount Rate: {product_data.discountRate}%</p>}
         <p>Initial Price: {product_data.initial_price}TL</p>
-        <p>Category(s): {categoryNames.join(", ")}</p>
+        <p>Category(s): {categoryNamesString  /*categoryNames.join(", ")*/}</p>
 
         <img
           src={product_data.image}
           alt={product_data.image}
           className="w-64 h-64 object-cover object-center"
+          width={200}
+          height={200}
         />
         <div
           style={{
