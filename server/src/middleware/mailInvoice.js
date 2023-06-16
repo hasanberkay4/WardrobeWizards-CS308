@@ -163,7 +163,7 @@ const sendInvoiceEmail = async (invoice) => {
   // Create the email message
   const message = {
     from: 'Wardrobewizard',
-    to: "hasanbosver@gmail.com",
+    to: process.env.INVOICE_TO,
     subject: `Invoice #${233432}`,
     html: `<p>Dear ${"Hasan Bosver"},</p><p>Please find attached your invoice for ${delivery.date}.</p><p>Thank you for your business!</p>`,
     attachments: [
@@ -179,8 +179,8 @@ const sendInvoiceEmail = async (invoice) => {
   const transport = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-          user: "cs308mail@gmail.com",
-          pass: "xmzxtzqwjcjycthe"
+          user: process.env.INVOICE_MAIL,
+          pass: process.env.GOOGLE_APP_TOKEN
       }
   });
 
