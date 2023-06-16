@@ -27,7 +27,7 @@ Unit testing was an integral part of our development process. We incorporated Cy
 ![Ekran Görüntüsü (5)](https://github.com/hasanberkay4/WardrobeWizards-CS308/assets/67153015/6219f59d-3ef3-4ded-b860-b9c17d7c9748)
 ![Ekran Görüntüsü (6)](https://github.com/hasanberkay4/WardrobeWizards-CS308/assets/67153015/55a14808-3559-42c2-8098-3e1768a77d2c)
 ![Ekran Görüntüsü (7)](https://github.com/hasanberkay4/WardrobeWizards-CS308/assets/67153015/a952d6fc-f76c-4b4a-90f6-40f3c323e419)
-![Ekran Görüntüsü (8)](https://github.com/hasanberkay4/WardrobeWizards-CS308/assets/67153015/265cb075-33d6-42dc-88cb-85970c040c0d)
+![kk](https://github.com/hasanberkay4/WardrobeWizards-CS308/assets/67153015/af518071-a104-47f4-8f01-82c724e1fa44)
 ![Ekran Görüntüsü (9)](https://github.com/hasanberkay4/WardrobeWizards-CS308/assets/67153015/d1ac7d46-9d63-45e7-b598-7fb3e2d2a31b)
 ![Ekran Görüntüsü (10)](https://github.com/hasanberkay4/WardrobeWizards-CS308/assets/67153015/0a58b3ea-7d28-4b1c-b074-9638451dd202)
 ![Ekran Görüntüsü (11)](https://github.com/hasanberkay4/WardrobeWizards-CS308/assets/67153015/8377962c-185f-4829-a391-dca146d51804)
