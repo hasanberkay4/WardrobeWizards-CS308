@@ -1,4 +1,4 @@
-# Project Title: Ecommerce Website (WardropeWizards)
+# Project Title: Ecommerce Website (WardrobeWizards)
 This project is a result of the collaborative efforts of our five-member team as part of our Software Engineering course. The aim was to design and implement a fully functional ecommerce website.
 
 Methodology
